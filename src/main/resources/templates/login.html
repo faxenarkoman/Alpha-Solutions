@@ -3,25 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <title>Login</title>
-    <link rel="stylesheet" th:href="@{../static/styles/login.css}">
+    <link rel="stylesheet" href="../static/styles/login.css">
 </head>
 <body>
-<div class="content">
-  <div class="box">
+<div class="background">
+<img src="../static/images/office.jpeg" alt="background">
+</div>
   <section class="login">
     <form action="/check-login" method="post" class="check-login">
     <img class="image" src="../static/images/lille%20logo.png" alt="logo">
 
-    <label class="label-text" for="login-email">Email</label><br>
-    <input class="input-text" type="email" id="login-email" name="username" placeholder="Din email" required><br>
+    <label class="label-text" for="login-email">Email</label><br><br>
+    <input class="input-text" type="email" id="login-email" name="username" placeholder="Din email" required><br><br>
 
-    <label class="label-text" for="login-kodeord">Kodeord</label><br>
-    <input class="input-text" type="password" id="login-kodeord" name="password" placeholder="Kodeord" required><br>
+    <label class="label-text" for="login-kodeord">Kodeord</label><br><br>
+    <input class="input-text" type="password" id="login-kodeord" name="password" placeholder="Kodeord" required><br><br>
 
     <button class="login-button">Log ind</button>
     </form>
   </section>
-  </div>
-</div>
 </body>
 </html>
