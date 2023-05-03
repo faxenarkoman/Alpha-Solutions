@@ -19,21 +19,21 @@ public class AlphaController
     }
 
 
-    //@PostMapping(value = "/check-login")
-    //public String checkLogin(@RequestParam("username") String mail, @RequestParam("password") String password, HttpServletRequest request)
-    //{
-    //  User tmpUser = new User(mail,password);
-    //  HttpSession session;
-    //  if(tmp.checkUser(mail,password))
-    //  {
-    //      session = request.getSession();
-    //      session.setAttribute("username", tmpUser.getMail());
-    //      session.setAttribute("password", tmpUser.getPassword());
-    //      return "redirect:/index";
-    //  }
-    //  else
-    //  {
-    //      return "redirect:/";
-    //  }
-    //}
+    @PostMapping(value = "/check-login")
+    public String checkLogin(@RequestParam("mail") String mail, @RequestParam("password") String password, HttpServletRequest request)
+    {
+      User tmpUser = new User(mail,password);
+      HttpSession session;
+      if(tmp.checkUser(mail,password))
+      {
+          session = request.getSession();
+          session.setAttribute("mail", User.getMail());
+          session.setAttribute("password", User.getPassword());
+          return "redirect:/index";
+      }
+      else
+      {
+          return "redirect:/error";
+      }
+    }
 }
