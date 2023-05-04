@@ -1,14 +1,14 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
-    <link rel="stylesheet" href="../static/styles/index.css">
+    <title>Home</title>
+    <link rel="stylesheet" th:href="@{/styles/index.css}">
 </head>
 <body>
 
 <div class="logo">
-    <img class="logo" src="../static/images/logo.png" alt="logo">
+    <img class="logo" th:src="@{/images/logo.png}" alt="logo">
 </div>
 <div class="sidebar">
     <a href="#" class="active">Home</a>
@@ -19,12 +19,9 @@
 
 </div>
 
-
-
 <footer class="footer">
-    <p>Copyright © Code Connoisseurs, Inc.
+    <p th:text="'© Code Connoisseurs, Inc. '"></p>
 </footer>
-
 
 </body>
 </html>
