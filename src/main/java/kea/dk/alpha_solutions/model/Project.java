@@ -13,4 +13,110 @@ public class Project {
     private ArrayList<Task> tasks = new ArrayList<>();
     private double projectPrice;
     private int hoursPerDay;
+
+    public int getProjectID()
+    {
+        return projectID;
+    }
+
+    public void setProjectID(int projectID)
+    {
+        this.projectID = projectID;
+    }
+
+    public String getTitle()
+    {
+        return title;
+    }
+
+    public void setTitle(String title)
+    {
+        this.title = title;
+    }
+
+    public String getDescription()
+    {
+        return description;
+    }
+
+    public void setDescription(String description)
+    {
+        this.description = description;
+    }
+
+    public Date getDeadline()
+    {
+        return deadline;
+    }
+
+    public void setDeadline(Date deadline)
+    {
+        this.deadline = deadline;
+    }
+
+    public int getNrOfUsers()
+    {
+        return nrOfUsers;
+    }
+
+    public void setNrOfUsers(int nrOfUsers)
+    {
+        this.nrOfUsers = nrOfUsers;
+    }
+
+    public int getNrOfHours()
+    {
+        return nrOfHours;
+    }
+
+    public void setNrOfHours(int nrOfHours)
+    {
+        this.nrOfHours = nrOfHours;
+    }
+
+    public ArrayList<Task> getTasks()
+    {
+        return tasks;
+    }
+
+    public void setTasks(ArrayList<Task> tasks)
+    {
+        this.tasks = tasks;
+    }
+
+    public double getProjectPrice()
+    {
+        return projectPrice;
+    }
+
+    public void setProjectPrice(double projectPrice)
+    {
+        this.projectPrice = projectPrice;
+    }
+
+    public int getHoursPerDay()
+    {
+        return hoursPerDay;
+    }
+
+    public void setHoursPerDay(int hoursPerDay)
+    {
+        this.hoursPerDay = hoursPerDay;
+    }
+
+    @Override
+    public String toString()
+    {
+        return "Project{" +
+                "projectID=" + projectID +
+                ", title='" + title + '\'' +
+                ", description='" + description + '\'' +
+                ", deadline=" + deadline +
+                ", nrOfUsers=" + nrOfUsers +
+                ", nrOfHours=" + nrOfHours +
+                ", tasks=" + tasks +
+                ", projectPrice=" + projectPrice +
+                ", hoursPerDay=" + hoursPerDay +
+                '}';
+    }
 }
