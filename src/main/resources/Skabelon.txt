@@ -34,3 +34,6 @@ Hjemmesidens funktionalitet
 - Edit subtask
 	* edit deadline
 	* edit number of employees
+
+- OPTIONAL
+	* Encrypted password

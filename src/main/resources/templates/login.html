@@ -3,25 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <title>Login</title>
-    <link rel="stylesheet" href="../static/styles/login.css">
+    <link rel="stylesheet" th:href="@{/styles/login.css}">
 </head>
 <body>
-<div class="background">
-<img src="../static/images/office.jpeg" alt="background">
-</div>
-  <section class="login">
-    <form action="/check-login" method="post" class="check-login">
-        <img class="logo" src="../static/images/logo.png" alt="logo"> <br> X <br> <br>
-        <img class="image" src="../static/images/lille%20logo.png" alt="logo">
+    <div class="background">
+        <img alt="background" th:src="@{/images/office.jpeg}">
+    </div>
+    <section class="login">
+    <form action="/login" method="POST" class="check-login">
+            <img class="logo" th:src="@{/images/logo.png}" alt="logo"> <br> <br>X<br> <br>
+            <img class="image" th:src="@{/images/lillelogo.png}" alt="logo">
+            <label class="label-text" for="login-email"></label><br><br>
+            <input class="input-text" type="email" id="login-email" name="email" placeholder="example@email.com" required>
 
-    <label class="label-text" for="login-email">Email</label><br><br>
-    <input class="input-text" type="email" id="login-email" name="username" placeholder="Din email" required><br><br>
+            <br><br>
 
-    <label class="label-text" for="login-kodeord">Kodeord</label><br><br>
-    <input class="input-text" type="password" id="login-kodeord" name="password" placeholder="Kodeord" required><br><br>
+            <label class="label-text" for="login-kodeord"></label><br><br>
+            <input class="input-text" type="password" id="login-kodeord" name="password" placeholder="Kodeord" required>
+            <br><br>
 
-    <button class="login-button">Log ind</button>
+            <button class="login-button" type="submit">Log ind</button>
     </form>
-  </section>
+</section>
 </body>
 </html>
