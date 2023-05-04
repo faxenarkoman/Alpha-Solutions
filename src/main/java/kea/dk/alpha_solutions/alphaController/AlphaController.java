@@ -19,21 +19,31 @@ public class AlphaController
     }
 
 
-    @PostMapping(value = "/check-login")
-    public String checkLogin(@RequestParam("mail") String mail, @RequestParam("password") String password, HttpServletRequest request)
-    {
-      User tmpUser = new User(mail,password);
-      HttpSession session;
-      if(tmp.checkUser(mail,password))
-      {
-          session = request.getSession();
-          session.setAttribute("mail", User.getMail());
-          session.setAttribute("password", User.getPassword());
-          return "redirect:/index";
-      }
-      else
-      {
-          return "redirect:/error";
-      }
+    @PostMapping("/login")
+    public String doLogin(@RequestParam("email") String email, HttpSession session,
+                          @RequestParam("password") String password){
+        //set username attribut i session
+        session.setAttribute("email", email);
+        session.setAttribute("password", password);
+        return "redirect:/index";
+
+        //Kryptering af password vha. hashing
+
+        //String password = "Almindelig kode"
+        //String bCryptPassword = BCrypt.hashpw(password, BCrypt.gensalt());
+        //bCryptPassword = "Hashet kode" - Denne gemmes i DB
+        // Når du skal tjekke
+        // Checker for krypteret kode sammenligning
+        // if (BCrypt.checkpw(password, loggedUser.getPassword())){
+        // Sæt session osv osv }
+        //import denne
+        // import org.springframework.security.crypto.bcrypt.BCrypt;
+
+        //tilføj til POM
+        //<dependency> <groupId>org.springframework.boot</groupId> <artifactId>spring-boot-starter-security</artifactId> </dependency>
+    }
+    @GetMapping("/index")
+    public String index(){
+        return "index";
     }
 }

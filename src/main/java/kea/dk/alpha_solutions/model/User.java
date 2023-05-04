@@ -6,16 +6,17 @@ public class User
     private int hourlyWage;
     private String password;
     private String mail;
+    private String name;
 
 
     //Constructor for User
-    public User(int userId, String mail, String password){
+    public User(int userId, String name, String mail, String password){
         this.userId = userId;
         this.mail = mail;
         this.password = password;
     }
 
-    public User(String mail, String password) {
+    public User(String name, String mail, String password) {
         this.mail = mail;
         this.password = password;
     }
@@ -47,9 +48,16 @@ public class User
 
     public String getMail() {
     return mail;
-}
+    }
 
     public void setMail(String mail) {
         this.mail = mail;
+    }
+    public String getName() {
+    return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }
