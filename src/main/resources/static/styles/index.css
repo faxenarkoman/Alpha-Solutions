@@ -53,6 +53,49 @@
 
 
 
+.projects {
+    display: flex;
+    flex-direction: column;
+    margin-top: 40px;
+
+    padding-right: 70%;
+    background-color: blue;
+    position: fixed;
+    bottom: 10%;
+    left: 17%;
+}
+
+.project {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.project-title {
+    font-weight: bold;
+    margin-right: 10px;
+    background-color: white;
+    padding: 15px;
+    border-radius: 5px;
+    font-size: 20px;
+}
+
+.project-description {
+    background-color: #f5f5f5;
+    border-radius: 5px;
+    padding: 10px;
+    color: #333;
+    font-size: 16px;
+    width: 600px; /* Adjust width as desired */
+    height: 50px; /* Adjust height as desired */
+}
+
+
+
+
+
+
+
 
 
 
