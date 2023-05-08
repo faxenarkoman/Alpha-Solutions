@@ -1,18 +1,14 @@
 package kea.dk.alpha_solutions.alphaRepository;
 
-import kea.dk.alpha_solutions.alphaController.AlphaController;
 import kea.dk.alpha_solutions.model.Project;
-import kea.dk.alpha_solutions.model.Task;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Repository;
 
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 
-public class AlphaRepository
+public class AlphaRepositoryProject
 {
 
         @Value("${spring.datasource.url}")
@@ -39,11 +35,10 @@ public class AlphaRepository
                                 String deadline = resultSet.getString(4);
                                 int nrOfUsers = resultSet.getInt(5);
                                 int nrOfHours = resultSet.getInt(6);
-                                String tasks = resultSet.getString(7);
-                                int projectPrice = resultSet.getInt(8);
-                                int hoursPerDay = resultSet.getInt(9);
+                                double projectPrice = resultSet.getDouble(7);
+                                int hoursPerDay = resultSet.getInt(8);
                                 Project project = new Project(projectID, title, description,
-                                deadline, nrOfUsers, nrOfHours, tasks, projectPrice, hoursPerDay);
+                                deadline, nrOfUsers, nrOfHours, projectPrice, hoursPerDay);
                                 projectList.add(project);
                                 System.out.println(project);
                         }
@@ -53,9 +48,14 @@ public class AlphaRepository
                         e.printStackTrace();
                 }
 
-                return WishList;
+                return projectList;
 
         }
+
+
+
+
+
 }
 
 

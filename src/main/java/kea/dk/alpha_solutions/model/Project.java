@@ -15,7 +15,7 @@ public class Project {
     private int hoursPerDay;
 
 
-    public Project(int projectID, String title, String description, String deadline, int nrOfUsers, int nrOfHours, ArrayList<Task> tasks, double projectPrice, int hoursPerDay)
+    public Project(int projectID, String title, String description, String deadline, int nrOfUsers, int nrOfHours, double projectPrice, int hoursPerDay)
     {
         this.projectID = projectID;
         this.title = title;
@@ -23,7 +23,6 @@ public class Project {
         this.deadline = deadline;
         this.nrOfUsers = nrOfUsers;
         this.nrOfHours = nrOfHours;
-        this.tasks = tasks;
         this.projectPrice = projectPrice;
         this.hoursPerDay = hoursPerDay;
     }
@@ -58,12 +57,12 @@ public class Project {
         this.description = description;
     }
 
-    public Date getDeadline()
+    public String getDeadline()
     {
         return deadline;
     }
 
-    public void setDeadline(Date deadline)
+    public void setDeadline(String deadline)
     {
         this.deadline = deadline;
     }
