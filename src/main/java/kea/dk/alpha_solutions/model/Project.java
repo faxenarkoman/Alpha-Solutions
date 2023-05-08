@@ -7,12 +7,26 @@ public class Project {
     private int projectID;
     private String title;
     private String description;
-    private Date deadline;
+    private String deadline;
     private int nrOfUsers;
     private int nrOfHours;
     private ArrayList<Task> tasks = new ArrayList<>();
     private double projectPrice;
     private int hoursPerDay;
+
+
+    public Project(int projectID, String title, String description, String deadline, int nrOfUsers, int nrOfHours, ArrayList<Task> tasks, double projectPrice, int hoursPerDay)
+    {
+        this.projectID = projectID;
+        this.title = title;
+        this.description = description;
+        this.deadline = deadline;
+        this.nrOfUsers = nrOfUsers;
+        this.nrOfHours = nrOfHours;
+        this.tasks = tasks;
+        this.projectPrice = projectPrice;
+        this.hoursPerDay = hoursPerDay;
+    }
 
     public int getProjectID()
     {
