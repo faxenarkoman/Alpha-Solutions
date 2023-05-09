@@ -8,10 +8,10 @@ public class Subtask{
     private String description;
     private int taskId;
     private int userId;
-    private Date start;
-    private Date deadline;
+    private String start;
+    private String deadline;
 
-    public Subtask(int subtaskID, String name, String description, int taskId, int userId, Date start, Date deadline)
+    public Subtask(int subtaskID, String name, String description, int taskId, int userId, String start, String deadline)
     {
         this.subtaskID = subtaskID;
         this.name = name;
@@ -72,22 +72,22 @@ public class Subtask{
         this.userId = userId;
     }
 
-    public Date getStart()
+    public String getStart()
     {
         return start;
     }
 
-    public void setStart(Date start)
+    public void setStart(String start)
     {
         this.start = start;
     }
 
-    public Date getDeadline()
+    public String getDeadline()
     {
         return deadline;
     }
 
-    public void setDeadline(Date deadline)
+    public void setDeadline(String deadline)
     {
         this.deadline = deadline;
     }
