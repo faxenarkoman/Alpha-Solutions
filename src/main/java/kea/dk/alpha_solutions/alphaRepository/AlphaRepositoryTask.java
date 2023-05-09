@@ -47,4 +47,32 @@ public class AlphaRepositoryTask
 
         return taskList;
     }
+
+    public void addTask(Task task){
+        if (task.getName() == null) {
+            throw new IllegalArgumentException("Project object must have a non-null title attribute");
+        }
+        try{
+            //connect to db
+            Connection connection = DriverManager.getConnection(DB_URL, UID, PWD);
+            final String CREATE_QUERY = "INSERT INTO  aplahs.task (taskId, projectId, name, taskDescription, startDate, deadline, hours) VALUES  (?, ?, ?, ?, ?, ?, ?)";
+            PreparedStatement preparedStatement = connection.prepareStatement(CREATE_QUERY);
+
+            //set attributer i prepared statement
+            preparedStatement.setInt(1, task.getTaskId());
+            preparedStatement.setInt(2, task.getProjectId());
+            preparedStatement.setString(3, task.getName());
+            preparedStatement.setString(4, task.getTaskDescription());
+            preparedStatement.setString(5, task.getStartDate());
+            preparedStatement.setString(6, task.getDeadline());
+            preparedStatement.setDouble(7, task.getHours());
+
+            //execute statement
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println("Could not create product");
+            e.printStackTrace();
+        }
+    }
+
 }
