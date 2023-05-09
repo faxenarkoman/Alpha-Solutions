@@ -2,6 +2,7 @@ package kea.dk.alpha_solutions.alphaController;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
+import kea.dk.alpha_solutions.alphaRepository.AlphaRepository;
 import kea.dk.alpha_solutions.model.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
