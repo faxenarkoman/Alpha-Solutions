@@ -6,12 +6,23 @@ public class Task {
     private int taskId;
     private int projectId;
     private String name;
-    private String description;
+    private String taskDescription;
     private String startDate;
     private String deadline;
     private int hours;
     private ArrayList<Subtask> subtasks = new ArrayList<Subtask>();
 
+
+    public Task(int taskId, int projectId, String name, String taskDescription, String startDate, String deadline, int hours)
+    {
+        this.taskId = taskId;
+        this.projectId = projectId;
+        this.name = name;
+        this.taskDescription = taskDescription;
+        this.startDate = startDate;
+        this.deadline = deadline;
+        this.hours = hours;
+    }
 
     public int getTaskId()
     {
@@ -43,14 +54,14 @@ public class Task {
         this.name = name;
     }
 
-    public String getDescription()
+    public String getTaskDescription()
     {
-        return description;
+        return taskDescription;
     }
 
-    public void setDescription(String description)
+    public void setTaskDescription(String taskDescription)
     {
-        this.description = description;
+        this.taskDescription = taskDescription;
     }
 
     public String getStartDate()
@@ -90,7 +101,7 @@ public class Task {
                 "taskId=" + taskId +
                 ", projectId=" + projectId +
                 ", name='" + name + '\'' +
-                ", description='" + description + '\'' +
+                ", description='" + taskDescription + '\'' +
                 ", startDate='" + startDate + '\'' +
                 ", deadline='" + deadline + '\'' +
                 ", hours=" + hours +
