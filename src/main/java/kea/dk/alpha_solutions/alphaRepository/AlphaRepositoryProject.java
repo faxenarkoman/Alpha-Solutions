@@ -52,6 +52,34 @@ public class AlphaRepositoryProject
 
         }
 
+        public void addProject(Project project){
+                if (project.getTitle() == null) {
+                        throw new IllegalArgumentException("Project object must have a non-null title attribute");
+                }
+                try{
+                        //connect to db
+                        Connection connection = DriverManager.getConnection(DB_URL, UID, PWD);
+                        final String CREATE_QUERY = "INSERT INTO  aplahs.project (projectID, title, description, deadline, nrOfUsers, nrOfHours, projectPrice, hoursPerDay) VALUES  (?, ?, ?, ?, ?, ?, ?, ?)";
+                        PreparedStatement preparedStatement = connection.prepareStatement(CREATE_QUERY);
+
+                        //set attributer i prepared statement
+                        preparedStatement.setInt(1, project.getProjectID());
+                        preparedStatement.setString(2, project.getTitle());
+                        preparedStatement.setString(3, project.getDescription());
+                        preparedStatement.setString(4, project.getDeadline());
+                        preparedStatement.setInt(5, project.getNrOfHours());
+                        preparedStatement.setInt(6, project.getNrOfUsers());
+                        preparedStatement.setDouble(7, project.getProjectPrice());
+                        preparedStatement.setInt(8, project.getHoursPerDay());
+
+                        //execute statement
+                        preparedStatement.executeUpdate();
+                } catch (SQLException e) {
+                        System.out.println("Could not create product");
+                        e.printStackTrace();
+                }
+        }
+
 }
 
 
