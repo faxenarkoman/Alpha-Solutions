@@ -66,6 +66,10 @@ public class AlphaController
         return "redirect:/wishlist";
 }
 
+    @GetMapping("/create")
+    public String viewProductList() {
+        return "/create";
+    }
 
 
 
