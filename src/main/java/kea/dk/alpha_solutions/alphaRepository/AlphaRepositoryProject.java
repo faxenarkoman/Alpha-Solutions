@@ -2,12 +2,13 @@ package kea.dk.alpha_solutions.alphaRepository;
 
 import kea.dk.alpha_solutions.model.Project;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Repository;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-
+@Repository
 public class AlphaRepositoryProject
 {
 

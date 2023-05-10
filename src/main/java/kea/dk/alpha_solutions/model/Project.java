@@ -1,8 +1,12 @@
 package kea.dk.alpha_solutions.model;
 
+
+import org.springframework.lang.NonNull;
+
 public class Project {
 
     private int userID;
+    @NonNull
     private int projectID;
     private String projectTitle;
     private String projectDescription;
@@ -12,6 +16,9 @@ public class Project {
     private double projectPrice;
     private int hoursPerDay;
 
+
+    public Project()
+    {}
 
     public Project(int userID, int projectID, String projectTitle, String projectDescription, String deadline, int nrOfUsers, int nrOfHours, double projectPrice, int hoursPerDay)
     {
