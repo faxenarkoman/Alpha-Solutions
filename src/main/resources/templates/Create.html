@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Opret produkt</title>
+    <link rel="stylesheet" th:href="@{/static/create.css}">
+</head>
+<body>
+<div class="container">
+    <h1>Create new project</h1>
+    <form action="/create" method="post">
+        <label for="name">Project name:</label>
+        <input id="name" name="product-name" type="text" required>
+
+        <label for="price">Produkt pris:</label>
+        <input id="price" name="product-price" type="number">
+
+        <label for="url">Item URL</label>
+        <input id="url" name="url" type="url">
+        <div class = "knapper">
+            <input type="submit" value="Opret produkt">
+            <button type="submit">Gå tilbage til Ønskeliste</button>
+        </div>
+    </form>
+
+</div>
+</body>
+</html>
