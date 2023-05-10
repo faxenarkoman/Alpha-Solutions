@@ -1,5 +1,6 @@
 package kea.dk.alpha_solutions.alphaRepository;
 
+import kea.dk.alpha_solutions.model.Project;
 import kea.dk.alpha_solutions.model.Subtask;
 import kea.dk.alpha_solutions.model.Task;
 import org.springframework.beans.factory.annotation.Value;
@@ -50,7 +51,32 @@ public class AlphaRepositorySubTask
         return subtaskList;
     }
 
+    public void addProject(Subtask subtask){
+        if (subtask.getName() == null) {
+            throw new IllegalArgumentException("Project object must have a non-null title attribute");
+        }
+        try{
+            //connect to db
+            Connection connection = DriverManager.getConnection(DB_URL, UID, PWD);
+            final String CREATE_QUERY = "INSERT INTO  aplahs.project (subtaskID, name, description, taskId, userId, start, deadline) VALUES  (?, ?, ?, ?, ?, ?, ?)";
+            PreparedStatement preparedStatement = connection.prepareStatement(CREATE_QUERY);
 
+            //set attributer i prepared statement
+            preparedStatement.setInt(1, subtask.getSubtaskID());
+            preparedStatement.setString(2, subtask.getName());
+            preparedStatement.setString(3, subtask.getDescription());
+            preparedStatement.setInt(4, subtask.getTaskId());
+            preparedStatement.setInt(5, subtask.getUserId());
+            preparedStatement.setString(6, subtask.getStart());
+            preparedStatement.setString(7, subtask.getDeadline());
+
+            //execute statement
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println("Could not create product");
+            e.printStackTrace();
+        }
+    }
 
 
 }

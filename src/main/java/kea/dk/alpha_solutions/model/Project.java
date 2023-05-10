@@ -1,30 +1,39 @@
 package kea.dk.alpha_solutions.model;
 
-import java.util.ArrayList;
-import java.util.Date;
-
 public class Project {
+
+    private int userID;
     private int projectID;
-    private String title;
-    private String description;
+    private String projectTitle;
+    private String projectDescription;
     private String deadline;
     private int nrOfUsers;
     private int nrOfHours;
-    private ArrayList<Task> tasks = new ArrayList<>();
     private double projectPrice;
     private int hoursPerDay;
 
 
-    public Project(int projectID, String title, String description, String deadline, int nrOfUsers, int nrOfHours, double projectPrice, int hoursPerDay)
+    public Project(int userID, int projectID, String projectTitle, String projectDescription, String deadline, int nrOfUsers, int nrOfHours, double projectPrice, int hoursPerDay)
     {
+        this.userID = userID;
         this.projectID = projectID;
-        this.title = title;
-        this.description = description;
+        this.projectTitle = projectTitle;
+        this.projectDescription = projectDescription;
         this.deadline = deadline;
         this.nrOfUsers = nrOfUsers;
         this.nrOfHours = nrOfHours;
         this.projectPrice = projectPrice;
         this.hoursPerDay = hoursPerDay;
+    }
+
+    public int getUserID()
+    {
+        return userID;
+    }
+
+    public void setUserID(int userID)
+    {
+        this.userID = userID;
     }
 
     public int getProjectID()
@@ -37,24 +46,24 @@ public class Project {
         this.projectID = projectID;
     }
 
-    public String getTitle()
+    public String getProjectTitle()
     {
-        return title;
+        return projectTitle;
     }
 
-    public void setTitle(String title)
+    public void setProjectTitle(String projectTitle)
     {
-        this.title = title;
+        this.projectTitle = projectTitle;
     }
 
-    public String getDescription()
+    public String getProjectDescription()
     {
-        return description;
+        return projectDescription;
     }
 
-    public void setDescription(String description)
+    public void setProjectDescription(String projectDescription)
     {
-        this.description = description;
+        this.projectDescription = projectDescription;
     }
 
     public String getDeadline()
@@ -87,15 +96,6 @@ public class Project {
         this.nrOfHours = nrOfHours;
     }
 
-    public ArrayList<Task> getTasks()
-    {
-        return tasks;
-    }
-
-    public void setTasks(ArrayList<Task> tasks)
-    {
-        this.tasks = tasks;
-    }
 
     public double getProjectPrice()
     {
@@ -122,12 +122,11 @@ public class Project {
     {
         return "Project{" +
                 "projectID=" + projectID +
-                ", title='" + title + '\'' +
-                ", description='" + description + '\'' +
+                ", title='" + projectTitle + '\'' +
+                ", description='" + projectDescription + '\'' +
                 ", deadline=" + deadline +
                 ", nrOfUsers=" + nrOfUsers +
                 ", nrOfHours=" + nrOfHours +
-                ", tasks=" + tasks +
                 ", projectPrice=" + projectPrice +
                 ", hoursPerDay=" + hoursPerDay +
                 '}';

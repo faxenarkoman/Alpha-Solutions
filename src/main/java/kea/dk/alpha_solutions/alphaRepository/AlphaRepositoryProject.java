@@ -29,15 +29,16 @@ public class AlphaRepositoryProject
                         final String SQL_QUERY = "SELECT * FROM alphas.project";
                         ResultSet resultSet = statement.executeQuery(SQL_QUERY);
                         while (resultSet.next()) {
-                                int projectID = resultSet.getInt(1);
-                                String title = resultSet.getString(2);
-                                String description = resultSet.getString(3);
-                                String deadline = resultSet.getString(4);
-                                int nrOfUsers = resultSet.getInt(5);
-                                int nrOfHours = resultSet.getInt(6);
-                                double projectPrice = resultSet.getDouble(7);
-                                int hoursPerDay = resultSet.getInt(8);
-                                Project project = new Project(projectID, title, description,
+                                int userID = resultSet.getInt(1);
+                                int projectID = resultSet.getInt(2);
+                                String projectTitle = resultSet.getString(3);
+                                String description = resultSet.getString(4);
+                                String deadline = resultSet.getString(5);
+                                int nrOfUsers = resultSet.getInt(6);
+                                int nrOfHours = resultSet.getInt(7);
+                                double projectPrice = resultSet.getDouble(8);
+                                int hoursPerDay = resultSet.getInt(9);
+                                Project project = new Project(userID, projectID, projectTitle, description,
                                 deadline, nrOfUsers, nrOfHours, projectPrice, hoursPerDay);
                                 projectList.add(project);
                                 System.out.println(project);
@@ -53,24 +54,25 @@ public class AlphaRepositoryProject
         }
 
         public void addProject(Project project){
-                if (project.getTitle() == null) {
+                if (project.getProjectTitle() == null) {
                         throw new IllegalArgumentException("Project object must have a non-null title attribute");
                 }
                 try{
                         //connect to db
                         Connection connection = DriverManager.getConnection(DB_URL, UID, PWD);
-                        final String CREATE_QUERY = "INSERT INTO  aplahs.project (projectID, title, description, deadline, nrOfUsers, nrOfHours, projectPrice, hoursPerDay) VALUES  (?, ?, ?, ?, ?, ?, ?, ?)";
+                        final String CREATE_QUERY = "INSERT INTO  aplahs.project (userID, projectID, projectTitle, description, deadline, nrOfUsers, nrOfHours, projectPrice, hoursPerDay) VALUES  (?, ?, ?, ?, ?, ?, ?, ?, ?)";
                         PreparedStatement preparedStatement = connection.prepareStatement(CREATE_QUERY);
 
                         //set attributer i prepared statement
-                        preparedStatement.setInt(1, project.getProjectID());
-                        preparedStatement.setString(2, project.getTitle());
-                        preparedStatement.setString(3, project.getDescription());
-                        preparedStatement.setString(4, project.getDeadline());
-                        preparedStatement.setInt(5, project.getNrOfHours());
-                        preparedStatement.setInt(6, project.getNrOfUsers());
-                        preparedStatement.setDouble(7, project.getProjectPrice());
-                        preparedStatement.setInt(8, project.getHoursPerDay());
+                        preparedStatement.setInt(1, project.getUserID());
+                        preparedStatement.setInt(2, project.getProjectID());
+                        preparedStatement.setString(3, project.getProjectTitle());
+                        preparedStatement.setString(4, project.getProjectDescription());
+                        preparedStatement.setString(5, project.getDeadline());
+                        preparedStatement.setInt(6, project.getNrOfHours());
+                        preparedStatement.setInt(7, project.getNrOfUsers());
+                        preparedStatement.setDouble(8, project.getProjectPrice());
+                        preparedStatement.setInt(9, project.getHoursPerDay());
 
                         //execute statement
                         preparedStatement.executeUpdate();
