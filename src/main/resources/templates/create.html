@@ -2,27 +2,47 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Opret produkt</title>
-    <link rel="stylesheet" th:href="@{/static/create.css}">
+    <title>Create Project</title>
+    <link rel="stylesheet" href="/path/to/your/css/file.css">
 </head>
 <body>
 <div class="container">
-    <h1>Create new project</h1>
-    <form action="/create" method="post">
-        <label for="UserID">User-Id:</label>
-        <input id="UserID" name="product-UserID" type="text" required>
+    <h1>Create Project</h1>
+    <form action="/create-project" method="post">
+        <label for="user-id">User ID:</label>
+        <input id="user-id" name="user-id" type="number" required>
 
-        <label for="price">Produkt pris:</label>
-        <input id="price" name="product-price" type="number">
+        <label for="project-id">Project ID:</label>
+        <input id="project-id" name="project-id" type="number" required>
 
-        <label for="url">Item URL</label>
-        <input id="url" name="url" type="url">
-        <div class = "knapper">
-            <input type="submit" value="Opret produkt">
-            <button type="submit">Gå tilbage til Ønskeliste</button>
+        <label for="project-title">Project Title:</label>
+        <input id="project-title" name="project-title" type="text" required>
+
+        <label for="project-description">Project Description:</label>
+        <textarea id="project-description" name="project-description" rows="5" required></textarea>
+
+        <label for="deadline">Deadline:</label>
+        <input id="deadline" name="deadline" type="date" required>
+
+        <label for="nr-of-users">Number of Users:</label>
+        <input id="nr-of-users" name="nr-of-users" type="number" required>
+
+        <label for="nr-of-hours">Number of Hours:</label>
+        <input id="nr-of-hours" name="nr-of-hours" type="number" required>
+
+        <label for="project-price">Project Price:</label>
+        <input id="project-price" name="project-price" type="number" step="0.01" required>
+
+        <label for="hours-per-day">Hours per Day:</label>
+        <input id="hours-per-day" name="hours-per-day" type="number" required>
+
+        <div class="buttons">
+            <input type="submit" value="Create Project">
+            <button type="button" onclick="window.location.href='/projects'">Back to Projects</button>
         </div>
     </form>
-
 </div>
 </body>
 </html>
+
+

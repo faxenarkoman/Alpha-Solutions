@@ -30,10 +30,11 @@ public class AlphaController
         return "login";
     }
 
+    @GetMapping("project")
     public String createProjectList(Model model)
     {
         model.addAttribute("alphas", alphaRepositoryProject.getAll());
-        return "projectList";
+        return "index";
     }
 
     @PostMapping("/create")
@@ -63,7 +64,7 @@ public class AlphaController
         alphaRepositoryProject.addProject(newProject);
 
     //tilbage til produktlisten
-        return "redirect:/wishlist";
+        return "redirect:/index";
 }
 
     @GetMapping("/create")
@@ -101,4 +102,6 @@ public class AlphaController
     public String index(){
         return "index";
     }
+
+
 }

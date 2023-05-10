@@ -6,7 +6,7 @@ import org.springframework.lang.NonNull;
 public class Project {
 
     private int userID;
-    @NonNull
+
     private int projectID;
     private String projectTitle;
     private String projectDescription;
