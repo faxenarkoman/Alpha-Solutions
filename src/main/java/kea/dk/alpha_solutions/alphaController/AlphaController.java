@@ -1,5 +1,7 @@
 package kea.dk.alpha_solutions.alphaController;
 
+import kea.dk.alpha_solutions.alphaRepository.AlphaRepositoryProject;
+import kea.dk.alpha_solutions.model.Project;
 import org.springframework.ui.Model;
 import jakarta.servlet.http.HttpSession;
 import kea.dk.alpha_solutions.alphaRepository.AlphaRepositoryUser;
@@ -14,6 +16,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class AlphaController
 {
+
+    public AlphaController(AlphaRepositoryProject alphaRepositoryProject) {
+        this.alphaRepositoryProject = alphaRepositoryProject;
+    }
+
+    AlphaRepositoryProject alphaRepositoryProject = new AlphaRepositoryProject();
+
+
     @GetMapping(value ="/")
     public String login()
     {
@@ -45,7 +55,43 @@ public class AlphaController
     }
 
     @GetMapping("/index")
-    public String index(){
+    public String showProjectList(Model model)
+    {
+        model.addAttribute("alpha", alphaRepositoryProject.getAll());
         return "index";
+
+    }
+
+
+
+    @PostMapping("/create")
+    public String createProduct(
+            @RequestParam("project-UserID") int newUserID,
+            @RequestParam("project-ProjectID") int newProjectID,
+            @RequestParam("project-ProjectTitle") String newProjectTitle,
+            @RequestParam("project-ProjectDescription") String newDescription,
+            @RequestParam("project-Deadline") int newNrOfHours,
+            @RequestParam("project-NrOfUsers") int newNrOfUsers,
+            @RequestParam("project-ProjectPrice") int newProjectPrice,
+            @RequestParam("project-HoursPrDay") int newHoursPrDay)
+    {
+
+        Project newProject = new Project();
+
+        newProject.setUserID(newUserID);
+        newProject.setProjectID(newProjectID);
+        newProject.setProjectTitle(newProjectTitle);
+        newProject.setProjectDescription(newDescription);
+        newProject.setNrOfHours(newNrOfHours);
+        newProject.setNrOfHours(newNrOfUsers);
+        newProject.setProjectPrice(newProjectPrice);
+        newProject.setHoursPerDay(newHoursPrDay);
+
+        //gem nyt produkt
+        AlphaRepositoryProject alphaRepositoryProject = new AlphaRepositoryProject();
+        alphaRepositoryProject.addProject(newProject);
+
+        //tilbage til index
+        return "redirect:/index";
     }
 }
