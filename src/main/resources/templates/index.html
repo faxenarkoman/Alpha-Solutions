@@ -17,9 +17,13 @@
     <a href="#">View Tasks</a>
     <a href="#">View Subtasks</a>
 
+
+
+
 </div>
 
 <div class="project-list">
+
     <div class="project">
         <h3>Project 1</h3>
         <p class="description">Description of Project 1</p>
@@ -35,6 +39,23 @@
         <p class="description">Description of Project 3</p>
         <a href="#" class="btn">Open</a>
     </div>
+    <table>
+        <thead>
+        <th> Name </th>
+        <th> Description </th>
+
+        </thead>
+
+        <tbody>
+        <tr th:each="alphas : ${alphas}">
+
+            <td th:text="${alphas.projectTitle}"></td>
+
+            <td th:text="${alphas.projectDescription}"></td>
+
+        </tbody>
+
+    </table>
 
 <button>
       <a href="/create">Create a new project</a>
