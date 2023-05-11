@@ -1,0 +1,9 @@
+kea/dk/alpha_solutions/alphaRepository/AlphaRepositoryProject.class
+kea/dk/alpha_solutions/model/Task.class
+kea/dk/alpha_solutions/alphaController/AlphaController.class
+kea/dk/alpha_solutions/model/User.class
+kea/dk/alpha_solutions/model/Subtask.class
+kea/dk/alpha_solutions/alphaRepository/AlphaRepositorySubTask.class
+kea/dk/alpha_solutions/alphaRepository/AlphaRepositoryTask.class
+kea/dk/alpha_solutions/model/Project.class
+kea/dk/alpha_solutions/AlphaSolutionsApplication.class
