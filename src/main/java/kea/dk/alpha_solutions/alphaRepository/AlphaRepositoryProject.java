@@ -28,7 +28,7 @@ public class AlphaRepositoryProject
                 try {
                         Connection connection = DriverManager.getConnection(DB_URL, UID, PWD);
                         Statement statement = connection.createStatement();
-                        final String SQL_QUERY = "SELECT * FROM alphas.project";
+                        final String SQL_QUERY = "SELECT * FROM alpha.project";
                         ResultSet resultSet = statement.executeQuery(SQL_QUERY);
                         while (resultSet.next()) {
                                 int userID = resultSet.getInt(1);
@@ -62,7 +62,7 @@ public class AlphaRepositoryProject
                 try{
                         //connect to db
                         Connection connection = DriverManager.getConnection(DB_URL, UID, PWD);
-                        final String CREATE_QUERY = "INSERT INTO  aplahs.project (userID, projectID, projectTitle, description, deadline, nrOfUsers, nrOfHours, projectPrice, hoursPerDay) VALUES  (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                        final String CREATE_QUERY = "INSERT INTO  aplah.project (userID, projectID, projectTitle, description, deadline, nrOfUsers, nrOfHours, projectPrice, hoursPerDay) VALUES  (?, ?, ?, ?, ?, ?, ?, ?, ?)";
                         PreparedStatement preparedStatement = connection.prepareStatement(CREATE_QUERY);
 
                         //set attributer i prepared statement
@@ -87,7 +87,7 @@ public class AlphaRepositoryProject
         public void updateProduct(Project project)
         {
                 //SQL statement
-                final String UPDATE_QUERY = "UPDATE  aplahs.project SET userID = ?, projectTitle = ?, projectDescription = ?, deadline = ?, nrOfUsers = ?, nrOfHours = ?, projectPrice = ?, HoursPrDay = ?  WHERE projectID = ?,";
+                final String UPDATE_QUERY = "UPDATE  aplah.project SET userID = ?, projectTitle = ?, projectDescription = ?, deadline = ?, nrOfUsers = ?, nrOfHours = ?, projectPrice = ?, HoursPrDay = ?  WHERE projectID = ?,";
 
                 try {
                         //connect db
@@ -126,7 +126,7 @@ public class AlphaRepositoryProject
 
         public void deleteByProjectID(int projectID){
                 //SQL-query
-                final String DELETE_QUERY = "DELETE FROM  alphas.prject WHERE projectID=?";
+                final String DELETE_QUERY = "DELETE FROM  alpha.prject WHERE projectID=?";
 
                 try {
                         //connect til db

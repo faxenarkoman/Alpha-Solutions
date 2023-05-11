@@ -1,8 +1,6 @@
 package kea.dk.alpha_solutions.model;
 
 
-import org.springframework.lang.NonNull;
-
 public class Project {
 
     private int userID;
