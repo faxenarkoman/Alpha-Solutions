@@ -19,8 +19,56 @@ public class AlphaController
         return "login";
     }
 
+<<<<<<< Updated upstream
     @Autowired
     private AlphaRepositoryUser alphaRepositoryUser;
+=======
+    @GetMapping("project")
+    public String createProjectList(Model model)
+    {
+        model.addAttribute("alphas", alphaRepositoryProject.getAll());
+        return "index";
+    }
+
+    @PostMapping("/create")
+    public String createProduct(
+            @RequestParam("project-UserID") int newUserID,
+            @RequestParam("project-ProjectID") int newProjectID,
+            @RequestParam("project-ProjectTitle") String newProjectTitle,
+            @RequestParam("project-ProjectDescription") String newDescription,
+            @RequestParam("project-Deadline") int newNrOfHours,
+            @RequestParam("project-NrOfUsers") int newNrOfUsers,
+            @RequestParam("project-ProjectPrice") int newProjectPrice,
+            @RequestParam("project-HoursPrDay") int newHoursPrDay){
+
+        Project newProject = new Project();
+
+            newProject.setUserID(newUserID);
+            newProject.setProjectID(newProjectID);
+            newProject.setProjectTitle(newProjectTitle);
+            newProject.setProjectDescription(newDescription);
+            newProject.setNrOfHours(newNrOfHours);
+            newProject.setNrOfHours(newNrOfUsers);
+            newProject.setProjectPrice(newProjectPrice);
+            newProject.setHoursPerDay(newHoursPrDay);
+
+    //gem nyt produkt
+        AlphaRepositoryProject alphaRepositoryProject = new AlphaRepositoryProject();
+        alphaRepositoryProject.addProject(newProject);
+
+    //tilbage til produktlisten
+        return "/index";
+}
+
+    @GetMapping("/create")
+    public String viewProductList() {
+        return "/create";
+    }
+
+
+
+
+>>>>>>> Stashed changes
     @PostMapping("/login")
     public String doLogin(@RequestParam("email") String email, HttpSession session,
                           @RequestParam("password") String password) {
