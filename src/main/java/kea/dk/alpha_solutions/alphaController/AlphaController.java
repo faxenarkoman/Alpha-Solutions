@@ -37,12 +37,14 @@ public class AlphaController
         return "index";
     }
 
+    
+
     @PostMapping("/create")
     public String createProduct(
             @RequestParam("project-UserID") int newUserID,
             @RequestParam("project-ProjectID") int newProjectID,
             @RequestParam("project-ProjectTitle") String newProjectTitle,
-            @RequestParam("project-ProjectDescription") String newDescripton,
+            @RequestParam("project-ProjectDescription") String newDescription,
             @RequestParam("project-Deadline") int newNrOfHours,
             @RequestParam("project-NrOfUsers") int newNrOfUsers,
             @RequestParam("project-ProjectPrice") int newProjectPrice,
@@ -53,7 +55,7 @@ public class AlphaController
             newProject.setUserID(newUserID);
             newProject.setProjectID(newProjectID);
             newProject.setProjectTitle(newProjectTitle);
-            newProject.setProjectDescription(newDescripton);
+            newProject.setProjectDescription(newDescription);
             newProject.setNrOfHours(newNrOfHours);
             newProject.setNrOfHours(newNrOfUsers);
             newProject.setProjectPrice(newProjectPrice);
