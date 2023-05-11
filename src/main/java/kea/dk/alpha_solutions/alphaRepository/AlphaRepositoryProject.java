@@ -21,6 +21,7 @@ public class AlphaRepositoryProject
 
 
 
+
         public List<Project> getAll()
         {
                 List<Project> projectList = new ArrayList<>();
@@ -86,7 +87,7 @@ public class AlphaRepositoryProject
         public void updateProduct(Project project)
         {
                 //SQL statement
-                final String UPDATE_QUERY = "UPDATE  wishlisters.wish SET userID = ?, projectTitle = ?, projectDescription = ?, deadline = ?, nrOfUsers = ?, nrOfHours = ?, projectPrice = ?, HoursPrDay = ?  WHERE projectID = ?,";
+                final String UPDATE_QUERY = "UPDATE  aplahs.project SET userID = ?, projectTitle = ?, projectDescription = ?, deadline = ?, nrOfUsers = ?, nrOfHours = ?, projectPrice = ?, HoursPrDay = ?  WHERE projectID = ?,";
 
                 try {
                         //connect db
@@ -119,6 +120,29 @@ public class AlphaRepositoryProject
 
                 } catch (SQLException e) {
                         System.out.println("Could not update product");
+                        e.printStackTrace();
+                }
+        }
+
+        public void deleteByProjectID(int projectID){
+                //SQL-query
+                final String DELETE_QUERY = "DELETE FROM  alphas.prject WHERE projectID=?";
+
+                try {
+                        //connect til db
+                        Connection connection = DriverManager.getConnection(DB_URL, UID, PWD);
+
+                        //create statement
+                        PreparedStatement preparedStatement = connection.prepareStatement(DELETE_QUERY);
+
+                        //set parameter
+                        preparedStatement.setInt(1, projectID);
+
+                        //execute statement
+                        preparedStatement.executeUpdate();
+
+                } catch (SQLException e){
+                        System.out.println("Could not delete product");
                         e.printStackTrace();
                 }
         }
