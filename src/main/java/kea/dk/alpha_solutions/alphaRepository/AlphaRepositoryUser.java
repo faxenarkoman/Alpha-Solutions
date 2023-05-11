@@ -45,6 +45,9 @@ public class AlphaRepositoryUser {
 
     public User getUserByEmail(String email) {
         User user = null;
+        System.out.println("URL: " + DB_URL);
+        System.out.println("UID: " + UID);
+        System.out.println("PWD: " + PWD);
         try (Connection connection = DriverManager.getConnection(DB_URL, UID, PWD)) {
             PreparedStatement statement = connection.prepareStatement("SELECT * FROM user WHERE email=?");
             statement.setString(1, email);
