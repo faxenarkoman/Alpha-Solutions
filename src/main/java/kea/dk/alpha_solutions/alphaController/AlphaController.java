@@ -23,7 +23,7 @@ public class AlphaController
     private AlphaRepositoryUser alphaRepositoryUser;
     @PostMapping("/login")
     public String doLogin(@RequestParam("email") String email, HttpSession session,
-                          @RequestParam("password") String password) {
+                          @RequestParam("password") String password, Model model) {
         String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt());
         System.out.println("Email: " + email);
         System.out.println("Plain password: " + password);
@@ -38,7 +38,8 @@ public class AlphaController
             return "redirect:/index";
         } else {
             // If user does not exist or password does not match, return to login page with error message
-            return "login?error";
+            model.addAttribute("error", "Invalid email or password");
+            return "login";
         }
     }
 

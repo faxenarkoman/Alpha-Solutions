@@ -23,6 +23,8 @@
             <br><br>
 
             <button class="login-button" type="submit">Log ind</button>
+            <div th:if="${error}" class="error" th:text="${error}"></div>
+
     </form>
 </section>
 </body>
