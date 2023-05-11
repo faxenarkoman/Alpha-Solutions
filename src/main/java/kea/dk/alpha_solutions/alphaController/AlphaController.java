@@ -1,5 +1,6 @@
 package kea.dk.alpha_solutions.alphaController;
 
+import org.springframework.ui.Model;
 import jakarta.servlet.http.HttpSession;
 import kea.dk.alpha_solutions.alphaRepository.AlphaRepositoryUser;
 import kea.dk.alpha_solutions.model.User;
