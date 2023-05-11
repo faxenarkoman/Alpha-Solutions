@@ -62,7 +62,7 @@ public class AlphaRepositoryProject
                 try{
                         //connect to db
                         Connection connection = DriverManager.getConnection(DB_URL, UID, PWD);
-                        final String CREATE_QUERY = "INSERT INTO  aplah.project (userID, projectID, projectTitle, description, deadline, nrOfUsers, nrOfHours, projectPrice, hoursPerDay) VALUES  (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                        final String CREATE_QUERY = "INSERT INTO  aplha.project (userID, projectID, projectTitle, description, deadline, nrOfUsers, nrOfHours, projectPrice, hoursPerDay) VALUES  (?, ?, ?, ?, ?, ?, ?, ?, ?)";
                         PreparedStatement preparedStatement = connection.prepareStatement(CREATE_QUERY);
 
                         //set attributer i prepared statement
