@@ -1,0 +1,39 @@
+Hjemmesidens funktionalitet
+
+- Login
+	* userId
+	* username
+	* password
+
+- Index(View all projects assigned to me)
+	* View projects
+	* View tasks within that project
+	* View deadlines
+
+- Create project
+	* Totalcosts
+	* number of employees
+	* Deadline
+
+- Edit project
+	* edit number of employees
+	* edit deadline
+
+- Create task
+	* Deadlines
+	* number of employees
+
+- Edit task
+	* edit deadline
+	* edit number of employees
+
+- Create subtask
+	* Deadlines
+	* number of employees
+
+- Edit subtask
+	* edit deadline
+	* edit number of employees
+
+- OPTIONAL
+	* Encrypted password

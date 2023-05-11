@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <link rel="stylesheet" th:href="@{/styles/login.css}">
+</head>
+<body>
+    <div class="background">
+        <img alt="background" th:src="@{/images/office.jpeg}">
+    </div>
+    <section class="login">
+    <form action="/login" method="POST" class="check-login">
+            <img class="logo" th:src="@{/images/logo.png}" alt="logo"> <br> <br>X<br> <br>
+            <img class="image" th:src="@{/images/lillelogo.png}" alt="logo">
+            <label class="label-text" for="login-email"></label><br><br>
+            <input class="input-text" type="email" id="login-email" name="email" placeholder="example@email.com" required>
+
+            <br><br>
+
+            <label class="label-text" for="login-kodeord"></label><br><br>
+            <input class="input-text" type="password" id="login-kodeord" name="password" placeholder="Kodeord" required>
+            <br><br>
+
+            <button class="login-button" type="submit">Log ind</button>
+    </form>
+</section>
+</body>
+</html>
