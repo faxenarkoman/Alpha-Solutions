@@ -30,11 +30,12 @@ public class AlphaController
         return "login";
     }
 
-    @GetMapping("project")
+    @GetMapping("/index")
     public String showProjectList(Model model)
     {
         model.addAttribute("alpha", alphaRepositoryProject.getAll());
         return "index";
+
     }
 
     
@@ -100,10 +101,7 @@ public class AlphaController
         //tilføj til POM
         //<dependency> <groupId>org.springframework.boot</groupId> <artifactId>spring-boot-starter-security</artifactId> </dependency>
     }
-    @GetMapping("/index")
-    public String index(){
-        return "index";
-    }
+
 
 
 }
