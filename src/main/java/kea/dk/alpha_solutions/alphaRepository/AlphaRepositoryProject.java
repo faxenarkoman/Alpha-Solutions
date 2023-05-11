@@ -82,6 +82,46 @@ public class AlphaRepositoryProject
                         e.printStackTrace();
                 }
         }
+
+        public void updateProduct(Project project)
+        {
+                //SQL statement
+                final String UPDATE_QUERY = "UPDATE  wishlisters.wish SET userID = ?, projectTitle = ?, projectDescription = ?, deadline = ?, nrOfUsers = ?, nrOfHours = ?, projectPrice = ?, HoursPrDay = ?  WHERE projectID = ?,";
+
+                try {
+                        //connect db
+                        Connection connection = DriverManager.getConnection(DB_URL, UID, PWD);
+
+                        //prepared statement
+                        PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_QUERY);
+
+                        //set parameters
+                        int userID = project.getUserID();
+                        int projectID = project.getProjectID();
+                        String projectTitle = project.getProjectTitle();
+                        String projectDescription = project.getProjectDescription();
+                        String deadline = project.getDeadline();
+                        int nrOfUsers = project.getNrOfUsers();
+                        int nrOfHours = project.getNrOfHours();
+                        int hoursPrDay = project.getHoursPerDay();
+
+                        preparedStatement.setInt(1, userID);
+                        preparedStatement.setDouble(2, projectID);
+                        preparedStatement.setString(3, projectTitle);
+                        preparedStatement.setString(4, projectDescription);
+                        preparedStatement.setString(5, deadline);
+                        preparedStatement.setInt(6, nrOfUsers);
+                        preparedStatement.setInt(7, nrOfHours);
+                        preparedStatement.setInt(8, hoursPrDay);
+
+                        //execute statement
+                        preparedStatement.executeUpdate();
+
+                } catch (SQLException e) {
+                        System.out.println("Could not update product");
+                        e.printStackTrace();
+                }
+        }
 }
 
 
