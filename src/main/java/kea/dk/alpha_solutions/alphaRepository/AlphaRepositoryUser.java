@@ -14,7 +14,8 @@ public class AlphaRepositoryUser {
     private String DB_URL;
     @Value("${spring.datasource.username}")
     private String UID;
-    private String PWD = System.getenv("pwd");
+    @Value("${spring.datasource.password}")
+    private String PWD;
 
     public List<User> getAll()
     {
