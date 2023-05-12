@@ -96,20 +96,20 @@ public class AlphaController
         return "redirect:/index";
     }
 
-    @GetMapping("/open/{projectID}")
+    @GetMapping("/open/{projectID}/")
     public String openProject(@PathVariable("projectID") int projectID, Model model) {
         // Retrieve the project data based on the projectID
         Project project = alphaRepositoryProject.getProjectByID(projectID);
 
         // Add the project data to the model
-        model.addAttribute("project", project);
+        model.addAttribute("projectID", project);
 
         // Return the name of the HTML template to render
-        return "project-details";
+        return "project";
     }
 
     @GetMapping("/project")
-    public String showProjec(Model model)
+    public String showProject(Model model)
     {
         model.addAttribute("alpha", alphaRepositoryProject.getAll());
         return "project";
