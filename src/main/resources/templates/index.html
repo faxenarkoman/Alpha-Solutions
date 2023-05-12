@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>Home</title>
     <link rel="stylesheet" th:href="@{/styles/index.css}">
+
 </head>
 <body>
 
@@ -16,10 +17,6 @@
     <a href="#">View Projects</a>
     <a href="#">View Tasks</a>
     <a href="#">View Subtasks</a>
-
-
-
-
 </div>
 
 <div class="project-list">
@@ -49,15 +46,23 @@
         <tbody>
         <tr th:each="alpha : ${alpha}">
 
+            <td th:text="${alpha.projectID}"></td>
+
             <td th:text="${alpha.projectTitle}"></td>
 
             <td th:text="${alpha.projectDescription}"></td>
+
+            <td>
+                <a th:href="@{'/open/{projectID}/' + ${alpha.projectID}}"  href="/project"> Open</a>
+
+            </td>
 
         </tbody>
 
     </table>
 
-<button>
+</div>
+    <button>
       <a href="/create">Create a new project</a>
 </button>
 </div>
