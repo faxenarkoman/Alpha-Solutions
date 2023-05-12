@@ -55,8 +55,14 @@ public class AlphaController
     }
 
     @GetMapping("/index")
-    public String showProjectList(Model model)
+    public String showProjectList(Model model, HttpSession session)
     {
+        // Check if user is logged in
+        if(session.getAttribute("email") == null || session.getAttribute("password") == null)
+        {
+            // Redirect to login page if not logged in
+            return "login";
+        }
         model.addAttribute("alpha", alphaRepositoryProject.getAll());
         return "index";
 
@@ -66,6 +72,7 @@ public class AlphaController
 
     @PostMapping("/create")
     public String createProduct(
+
             @RequestParam("project-UserID") int newUserID,
             @RequestParam("project-ProjectID") int newProjectID,
             @RequestParam("project-ProjectTitle") String newProjectTitle,
