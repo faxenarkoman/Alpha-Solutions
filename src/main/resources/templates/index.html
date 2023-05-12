@@ -46,12 +46,15 @@
         <tbody>
         <tr th:each="alpha : ${alpha}">
 
+            <td th:text="${alpha.projectID}"></td>
+
             <td th:text="${alpha.projectTitle}"></td>
 
             <td th:text="${alpha.projectDescription}"></td>
 
             <td>
-                <a th:href="@{'/project/' + ${alpha.projectID}}" href="/open"> Open</a>
+                <a th:href="@{'/open/{projectID}/' + ${alpha.projectID}}"  href="/project"> Open</a>
+
             </td>
 
         </tbody>
