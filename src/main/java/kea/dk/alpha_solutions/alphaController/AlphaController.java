@@ -109,7 +109,7 @@ public class AlphaController
     }
 
     @GetMapping("/project")
-    public String showProjec(Model model)
+    public String showProject(Model model)
     {
         model.addAttribute("alpha", alphaRepositoryProject.getAll());
         return "project";
