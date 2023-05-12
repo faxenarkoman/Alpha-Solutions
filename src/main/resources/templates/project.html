@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Project</title>
+    <link rel="stylesheet" th:href="@{/styles/project.css}">
+    <link rel="stylesheet" th:href="@{/styles/navbar.css}">
+</head>
+<body>
+
+<div class="logo">
+    <img class="logo" th:src="@{/images/logo.png}" alt="logo">
+</div>
+<div class="sidebar">
+    <a href="#" class="active">Home</a>
+
+    <a href="#">View Projects</a>
+    <a href="#">View Tasks</a>
+    <a href="#">View Subtasks</a>
+</div>
+
+<table>
+    <thead>
+    <th> Project Title </th>
+    <th> Project Description </th>
+    <th> Nr of days to deadline </th>
+    <th> Project Price </th>
+    <th> How many is on the project</th>
+
+    </thead>
+    <tbody>
+    <tr th:each="alpha : ${alpha}">
+
+        <td th:text="${alpha.projectTitle}"></td>
+
+        <td th:text="${alpha.projectDescription}"></td>
+        <td th:text="${alpha.deadline}" > </td>
+        <td th:text="${alpha.projectPrice}"> </td>
+        <td th:text="${alpha.nrOfUsers}"> </td>
+    </tbody>
+</table>
+
+
+</body>
+
+<footer class="footer">
+    <p th:text="'© Code Connoisseurs, Inc. '"></p>
+</footer>
+
+
+</html>

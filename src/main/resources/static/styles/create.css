@@ -1,0 +1,9 @@
+.container {
+    margin-left: 30%;
+}
+.nameOptions{
+    width: 100%;
+}
+select option {
+    display: block;
+}

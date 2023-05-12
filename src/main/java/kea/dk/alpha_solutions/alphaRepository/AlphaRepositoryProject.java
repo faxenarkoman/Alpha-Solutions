@@ -26,16 +26,11 @@ public class AlphaRepositoryProject
         {
                 List<Project> projectList = new ArrayList<>();
                 try {
-                        System.out.println("URL: " + DB_URL);
-                        System.out.println("UID: " + UID);
-                        System.out.println("PWD: " + PWD);
                         Connection connection = DriverManager.getConnection(DB_URL, UID, PWD);
                         Statement statement = connection.createStatement();
                         final String SQL_QUERY = "SELECT * FROM alpha.project";
                         ResultSet resultSet = statement.executeQuery(SQL_QUERY);
                         while (resultSet.next()) {
-                                int userID = resultSet.getInt(1);
-                                int projectID = resultSet.getInt(2);
                                 String projectTitle = resultSet.getString(3);
                                 String projectDescription = resultSet.getString(4);
                                 String deadline = resultSet.getString(5);
@@ -43,10 +38,9 @@ public class AlphaRepositoryProject
                                 int nrOfHours = resultSet.getInt(7);
                                 double projectPrice = resultSet.getDouble(8);
                                 int hoursPerDay = resultSet.getInt(9);
-                                Project project = new Project(userID, projectID, projectTitle, projectDescription,
+                                Project project = new Project(projectTitle, projectDescription,
                                 deadline, nrOfUsers, nrOfHours, projectPrice, hoursPerDay);
                                 projectList.add(project);
-                                System.out.println(project);
                         }
 
                 } catch (SQLException e) {
@@ -65,7 +59,7 @@ public class AlphaRepositoryProject
                 try{
                         //connect to db
                         Connection connection = DriverManager.getConnection(DB_URL, UID, PWD);
-                        final String CREATE_QUERY = "INSERT INTO  aplah.project (userID, projectID, projectTitle, description, deadline, nrOfUsers, nrOfHours, projectPrice, hoursPerDay) VALUES  (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                        final String CREATE_QUERY = "INSERT INTO  alpha.project (userID, projectID, projectTitle, projectDescription, deadline, nrOfUsers, nrOfHours, projectPrice, HoursPrDay) VALUES  (?, ?, ?, ?, ?, ?, ?, ?, ?)";
                         PreparedStatement preparedStatement = connection.prepareStatement(CREATE_QUERY);
 
                         //set attributer i prepared statement
@@ -90,7 +84,7 @@ public class AlphaRepositoryProject
         public void updateProduct(Project project)
         {
                 //SQL statement
-                final String UPDATE_QUERY = "UPDATE  alpha.project SET userID = ?, projectTitle = ?, projectDescription = ?, deadline = ?, nrOfUsers = ?, nrOfHours = ?, projectPrice = ?, HoursPrDay = ?  WHERE projectID = ?,";
+                final String UPDATE_QUERY = "UPDATE  alpha.project SET userID = ?, projectTitle = ?, projectDescription = ?, deadline = ?, nrOfUsers = ?, nrOfHours = ?, projectPrice = ?, HoursPrDay = ?  WHERE projectID = ?";
 
                 try {
                         //connect db
@@ -149,6 +143,7 @@ public class AlphaRepositoryProject
                         e.printStackTrace();
                 }
         }
+
 }
 
 
