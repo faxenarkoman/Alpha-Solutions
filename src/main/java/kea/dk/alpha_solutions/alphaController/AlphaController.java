@@ -61,7 +61,17 @@ public class AlphaController
         return "index";
 
     }
+@GetMapping("/create")
+public String createProject(HttpSession session){
+    // Check if user is logged in
+    if(session.getAttribute("email") == null || session.getAttribute("password") == null)
+    {
+        // Redirect to login page if not logged in
+        return "login";
+    }
 
+        return "create";
+}
 
 
     @PostMapping("/create")
