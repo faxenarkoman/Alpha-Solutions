@@ -59,7 +59,6 @@ public class AlphaController
     {
         model.addAttribute("alpha", alphaRepositoryProject.getAll());
         return "index";
-
     }
 
 
@@ -93,5 +92,12 @@ public class AlphaController
 
         //tilbage til index
         return "redirect:/index";
+    }
+
+    @GetMapping("project")
+    public String shoProjectList(Model model)
+    {
+        model.addAttribute("alpha", alphaRepositoryProject.getAll());
+        return "project";
     }
 }
