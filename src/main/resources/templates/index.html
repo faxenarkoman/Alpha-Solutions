@@ -53,11 +53,16 @@
 
             <td th:text="${alpha.projectDescription}"></td>
 
+            <td>
+                <a th:href="@{'/project/' + ${alpha.projectID}}" href="/open"> Open</a>
+            </td>
+
         </tbody>
 
     </table>
 
-<button>
+</div>
+    <button>
       <a href="/create">Create a new project</a>
 </button>
 </div>
