@@ -13,8 +13,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.ArrayList;
-
 @Controller
 public class AlphaController
 {
@@ -38,6 +36,9 @@ public class AlphaController
     public String doLogin(@RequestParam("email") String email, HttpSession session,
                           @RequestParam("password") String password, Model model) {
         String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt());
+        System.out.println("Email: " + email);
+        System.out.println("Plain password: " + password);
+        System.out.println("Hashed password: " + hashedPassword);
 
         User user = alphaRepositoryUser.getUserByEmail(email);
 
@@ -56,40 +57,36 @@ public class AlphaController
     @GetMapping("/index")
     public String showProjectList(Model model, HttpSession session)
     {
-        /*// Check if user is logged in
+        // Check if user is logged in
         if(session.getAttribute("email") == null || session.getAttribute("password") == null)
         {
             // Redirect to login page if not logged in
             return "login";
-        }*/
+        }
         model.addAttribute("alpha", alphaRepositoryProject.getAll());
         return "index";
 
     }
-@GetMapping("/create")
-public String createProject(HttpSession session, Model model){
-/*    // Check if user is logged in
-    if(session.getAttribute("email") == null || session.getAttribute("password") == null)
-    {
-        // Redirect to login page if not logged in
-        return "login";
-    }*/
-    model.addAttribute("name", alphaRepositoryUser.getName());
 
-        return "create";
-}
+
 
     @PostMapping("/create")
     public String createProduct(
-            @RequestParam("ProjectTitle") String newProjectTitle,
-            @RequestParam("ProjectDescription") String newDescription,
-            @RequestParam("Deadline") int newNrOfHours,
-            @RequestParam("NrOfUsers") int newNrOfUsers,
-            @RequestParam("ProjectPrice") int newProjectPrice,
-            @RequestParam("HoursPrDay") int newHoursPrDay)
+
+            @RequestParam("project-UserID") int newUserID,
+            @RequestParam("project-ProjectID") int newProjectID,
+            @RequestParam("project-ProjectTitle") String newProjectTitle,
+            @RequestParam("project-ProjectDescription") String newDescription,
+            @RequestParam("project-Deadline") int newNrOfHours,
+            @RequestParam("project-NrOfUsers") int newNrOfUsers,
+            @RequestParam("project-ProjectPrice") int newProjectPrice,
+            @RequestParam("project-HoursPrDay") int newHoursPrDay)
     {
 
         Project newProject = new Project();
+
+        newProject.setUserID(newUserID);
+        newProject.setProjectID(newProjectID);
         newProject.setProjectTitle(newProjectTitle);
         newProject.setProjectDescription(newDescription);
         newProject.setNrOfHours(newNrOfHours);
