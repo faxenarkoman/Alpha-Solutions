@@ -29,9 +29,9 @@ public class AlphaRepositoryUser {
                 String userId = resultSet.getString(1);
                 String mail = resultSet.getString(2);
                 String password = resultSet.getString(3);
+                String name = resultSet.getString(5);
                 User user = new User (userId, mail, password);
                 userList.add(user);
-                System.out.println(mail);
             }
 
         } catch (SQLException e) {
@@ -45,9 +45,6 @@ public class AlphaRepositoryUser {
 
     public User getUserByEmail(String email) {
         User user = null;
-        System.out.println("URL: " + DB_URL);
-        System.out.println("UID: " + UID);
-        System.out.println("PWD: " + PWD);
         try (Connection connection = DriverManager.getConnection(DB_URL, UID, PWD)) {
             PreparedStatement statement = connection.prepareStatement("SELECT * FROM user WHERE email=?");
             statement.setString(1, email);
@@ -62,5 +59,34 @@ public class AlphaRepositoryUser {
         }
         return user;
     }
+    public List<String> getName() {
+        List<String> names = new ArrayList<>();
+        try {
+            //Connection to database
+            Connection connection = DriverManager.getConnection(DB_URL, UID, PWD);
+            //Prepare statement
+            Statement statement = connection.createStatement();
+            //SQL query
+            final String SQL_QUERY = "SELECT * FROM alpha.user";
+            //Execute query
+            ResultSet resultSet = statement.executeQuery(SQL_QUERY);
+            //Loop through resultset
+            while (resultSet.next()) {
+                String name = resultSet.getString(5);
+                names.add(name);
+            }
+            //Close resultset, statement and connection
+            resultSet.close();
+            statement.close();
+            connection.close();
+            System.out.println(names);
+        } catch (SQLException e) {
+            System.out.println("Could not query database");
+            e.printStackTrace();
+        }
+        return names;
+    }
+
+
 }
 

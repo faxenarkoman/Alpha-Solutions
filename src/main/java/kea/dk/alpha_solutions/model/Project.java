@@ -18,10 +18,8 @@ public class Project {
     public Project()
     {}
 
-    public Project(int userID, int projectID, String projectTitle, String projectDescription, String deadline, int nrOfUsers, int nrOfHours, double projectPrice, int hoursPerDay)
+    public Project(String projectTitle, String projectDescription, String deadline, int nrOfUsers, int nrOfHours, double projectPrice, int hoursPerDay)
     {
-        this.userID = userID;
-        this.projectID = projectID;
         this.projectTitle = projectTitle;
         this.projectDescription = projectDescription;
         this.deadline = deadline;

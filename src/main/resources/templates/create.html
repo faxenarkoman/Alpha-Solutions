@@ -1,47 +1,68 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Create Project</title>
-    <link rel="stylesheet" href="/path/to/your/css/file.css">
+    <link rel="stylesheet" th:href="@{/styles/create.css}">
+    <link rel="stylesheet" th:href="@{/styles/navbar.css}">
+
 </head>
 <body>
+<div class="logo">
+    <img class="logo" th:src="@{/images/logo.png}" alt="logo">
+</div>
+<div class="sidebar">
+    <a href="#" class="active">Home</a>
+
+    <a href="#">View Projects</a>
+    <a href="#">View Tasks</a>
+    <a href="#">View Subtasks</a>
+</div>
 <div class="container">
     <h1>Create Project</h1>
+    <br>
     <form action="/create" method="post">
-        <label for="user-id">User ID:</label>
-        <input id="user-id" name="user-id" type="number" required>
+        <label id="personer-tildelt-label">Personer Tildelt</label>
+        <br>
+        <label>
+            <select class="nameOptions" name="name">
+                <option value="">Choose a user</option>
+                <option th:each="user : ${name}" th:value="${name}" th:text="${user}"></option>
+            </select>
+        </label>
 
-        <label for="project-id">Project ID:</label>
-        <input id="project-id" name="project-id" type="number" required>
+        <br>
+        <br>
 
-        <label for="project-title">Project Title:</label>
-        <input id="project-title" name="project-title" type="text" required>
+        <label for="ProjectTitle">Project Title:</label>
+        <br>
+        <input id="ProjectTitle" name="ProjectTitle" type="text" required>
 
-        <label for="project-description">Project Description:</label>
-        <textarea id="project-description" name="project-description" rows="5" required></textarea>
+        <br>
+        <br>
+
+        <label for="description">Project Description:</label>
+        <br>
+        <textarea id="description" name="ProjectDescription" rows="5" required></textarea>
+
+        <br>
+        <br>
 
         <label for="deadline">Deadline:</label>
-        <input id="deadline" name="deadline" type="date" required>
+        <br>
+        <input id="deadline" name="Deadline" type="date" required>
 
-        <label for="nr-of-users">Number of Users:</label>
-        <input id="nr-of-users" name="nr-of-users" type="number" required>
+        <br>
+        <br>
 
-        <label for="nr-of-hours">Number of Hours:</label>
-        <input id="nr-of-hours" name="nr-of-hours" type="number" required>
+        <label for="HoursPrDay">Hours per day:</label>
+        <br>
+        <input id="HoursPrDay" name="HoursPrDay" type="number" required>
 
-        <label for="project-price">Project Price:</label>
-        <input id="project-price" name="project-price" type="number" step="0.01" required>
+        <br>
+        <br>
 
-        <label for="hours-per-day">Hours per Day:</label>
-        <input id="hours-per-day" name="hours-per-day" type="number" required>
-
-        <div class="buttons">
-            <input type="submit" value="Create Project">
-            <button>
-               <a href="index.html" type="button" onclick="window.location.href='/projects'">Back to Projects </a>
-            </button>
-        </div>
+        <button type="submit">Create Project</button>
     </form>
 </div>
 </body>

@@ -14,11 +14,16 @@ public class User
         this.userId = userId;
         this.mail = mail;
         this.password = password;
+        this.name = name;
     }
 
     public User(String name, String mail, String password) {
         this.mail = mail;
         this.password = password;
+    }
+
+    public User(String name){
+        this.name = name;
     }
 
     //Getters and setters
