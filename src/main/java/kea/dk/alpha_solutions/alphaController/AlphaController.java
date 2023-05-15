@@ -10,6 +10,7 @@ import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -103,5 +104,17 @@ public String createProject(HttpSession session, Model model){
 
         //tilbage til index
         return "redirect:/index";
+    }
+
+    @GetMapping("/open/{projectID}")
+    public String openProject(@PathVariable("projectID") int projectID, Model model) {
+        // Retrieve the project data based on the projectID
+        Project project = alphaRepositoryProject.getProjectByID(projectID);
+
+        // Add the project data to the model
+        model.addAttribute("project", project);
+
+        // Return the name of the HTML template to render
+        return "project";
     }
 }
