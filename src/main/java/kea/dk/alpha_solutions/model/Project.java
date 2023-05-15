@@ -18,9 +18,8 @@ public class Project {
     public Project()
     {}
 
-    public Project(int userID, int projectID, String projectTitle, String projectDescription, String deadline, int nrOfUsers, int nrOfHours, double projectPrice, int hoursPerDay)
+    public Project(int projectID, String projectTitle, String projectDescription, String deadline, int nrOfUsers, int nrOfHours, double projectPrice, int hoursPerDay)
     {
-        this.userID = userID;
         this.projectID = projectID;
         this.projectTitle = projectTitle;
         this.projectDescription = projectDescription;
@@ -31,15 +30,6 @@ public class Project {
         this.hoursPerDay = hoursPerDay;
     }
 
-    public int getUserID()
-    {
-        return userID;
-    }
-
-    public void setUserID(int userID)
-    {
-        this.userID = userID;
-    }
 
     public int getProjectID()
     {

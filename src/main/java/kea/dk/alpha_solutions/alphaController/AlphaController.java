@@ -61,37 +61,33 @@ public class AlphaController
         return "index";
 
     }
-
-
+    @GetMapping("/create")
+    public String createProject(Model model)
+    {
+        return "create";
+    }
 
     @PostMapping("/create")
     public String createProduct(
-            @RequestParam("project-UserID") int newUserID,
-            @RequestParam("project-ProjectID") int newProjectID,
-            @RequestParam("project-ProjectTitle") String newProjectTitle,
-            @RequestParam("project-ProjectDescription") String newDescription,
-            @RequestParam("project-Deadline") int newNrOfHours,
-            @RequestParam("project-NrOfUsers") int newNrOfUsers,
-            @RequestParam("project-ProjectPrice") int newProjectPrice,
-            @RequestParam("project-HoursPrDay") int newHoursPrDay)
-    {
+            @RequestParam("project-title") String projectTitle,
+            @RequestParam("project-description") String projectDescription,
+            @RequestParam("deadline") String deadline,
+            @RequestParam("nr-of-users") int nrOfUsers,
+            @RequestParam("nr-of-hours") int nrOfHours,
+            @RequestParam("project-price") double projectPrice,
+            @RequestParam("hours-per-day") int hoursPerDay) {
 
         Project newProject = new Project();
+        newProject.setProjectTitle(projectTitle);
+        newProject.setProjectDescription(projectDescription);
+        newProject.setDeadline(deadline);
+        newProject.setNrOfUsers(nrOfUsers);
+        newProject.setNrOfHours(nrOfHours);
+        newProject.setProjectPrice(projectPrice);
+        newProject.setHoursPerDay(hoursPerDay);
 
-        newProject.setUserID(newUserID);
-        newProject.setProjectID(newProjectID);
-        newProject.setProjectTitle(newProjectTitle);
-        newProject.setProjectDescription(newDescription);
-        newProject.setNrOfHours(newNrOfHours);
-        newProject.setNrOfHours(newNrOfUsers);
-        newProject.setProjectPrice(newProjectPrice);
-        newProject.setHoursPerDay(newHoursPrDay);
-
-        //gem nyt produkt
-        AlphaRepositoryProject alphaRepositoryProject = new AlphaRepositoryProject();
         alphaRepositoryProject.addProject(newProject);
 
-        //tilbage til index
         return "redirect:/index";
     }
 }

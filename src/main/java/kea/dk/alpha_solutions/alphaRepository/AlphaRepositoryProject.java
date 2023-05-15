@@ -43,7 +43,7 @@ public class AlphaRepositoryProject
                                 int nrOfHours = resultSet.getInt(7);
                                 double projectPrice = resultSet.getDouble(8);
                                 int hoursPerDay = resultSet.getInt(9);
-                                Project project = new Project(userID, projectID, projectTitle, projectDescription,
+                                Project project = new Project(projectID, projectTitle, projectDescription,
                                 deadline, nrOfUsers, nrOfHours, projectPrice, hoursPerDay);
                                 projectList.add(project);
                                 System.out.println(project);
@@ -65,19 +65,18 @@ public class AlphaRepositoryProject
                 try{
                         //connect to db
                         Connection connection = DriverManager.getConnection(DB_URL, UID, PWD);
-                        final String CREATE_QUERY = "INSERT INTO  aplah.project (userID, projectID, projectTitle, description, deadline, nrOfUsers, nrOfHours, projectPrice, hoursPerDay) VALUES  (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                        final String CREATE_QUERY = "INSERT INTO  alpha.project (projectID, projectTitle, projectDescription, deadline, nrOfUsers, nrOfHours, projectPrice, hoursPrDay) VALUES  (?, ?, ?, ?, ?, ?, ?, ?, ?)";
                         PreparedStatement preparedStatement = connection.prepareStatement(CREATE_QUERY);
 
                         //set attributer i prepared statement
-                        preparedStatement.setInt(1, project.getUserID());
-                        preparedStatement.setInt(2, project.getProjectID());
-                        preparedStatement.setString(3, project.getProjectTitle());
-                        preparedStatement.setString(4, project.getProjectDescription());
-                        preparedStatement.setString(5, project.getDeadline());
-                        preparedStatement.setInt(6, project.getNrOfHours());
-                        preparedStatement.setInt(7, project.getNrOfUsers());
-                        preparedStatement.setDouble(8, project.getProjectPrice());
-                        preparedStatement.setInt(9, project.getHoursPerDay());
+                        preparedStatement.setInt(1, project.getProjectID());
+                        preparedStatement.setString(2, project.getProjectTitle());
+                        preparedStatement.setString(3, project.getProjectDescription());
+                        preparedStatement.setString(4, project.getDeadline());
+                        preparedStatement.setInt(5, project.getNrOfHours());
+                        preparedStatement.setInt(6, project.getNrOfUsers());
+                        preparedStatement.setDouble(7, project.getProjectPrice());
+                        preparedStatement.setInt(8, project.getHoursPerDay());
 
                         //execute statement
                         preparedStatement.executeUpdate();
@@ -90,7 +89,7 @@ public class AlphaRepositoryProject
         public void updateProduct(Project project)
         {
                 //SQL statement
-                final String UPDATE_QUERY = "UPDATE  alpha.project SET userID = ?, projectTitle = ?, projectDescription = ?, deadline = ?, nrOfUsers = ?, nrOfHours = ?, projectPrice = ?, HoursPrDay = ?  WHERE projectID = ?,";
+                final String UPDATE_QUERY = "UPDATE  alpha.project SET projectTitle = ?, projectDescription = ?, deadline = ?, nrOfUsers = ?, nrOfHours = ?, projectPrice = ?, HoursPrDay = ?  WHERE projectID = ?";
 
                 try {
                         //connect db
@@ -100,7 +99,6 @@ public class AlphaRepositoryProject
                         PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_QUERY);
 
                         //set parameters
-                        int userID = project.getUserID();
                         int projectID = project.getProjectID();
                         String projectTitle = project.getProjectTitle();
                         String projectDescription = project.getProjectDescription();
@@ -109,14 +107,13 @@ public class AlphaRepositoryProject
                         int nrOfHours = project.getNrOfHours();
                         int hoursPrDay = project.getHoursPerDay();
 
-                        preparedStatement.setInt(1, userID);
-                        preparedStatement.setDouble(2, projectID);
-                        preparedStatement.setString(3, projectTitle);
-                        preparedStatement.setString(4, projectDescription);
-                        preparedStatement.setString(5, deadline);
-                        preparedStatement.setInt(6, nrOfUsers);
-                        preparedStatement.setInt(7, nrOfHours);
-                        preparedStatement.setInt(8, hoursPrDay);
+                        preparedStatement.setDouble(1, projectID);
+                        preparedStatement.setString(2, projectTitle);
+                        preparedStatement.setString(3, projectDescription);
+                        preparedStatement.setString(4, deadline);
+                        preparedStatement.setInt(5, nrOfUsers);
+                        preparedStatement.setInt(6, nrOfHours);
+                        preparedStatement.setInt(7, hoursPrDay);
 
                         //execute statement
                         preparedStatement.executeUpdate();
