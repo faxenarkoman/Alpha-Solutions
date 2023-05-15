@@ -117,4 +117,12 @@ public String createProject(HttpSession session, Model model){
         // Return the name of the HTML template to render
         return "project";
     }
+
+    @GetMapping("project")
+    public String showProject(Model model)
+    {
+        model.addAttribute("alpha", alphaRepositoryProject.getAll());
+        return "project";
+
+    }
 }
