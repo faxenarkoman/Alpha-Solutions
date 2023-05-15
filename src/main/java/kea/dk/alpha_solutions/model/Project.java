@@ -1,9 +1,9 @@
 package kea.dk.alpha_solutions.model;
 
 
-import java.util.List;
-
 public class Project {
+
+    private int userID;
 
     private int projectID;
     private String projectTitle;
@@ -14,15 +14,6 @@ public class Project {
     private double projectPrice;
     private int hoursPerDay;
 
-    public List<User> getUsers() {
-        return users;
-    }
-
-    public void setUsers(List<User> users) {
-        this.users = users;
-    }
-
-    private List<User> users;
 
     public Project()
     {}
@@ -38,6 +29,16 @@ public class Project {
         this.nrOfHours = nrOfHours;
         this.projectPrice = projectPrice;
         this.hoursPerDay = hoursPerDay;
+    }
+
+    public int getUserID()
+    {
+        return userID;
+    }
+
+    public void setUserID(int userID)
+    {
+        this.userID = userID;
     }
 
     public int getProjectID()
@@ -119,14 +120,6 @@ public class Project {
     public void setHoursPerDay(int hoursPerDay)
     {
         this.hoursPerDay = hoursPerDay;
-    }
-
-    public void addUser(User user) {
-        users.add(user);
-    }
-
-    public void removeUser(User user) {
-        users.remove(user);
     }
 
     @Override

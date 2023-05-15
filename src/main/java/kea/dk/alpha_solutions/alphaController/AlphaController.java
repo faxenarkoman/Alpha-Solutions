@@ -66,7 +66,6 @@ public class AlphaController
 
     @PostMapping("/create")
     public String createProduct(
-<<<<<<< Updated upstream
             @RequestParam("project-UserID") int newUserID,
             @RequestParam("project-ProjectID") int newProjectID,
             @RequestParam("project-ProjectTitle") String newProjectTitle,
@@ -75,15 +74,6 @@ public class AlphaController
             @RequestParam("project-NrOfUsers") int newNrOfUsers,
             @RequestParam("project-ProjectPrice") int newProjectPrice,
             @RequestParam("project-HoursPrDay") int newHoursPrDay)
-=======
-            @RequestParam("ProjectTitle") String newProjectTitle,
-            @RequestParam("deadline") String newDeadline,
-            @RequestParam("ProjectDescription") String newDescription,
-            @RequestParam("NrOfHours") int newNrOfHours,
-            @RequestParam("NrOfUsers") int newNrOfUsers,
-            @RequestParam("ProjectPrice") int newProjectPrice,
-            @RequestParam("HoursPrDay") int newHoursPrDay)
->>>>>>> Stashed changes
     {
 
         Project newProject = new Project();
@@ -92,12 +82,10 @@ public class AlphaController
         newProject.setProjectID(newProjectID);
         newProject.setProjectTitle(newProjectTitle);
         newProject.setProjectDescription(newDescription);
-        newProject.setDeadline(newDeadline);
         newProject.setNrOfHours(newNrOfHours);
-        newProject.setNrOfUsers(newNrOfUsers);
+        newProject.setNrOfHours(newNrOfUsers);
         newProject.setProjectPrice(newProjectPrice);
         newProject.setHoursPerDay(newHoursPrDay);
-
 
         //gem nyt produkt
         AlphaRepositoryProject alphaRepositoryProject = new AlphaRepositoryProject();
