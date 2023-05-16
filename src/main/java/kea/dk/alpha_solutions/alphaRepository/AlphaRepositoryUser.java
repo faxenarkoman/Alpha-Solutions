@@ -26,12 +26,13 @@ public class AlphaRepositoryUser {
             final String SQL_QUERY = "SELECT * FROM alpha.user";
             ResultSet resultSet = statement.executeQuery(SQL_QUERY);
             while (resultSet.next()) {
-                String userId = resultSet.getString(1);
+                int userId = resultSet.getInt(1);
                 String mail = resultSet.getString(2);
                 String password = resultSet.getString(3);
-                User user = new User (userId, mail, password);
+                int hourlyWage = resultSet.getInt(4);
+                String name = resultSet.getString(5);
+                User user = new User (userId, mail, password, hourlyWage, name);
                 userList.add(user);
-                System.out.println(mail);
             }
 
         } catch (SQLException e) {
@@ -45,9 +46,6 @@ public class AlphaRepositoryUser {
 
     public User getUserByEmail(String email) {
         User user = null;
-        System.out.println("URL: " + DB_URL);
-        System.out.println("UID: " + UID);
-        System.out.println("PWD: " + PWD);
         try (Connection connection = DriverManager.getConnection(DB_URL, UID, PWD)) {
             PreparedStatement statement = connection.prepareStatement("SELECT * FROM user WHERE email=?");
             statement.setString(1, email);

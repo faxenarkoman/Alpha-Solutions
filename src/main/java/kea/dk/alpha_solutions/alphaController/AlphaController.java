@@ -13,15 +13,18 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.List;
+
 @Controller
 public class AlphaController
 {
-
-    public AlphaController(AlphaRepositoryProject alphaRepositoryProject) {
+    private final AlphaRepositoryProject alphaRepositoryProject;
+    private final AlphaRepositoryUser alphaRepositoryUser;
+    @Autowired
+    public AlphaController(AlphaRepositoryProject alphaRepositoryProject, AlphaRepositoryUser alphaRepositoryUser) {
         this.alphaRepositoryProject = alphaRepositoryProject;
+        this.alphaRepositoryUser = alphaRepositoryUser;
     }
-
-    AlphaRepositoryProject alphaRepositoryProject = new AlphaRepositoryProject();
 
 
     @GetMapping(value ="/")
@@ -30,8 +33,6 @@ public class AlphaController
         return "login";
     }
 
-    @Autowired
-    private AlphaRepositoryUser alphaRepositoryUser;
     @PostMapping("/login")
     public String doLogin(@RequestParam("email") String email, HttpSession session,
                           @RequestParam("password") String password, Model model) {
@@ -64,15 +65,17 @@ public class AlphaController
     @GetMapping("/create")
     public String createProject(Model model)
     {
+        List<User>userList = alphaRepositoryUser.getAll();
+        model.addAttribute("userList", userList);
         return "create";
     }
 
     @PostMapping("/create")
-    public String createProduct(
+    public String createProduct(Model model,
             @RequestParam("project-title") String projectTitle,
             @RequestParam("project-description") String projectDescription,
             @RequestParam("deadline") String deadline,
-            @RequestParam("nr-of-users") int nrOfUsers,
+            @RequestParam("nr-of-users") List<Integer> userId,
             @RequestParam("nr-of-hours") int nrOfHours,
             @RequestParam("project-price") double projectPrice,
             @RequestParam("hours-per-day") int hoursPerDay) {
@@ -81,12 +84,13 @@ public class AlphaController
         newProject.setProjectTitle(projectTitle);
         newProject.setProjectDescription(projectDescription);
         newProject.setDeadline(deadline);
-        newProject.setNrOfUsers(nrOfUsers);
+        newProject.setNrOfUsers(userId.size());
         newProject.setNrOfHours(nrOfHours);
         newProject.setProjectPrice(projectPrice);
         newProject.setHoursPerDay(hoursPerDay);
 
         alphaRepositoryProject.addProject(newProject);
+        model.addAttribute("userList", alphaRepositoryUser.getAll());
 
         return "redirect:/index";
     }

@@ -10,14 +10,17 @@ public class User
 
 
     //Constructor for User
-    public User(int userId, String name, String mail, String password){
+    public User(int userId, String mail, String password, int hourlyWage, String name){
         this.userId = userId;
         this.mail = mail;
         this.password = password;
+        this.name = name;
+        this.hourlyWage = hourlyWage;
     }
 
     public User(String name, String mail, String password) {
         this.mail = mail;
+        this.name = name;
         this.password = password;
     }
 

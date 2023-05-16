@@ -7,29 +7,62 @@
     <link rel="stylesheet" th:href="@{/styles/navbar.css}">
 </head>
 <body>
+<div class="logo">
+    <img class="logo" th:src="@{/images/logo.png}" alt="logo">
+</div>
+<div class="sidebar">
+    <a href="#">Home</a>
+    <a href="#">View Projects</a>
+    <a href="#">View Tasks</a>
+    <a href="#">View Subtasks</a>
+</div>
 <div class="container">
     <h1>Create Project</h1>
+    <br>
     <form action="/create" method="post">
         <label for="project-title">Project Title:</label>
         <input id="project-title" name="project-title" type="text" required>
 
+        <br>
+
+        <label for="user-id">Select User:</label>
+        <select id="user-id" name="user-id" required>
+            <option value="">Select user(s)</option>
+            <option th:each="user : ${userList}" th:value="${user.userId}" th:text="${user.name}"></option>
+        </select>
+
+        <br>
+
         <label for="project-description">Project Description:</label>
+        <br>
         <textarea id="project-description" name="project-description" rows="5" required></textarea>
+
+        <br>
 
         <label for="deadline">Deadline:</label>
         <input id="deadline" name="deadline" type="date" required>
 
+        <br>
+
         <label for="nr-of-users">Number of Users:</label>
         <input id="nr-of-users" name="nr-of-users" type="number" required>
+
+        <br>
 
         <label for="nr-of-hours">Number of Hours:</label>
         <input id="nr-of-hours" name="nr-of-hours" type="number" required>
 
+        <br>
+
         <label for="project-price">Project Price:</label>
         <input id="project-price" name="project-price" type="number" step="0.01" required>
 
+        <br>
+
         <label for="hours-per-day">Hours per Day:</label>
         <input id="hours-per-day" name="hours-per-day" type="number" required>
+
+        <br>
 
         <div class="buttons">
             <input type="submit" value="Create Project">
@@ -39,6 +72,9 @@
         </div>
     </form>
 </div>
+<footer class="footer">
+    <p th:text="'© Code Connoisseurs, Inc. '"></p>
+</footer>
 </body>
 </html>
 
