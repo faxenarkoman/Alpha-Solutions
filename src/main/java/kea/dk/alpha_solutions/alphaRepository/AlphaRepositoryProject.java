@@ -144,6 +144,53 @@ public class AlphaRepositoryProject
                 }
         }
 
+        public Project getProjectByID(int projectID){
+                //SQL-statement
+                final String FIND_QUERY = "SELECT * FROM  alpha.project WHERE projectID = ?";
+                Project project =  new Project();
+                project.setProjectID(projectID);
+                try {
+                        //db connection
+                        Connection connection = DriverManager.getConnection(DB_URL, UID, PWD);
+
+                        //prepared statement
+                        PreparedStatement preparedStatement = connection.prepareStatement(FIND_QUERY);
+
+                        //set parameters
+                        preparedStatement.setInt(1, projectID);
+
+                        //execute statement
+                        ResultSet resultSet = preparedStatement.executeQuery();
+
+                        //få product ud af resultset
+                        resultSet.next();
+                        int userID = resultSet.getInt(2);
+                        String projectTitle = resultSet.getString(3);
+                        String projectDescription = resultSet.getString(4);
+                        String deadline = resultSet.getString(5);
+                        int nrOfUsers = resultSet.getInt(6);
+                        int nrOfHours = resultSet.getInt(7);
+                        double projectPrice = resultSet.getDouble(8);
+                        int hoursPerDay = resultSet.getInt(9);
+
+                        project.setUserID(userID);
+                        project.setProjectTitle(projectTitle);
+                        project.setProjectDescription(projectDescription);
+                        project.setDeadline(deadline);
+                        project.setNrOfUsers(nrOfUsers);
+                        project.setNrOfHours(nrOfHours);
+                        project.setProjectPrice(projectPrice);
+                        project.setHoursPerDay(hoursPerDay);
+
+                } catch (SQLException e){
+                        System.out.println("Could not find product");
+                        e.printStackTrace();
+                }
+                System.out.println(project);
+                //return wish
+                return project;
+        }
+
 }
 
 
