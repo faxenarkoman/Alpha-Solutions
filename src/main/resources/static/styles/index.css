@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 .project-list {
     display: flex;
     flex-direction: column;
@@ -31,8 +31,6 @@
     overflow: hidden;
     text-overflow: ellipsis;
 }
-=======
->>>>>>> 005fa5d970f25f2f32e9fc8b0ee107a9d4562499
 
 .btn {
     display: inline-block;
