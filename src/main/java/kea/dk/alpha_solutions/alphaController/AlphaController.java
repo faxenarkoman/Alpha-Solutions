@@ -60,7 +60,6 @@ public class AlphaController
     {
         model.addAttribute("alpha", alphaRepositoryProject.getAll());
         return "index";
-
     }
     @GetMapping("/create")
     public String createProject(Model model)
@@ -94,4 +93,14 @@ public class AlphaController
 
         return "redirect:/index";
     }
+
+    @GetMapping("/project")
+    public String showProject(Model model)
+    {
+        model.addAttribute("alpha", alphaRepositoryProject.getAll());
+
+        return "project";
+    }
+
+
 }
