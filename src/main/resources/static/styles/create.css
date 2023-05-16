@@ -1,21 +1,4 @@
-.title {
-    text-align: center;
-    margin-top: 14%;
-    ;
-}
 .container {
-<<<<<<< Updated upstream
-    margin-left: 30%;
-}
-.nameOptions{
-    width: 100%;
-}
-select option {
-    display: block;
-}
-=======
-    margin-top: 1%;
+    margin-top: 10%;
     margin-left: 20%;
-    justify-content: center;
 }
->>>>>>> Stashed changes

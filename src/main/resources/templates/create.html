@@ -1,116 +1,67 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Create Project</title>
     <link rel="stylesheet" th:href="@{/styles/create.css}">
     <link rel="stylesheet" th:href="@{/styles/navbar.css}">
-
 </head>
 <body>
 <div class="logo">
     <img class="logo" th:src="@{/images/logo.png}" alt="logo">
 </div>
 <div class="sidebar">
-<<<<<<< Updated upstream
-    <a href="#" class="active">Home</a>
-
-=======
-    <a href="/index">Home</a>
->>>>>>> Stashed changes
+    <a href="#">Home</a>
     <a href="#">View Projects</a>
     <a href="#">View Tasks</a>
     <a href="#">View Subtasks</a>
 </div>
-<h1 class="title">Create Project</h1>
 <div class="container">
+    <h1>Create Project</h1>
     <br>
     <form action="/create" method="post">
-        <label id="personer-tildelt-label">Personer Tildelt</label>
-        <br>
-        <label>
-            <select class="nameOptions" name="name">
-                <option value="">Choose a user</option>
-                <option th:each="user : ${name}" th:value="${name}" th:text="${user}"></option>
-            </select>
-        </label>
+        <label for="project-title">Project Title:</label>
+        <input id="project-title" name="project-title" type="text" required>
 
         <br>
-<<<<<<< Updated upstream
-=======
-        <br>
 
-        <label for="user-id">Assign User(s):</label>
+        <label for="user-id">Select User:</label>
         <select id="user-id" name="user-id" required>
             <option value="">Select user(s)</option>
             <option th:each="user : ${userList}" th:value="${user.userId}" th:text="${user.name}"></option>
         </select>
 
->>>>>>> Stashed changes
-        <br>
         <br>
 
-        <label for="ProjectTitle">Project Title:</label>
-        <br>
-<<<<<<< Updated upstream
-        <input id="ProjectTitle" name="ProjectTitle" type="text" required>
-
-        <br>
-        <br>
-
-        <label for="description">Project Description:</label>
-        <br>
-        <textarea id="description" name="ProjectDescription" rows="5" required></textarea>
-
-        <br>
-        <br>
-=======
+        <label for="project-description">Project Description:</label>
         <br>
         <textarea id="project-description" name="project-description" rows="5" required></textarea>
 
         <br>
-        <br>
->>>>>>> Stashed changes
 
         <label for="deadline">Deadline:</label>
-        <br>
-        <input id="deadline" name="Deadline" type="date" required>
+        <input id="deadline" name="deadline" type="date" required>
 
-        <br>
-<<<<<<< Updated upstream
-=======
         <br>
 
         <label for="nr-of-users">Number of Users:</label>
         <input id="nr-of-users" name="nr-of-users" type="number" required>
 
->>>>>>> Stashed changes
-        <br>
         <br>
 
-        <label for="HoursPrDay">Hours per day:</label>
-        <br>
-        <input id="HoursPrDay" name="HoursPrDay" type="number" required>
+        <label for="nr-of-hours">Number of Hours:</label>
+        <input id="nr-of-hours" name="nr-of-hours" type="number" required>
 
-        <br>
-<<<<<<< Updated upstream
-=======
         <br>
 
         <label for="project-price">Project Price:</label>
         <input id="project-price" name="project-price" type="number" step="0.01" required>
 
->>>>>>> Stashed changes
-        <br>
         <br>
 
-<<<<<<< Updated upstream
-        <button type="submit">Create Project</button>
-=======
         <label for="hours-per-day">Hours per Day:</label>
         <input id="hours-per-day" name="hours-per-day" type="number" required>
 
-        <br>
         <br>
 
         <div class="buttons">
@@ -119,9 +70,11 @@
                <a href="index.html" type="button" onclick="window.location.href='/projects'">Back to Projects </a>
             </button>
         </div>
->>>>>>> Stashed changes
     </form>
 </div>
+<footer class="footer">
+    <p th:text="'© Code Connoisseurs, Inc. '"></p>
+</footer>
 </body>
 </html>
 
