@@ -19,6 +19,9 @@ public class AlphaRepositoryTask
     private String PWD;
 
 
+
+
+
     public List<Task> getAll()
     {
         List<Task> taskList = new ArrayList<>();
@@ -29,13 +32,14 @@ public class AlphaRepositoryTask
             ResultSet resultSet = statement.executeQuery(SQL_QUERY);
             while (resultSet.next()) {
                 int taskId = resultSet.getInt(1);
-                int projectId = resultSet.getInt(2);
-                String name = resultSet.getString(3);
-                String description = resultSet.getString(4);
-                String startDate = resultSet.getString(5);
-                String deadline = resultSet.getString( 6);
-                int hours = resultSet.getInt(7);
-                Task task = new Task(taskId, projectId, name, description, startDate, deadline, hours);
+                String taskName = resultSet.getString(2);
+                int taskNrOfHours = resultSet.getInt(3);
+                int taskNrOfUsers = resultSet.getInt(4);
+                String taskDescription = resultSet.getString(5);
+                String taskDeadline = resultSet.getString(6);
+                int taskHoursPrDay = resultSet.getInt(7);
+
+                Task task = new Task(taskId, taskName, taskNrOfHours, taskNrOfUsers, taskDescription, taskDeadline, taskHoursPrDay);
                 taskList.add(task);
                 System.out.println(task);
             }
@@ -47,25 +51,28 @@ public class AlphaRepositoryTask
 
         return taskList;
     }
+    private int taskId;
+    private String taskName;
+    private int taskNrOfHours;
+    private int taskNrOfUsers;
+    private String taskDescription;
+
+    private String taskDeadline;
+    private int taskHoursPrDay;
 
     public void addTask(Task task){
-        if (task.getName() == null) {
+        if (task.getTaskName() == null) {
             throw new IllegalArgumentException("Project object must have a non-null title attribute");
         }
         try{
             //connect to db
             Connection connection = DriverManager.getConnection(DB_URL, UID, PWD);
-            final String CREATE_QUERY = "INSERT INTO  aplahs.task (taskId, projectId, name, taskDescription, startDate, deadline, hours) VALUES  (?, ?, ?, ?, ?, ?, ?)";
+            final String CREATE_QUERY = "INSERT INTO  aplahs.task (taskId, taskName, taskDescription, taskNrOfUsers, taskNrOfHours, taskDescription, taskDeadline, taskHoursPrDay) VALUES  (?, ?, ?, ?, ?, ?, ?, ?)";
             PreparedStatement preparedStatement = connection.prepareStatement(CREATE_QUERY);
 
             //set attributer i prepared statement
             preparedStatement.setInt(1, task.getTaskId());
-            preparedStatement.setInt(2, task.getProjectId());
-            preparedStatement.setString(3, task.getName());
-            preparedStatement.setString(4, task.getTaskDescription());
-            preparedStatement.setString(5, task.getStartDate());
-            preparedStatement.setString(6, task.getDeadline());
-            preparedStatement.setDouble(7, task.getHours());
+
 
             //execute statement
             preparedStatement.executeUpdate();

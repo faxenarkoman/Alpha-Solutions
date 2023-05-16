@@ -2,26 +2,27 @@ package kea.dk.alpha_solutions.model;
 
 import java.util.ArrayList;
 
-public class Task {
+public class Task
+{
     private int taskId;
-    private int projectId;
-    private String name;
+    private String taskName;
+    private int taskNrOfHours;
+    private int taskNrOfUsers;
     private String taskDescription;
-    private String startDate;
-    private String deadline;
-    private int hours;
-    private ArrayList<Subtask> subtasks = new ArrayList<Subtask>();
+
+    private String taskDeadline;
+    private int taskHoursPrDay;
 
 
-    public Task(int taskId, int projectId, String name, String taskDescription, String startDate, String deadline, int hours)
+    public Task(int taskId, String taskName, int taskNrOfHours, int taskNrOfUsers, String taskDescription, String taskDeadline, int taskHoursPrDay)
     {
         this.taskId = taskId;
-        this.projectId = projectId;
-        this.name = name;
+        this.taskName = taskName;
+        this.taskNrOfHours = taskNrOfHours;
+        this.taskNrOfUsers = taskNrOfUsers;
         this.taskDescription = taskDescription;
-        this.startDate = startDate;
-        this.deadline = deadline;
-        this.hours = hours;
+        this.taskDeadline = taskDeadline;
+        this.taskHoursPrDay = taskHoursPrDay;
     }
 
     public int getTaskId()
@@ -34,24 +35,34 @@ public class Task {
         this.taskId = taskId;
     }
 
-    public int getProjectId()
+    public String getTaskName()
     {
-        return projectId;
+        return taskName;
     }
 
-    public void setProjectId(int projectId)
+    public void setTaskName(String taskName)
     {
-        this.projectId = projectId;
+        this.taskName = taskName;
     }
 
-    public String getName()
+    public int getTaskNrOfHours()
     {
-        return name;
+        return taskNrOfHours;
     }
 
-    public void setName(String name)
+    public void setTaskNrOfHours(int taskNrOfHours)
     {
-        this.name = name;
+        this.taskNrOfHours = taskNrOfHours;
+    }
+
+    public int getTaskNrOfUsers()
+    {
+        return taskNrOfUsers;
+    }
+
+    public void setTaskNrOfUsers(int taskNrOfUsers)
+    {
+        this.taskNrOfUsers = taskNrOfUsers;
     }
 
     public String getTaskDescription()
@@ -64,48 +75,25 @@ public class Task {
         this.taskDescription = taskDescription;
     }
 
-    public String getStartDate()
+    public String getTaskDeadline()
     {
-        return startDate;
+        return taskDeadline;
     }
 
-    public void setStartDate(String startDate)
+    public void setTaskDeadline(String taskDeadline)
     {
-        this.startDate = startDate;
+        this.taskDeadline = taskDeadline;
     }
 
-    public String getDeadline()
+    public int getTaskHoursPrDay()
     {
-        return deadline;
+        return taskHoursPrDay;
     }
 
-    public void setDeadline(String deadline)
+    public void setTaskHoursPrDay(int taskHoursPrDay)
     {
-        this.deadline = deadline;
+        this.taskHoursPrDay = taskHoursPrDay;
     }
 
-    public int getHours()
-    {
-        return hours;
-    }
 
-    public void setHours(int hours)
-    {
-        this.hours = hours;
-    }
-
-    @Override
-    public String toString()
-    {
-        return "Task{" +
-                "taskId=" + taskId +
-                ", projectId=" + projectId +
-                ", name='" + name + '\'' +
-                ", description='" + taskDescription + '\'' +
-                ", startDate='" + startDate + '\'' +
-                ", deadline='" + deadline + '\'' +
-                ", hours=" + hours +
-                ", subtasks=" + subtasks +
-                '}';
-    }
 }
