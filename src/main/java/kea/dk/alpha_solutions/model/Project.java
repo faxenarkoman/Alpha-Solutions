@@ -3,8 +3,6 @@ package kea.dk.alpha_solutions.model;
 
 public class Project {
 
-    private int userID;
-
     private int projectID;
     private String projectTitle;
     private String projectDescription;
