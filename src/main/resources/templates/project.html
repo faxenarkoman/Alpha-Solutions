@@ -28,11 +28,8 @@
     <th> How many is on the project</th>
 
     </thead>
-
+        <div class="content" th:text="${project.getProjectTitle()}"> </div>
     <tbody>
-
-
-
        <td th:text="${project.getProjectTitle()}" ></td>
 
             <td th:text="${project.getProjectDescription()}"></td>
