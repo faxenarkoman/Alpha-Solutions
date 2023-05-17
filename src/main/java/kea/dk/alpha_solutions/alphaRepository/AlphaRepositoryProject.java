@@ -42,7 +42,6 @@ public class AlphaRepositoryProject
                                 Project project = new Project(projectId, projectTitle, projectDescription,
                                 deadline, nrOfUsers, nrOfHours, projectPrice, hoursPerDay);
                                 projectList.add(project);
-                                System.out.println(project);
                         }
 
                 } catch (SQLException e) {
