@@ -142,8 +142,8 @@ public class AlphaRepositoryTask
             e.printStackTrace();
         }
     }
-    
-    public Project getProjectByID(int taskId){
+
+    public Task getTaskByID(int taskId){
         //SQL-statement
         final String FIND_QUERY = "SELECT * FROM  alpha.task WHERE taskId = ?";
         Task task = new Task();
@@ -167,7 +167,7 @@ public class AlphaRepositoryTask
             //få product ud af resultset
             resultSet.next();
             String taskName = resultSet.getString(2);
-            int taskNrOfHours = resultSet.getInt(3;
+            int taskNrOfHours = resultSet.getInt(3);
             int taskNrOfUsers = resultSet.getInt(4);
             String taskDescription = resultSet.getString(5);
             String taskDeadline = resultSet.getString(6);
