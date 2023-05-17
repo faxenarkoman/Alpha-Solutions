@@ -36,10 +36,6 @@ public class AlphaController
     public String doLogin(@RequestParam("email") String email, HttpSession session,
                           @RequestParam("password") String password, Model model) {
         String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt());
-        System.out.println("Email: " + email);
-        System.out.println("Plain password: " + password);
-        System.out.println("Hashed password: " + hashedPassword);
-
         User user = alphaRepositoryUser.getUserByEmail(email);
 
         if (user != null && BCrypt.checkpw(password, user.getPassword())) {
@@ -75,7 +71,7 @@ public class AlphaController
     }
 
     @PostMapping("/create")
-    public String createProduct(Model model,
+    public String createProject(Model model,
             @RequestParam("project-title") String projectTitle,
             @RequestParam("project-description") String projectDescription,
             @RequestParam("deadline") String deadline,
@@ -122,6 +118,33 @@ public class AlphaController
         return "project";
     }
 
+    @GetMapping("/createUser")
+    public String createUser(Model model, HttpSession session)
+    {
+        //if (session.getAttribute("email") == null) {
+        //    return "redirect:/";
+        //}
+        return "createUser";
+    }
+    @PostMapping("/createUser")
+    public String createUser(Model model,
+                @RequestParam("email") String email,
+                @RequestParam("password") String password,
+                @RequestParam("hourlyWage") int hourlyWage,
+                @RequestParam("name") String name)
+                 {
+        String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt());
+        User newUser = new User();
+        newUser.setMail(email);
+        newUser.setPassword(hashedPassword);
+        newUser.setHourlyWage(hourlyWage);
+        newUser.setName(name);
 
+
+        alphaRepositoryUser.addUser(newUser);
+        model.addAttribute("userList", alphaRepositoryUser.getAll());
+
+        return "redirect:/index";
+    }
 
 }

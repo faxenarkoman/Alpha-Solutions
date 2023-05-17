@@ -60,5 +60,30 @@ public class AlphaRepositoryUser {
         }
         return user;
     }
+    public void addUser(User user){
+        if (getUserByEmail(user.getMail()) != null) {
+            throw new IllegalArgumentException("User with the same email already exists");
+        }
+        try{
+            //connect to db
+            Connection connection = DriverManager.getConnection(DB_URL, UID, PWD);
+            final String CREATE_QUERY = "INSERT INTO  alpha.user (id, email, password, hourlyWage, name) VALUES  (?, ?, ?, ?, ?)";
+            PreparedStatement preparedStatement = connection.prepareStatement(CREATE_QUERY);
+
+            //set attributer i prepared statement
+            preparedStatement.setInt(1, user.getUserId());
+            preparedStatement.setString(2, user.getMail());
+            preparedStatement.setString(3, user.getPassword());
+            preparedStatement.setInt(4, user.getHourlyWage());
+            preparedStatement.setString(5, user.getName());
+
+
+            //execute statement
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println("Could not create user");
+            e.printStackTrace();
+        }
+    }
 }
 
