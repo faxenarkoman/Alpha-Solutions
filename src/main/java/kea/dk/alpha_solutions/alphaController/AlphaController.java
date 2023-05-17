@@ -36,10 +36,6 @@ public class AlphaController
     public String doLogin(@RequestParam("email") String email, HttpSession session,
                           @RequestParam("password") String password, Model model) {
         String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt());
-        System.out.println("Email: " + email);
-        System.out.println("Plain password: " + password);
-        System.out.println("Hashed password: " + hashedPassword);
-
         User user = alphaRepositoryUser.getUserByEmail(email);
 
         if (user != null && BCrypt.checkpw(password, user.getPassword())) {
@@ -137,10 +133,10 @@ public class AlphaController
                 @RequestParam("hourlyWage") int hourlyWage,
                 @RequestParam("name") String name)
                  {
-
+        String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt());
         User newUser = new User();
         newUser.setMail(email);
-        newUser.setPassword(password);
+        newUser.setPassword(hashedPassword);
         newUser.setHourlyWage(hourlyWage);
         newUser.setName(name);
 
