@@ -55,14 +55,20 @@ public class AlphaController
     }
 
     @GetMapping("/index")
-    public String showProjectList(Model model)
+    public String showProjectList(Model model, HttpSession session)
     {
+/*        if (session.getAttribute("email") == null) {
+            return "redirect:/";
+        }*/
         model.addAttribute("alpha", alphaRepositoryProject.getAll());
         return "index";
     }
     @GetMapping("/create")
-    public String createProject(Model model)
+    public String createProject(Model model, HttpSession session)
     {
+/*        if (session.getAttribute("email") == null) {
+            return "redirect:/";
+        }*/
         List<User>userList = alphaRepositoryUser.getAll();
         model.addAttribute("userList", userList);
         return "create";
@@ -94,8 +100,11 @@ public class AlphaController
     }
 
     @GetMapping("/project")
-    public String showProject(Model model)
+    public String showProject(Model model, HttpSession session)
     {
+        //if (session.getAttribute("email") == null) {
+        //    return "redirect:/";
+        //}
         model.addAttribute("alpha", alphaRepositoryProject.getAll());
 
         return "project";
