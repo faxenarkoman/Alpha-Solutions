@@ -19,8 +19,6 @@
     <a href="#">View Subtasks</a>
 </div>
 
-<p th:text="${project}">jkdhfkjdfh<</p>
-
 <table>
     <thead>
     <th> Project Title </th>
@@ -32,16 +30,23 @@
     </thead>
 
     <tbody>
-    <tr th:each="alpha : ${alpha}">
 
-        <td th:text="${alpha.projectTitle}"></td>
 
-        <td th:text="${alpha.projectDescription}"></td>
-        <td th:text="${alpha.deadline}" > </td>
-        <td th:text="${alpha.projectPrice}"> </td>
-        <td th:text="${alpha.nrOfUsers}"> </td>
+
+       <td th:text="${project.getProjectTitle()}" ></td>
+
+            <td th:text="${project.getProjectDescription()}"></td>
+
+            <td th:text="${project.getDeadline()}"></td>
+
+            <td th:text="${project.getProjectPrice()}"></td>
+
+            <td th:text="${project.getHoursPerDay()}"></td>
     </tbody>
 </table>
+
+
+
 
 
 </body>
