@@ -17,28 +17,27 @@
     <a href="#">View Projects</a>
     <a href="#">View Tasks</a>
     <a href="#">View Subtasks</a>
+    <a th:if="${isAdmin}" href="#">Admin Panel</a>
 </div>
 <div class="container">
     <table>
         <thead>
+        <tr>
         <th> Name </th>
         <th> Description </th>
         <th> Open Project </th>
-
+        </tr>
         </thead>
 
         <tbody>
 
         <tr th:each="alpha : ${alpha}">
-
             <td th:text="${alpha.projectTitle}"></td>
-
             <td th:text="${alpha.projectDescription}"></td>
-
             <td>
-                <a th:href="@{'/project/' + ${alpha.projectID}}" > Open</a>
-
+                <a th:href="@{'/project/' + ${alpha.projectID}}">Open</a>
             </td>
+        </tr>
 
         </tbody>
 
@@ -48,7 +47,6 @@
     <button>
       <a th:href="@{/create}">Create a new project</a>
 </button>
-</div>
 <footer class="footer">
     <p th:text="'© Code Connoisseurs, Inc. '"></p>
 </footer>

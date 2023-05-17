@@ -53,10 +53,13 @@ public class AlphaController
     @GetMapping("/index")
     public String showProjectList(Model model, HttpSession session)
     {
-/*        if (session.getAttribute("email") == null) {
+        if (session.getAttribute("email") == null) {
             return "redirect:/";
-        }*/
+        }
         model.addAttribute("alpha", alphaRepositoryProject.getAll());
+        String email = (String) session.getAttribute("email");
+        boolean isAdmin = alphaRepositoryUser.isAdmin(email);
+        model.addAttribute("isAdmin", isAdmin);
         return "index";
     }
     @GetMapping("/create")
