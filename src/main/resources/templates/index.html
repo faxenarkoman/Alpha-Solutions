@@ -24,6 +24,7 @@
         <th> Name </th>
         <th> Description </th>
         <th> Open Project </th>
+        <th> Delete Project </th>
 
         </thead>
 
@@ -35,10 +36,12 @@
 
             <td th:text="${alpha.projectDescription}"></td>
 
-            <td>
-                <a th:href="@{'/project/' + ${alpha.projectID}}" > Open</a>
+            <td> <a th:href="@{'/project/' + ${alpha.projectID}}" > Open </a> </td>
 
-            </td>
+            <td> <a th:href="@{'/delete/' + ${alpha.projectID}}" > Delete </a> </td>
+
+        <td> <a th:href="@{'/update/'+ ${alpha.projectID}}" href="update.html"> Update </a> </td>
+
 
         </tbody>
 

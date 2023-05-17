@@ -84,7 +84,7 @@ public class AlphaRepositoryProject
 
 
 
-        public void updateProduct(Project project)
+        public void updateProject(Project project)
         {
                 //SQL statement
                 final String UPDATE_QUERY = "UPDATE  alpha.project SET projectTitle = ?, projectDescription = ?, deadline = ?, nrOfUsers = ?, nrOfHours = ?, projectPrice = ?, HoursPrDay = ?  WHERE projectID = ?";
