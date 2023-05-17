@@ -13,7 +13,6 @@
 </div>
 <div class="sidebar">
     <a href="#" class="active">Home</a>
-
     <a href="#">View Projects</a>
     <a href="#">View Tasks</a>
     <a href="#">View Subtasks</a>
@@ -21,36 +20,28 @@
 
 <table>
     <thead>
-    <th> Project Title </th>
-    <th> Project Description </th>
-    <th> Nr of days to deadline </th>
-    <th> Project Price </th>
-    <th> How many is on the project</th>
-
+    <tr>
+        <th> Project Title </th>
+        <th> Project Description </th>
+        <th> Nr of days to deadline </th>
+        <th> Project Price </th>
+        <th> How many are on the project </th>
+    </tr>
     </thead>
-        <div class="content" th:text="${project.getProjectTitle()}"> </div>
     <tbody>
-       <td th:text="${project.getProjectTitle()}" ></td>
-
-            <td th:text="${project.getProjectDescription()}"></td>
-
-            <td th:text="${project.getDeadline()}"></td>
-
-            <td th:text="${project.getProjectPrice()}"></td>
-
-            <td th:text="${project.getHoursPerDay()}"></td>
+    <tr>
+        <td th:text="${project.getProjectTitle()}"></td>
+        <td th:text="${project.getProjectDescription()}"></td>
+        <td th:text="${project.getDeadline()}"></td>
+        <td th:text="${project.getProjectPrice()}"></td>
+        <td th:text="${project.getHoursPerDay()}"></td>
+    </tr>
     </tbody>
 </table>
-
-
-
-
-
-</body>
 
 <footer class="footer">
     <p th:text="'© Code Connoisseurs, Inc. '"></p>
 </footer>
 
-
+</body>
 </html>

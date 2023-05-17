@@ -10,8 +10,6 @@ import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
 import java.util.List;
 
 @Controller
@@ -35,16 +33,16 @@ public class AlphaController
     @PostMapping("/login")
     public String doLogin(@RequestParam("email") String email, HttpSession session,
                           @RequestParam("password") String password, Model model) {
-        String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt());
+        // Retrieve user by email from the repository
         User user = alphaRepositoryUser.getUserByEmail(email);
-
         if (user != null && BCrypt.checkpw(password, user.getPassword())) {
             // If user exists and password matches, set attributes in session
             session.setAttribute("email", email);
-            session.setAttribute("password", user.getPassword()); // Store hashed password in session
+            // Store hashed password in session
+            session.setAttribute("password", user.getPassword());
             return "redirect:/index";
         } else {
-            // If user does not exist or password does not match, return to login page with error message
+            // If user does not exist or match, return to login page with error message
             model.addAttribute("error", "Invalid email or password");
             return "login";
         }
@@ -53,9 +51,9 @@ public class AlphaController
     @GetMapping("/index")
     public String showProjectList(Model model, HttpSession session)
     {
-        if (session.getAttribute("email") == null) {
+       /* if (session.getAttribute("email") == null) {
             return "redirect:/";
-        }
+        }*/
         model.addAttribute("alpha", alphaRepositoryProject.getAll());
         String email = (String) session.getAttribute("email");
         boolean isAdmin = alphaRepositoryUser.isAdmin(email);
