@@ -151,7 +151,26 @@ public class AlphaController
     }
 
 
+    @GetMapping("/delete/{projectID}")
+    public String deleteProject(@PathVariable int projectID)
+    {
+        alphaRepositoryProject.deleteByProjectID(projectID);
 
+        return "redirect:/index";
+    }
 
+    @PostMapping("/update/{projectID}")
+    public String updateProject(@RequestParam("projectTitle") String projectTitle,
+                                @RequestParam("projectDescription") String projectDescription,
+                                @RequestParam("deadline") String deadline,
+                                @RequestParam("nrOfUsers") int nrOfUsers,
+                                @RequestParam("nrOfHours") int nrOfHours,
+                                @RequestParam("HoursPerDay") int hoursPerDay,
+                                @PathVariable("projectID") int projectID)
+    {
+        //Project updateProject = new Project(projectTitle, projectDescription, deadline, nrOfUsers, nrOfHours, hoursPerDay, projectID);
+        //alphaRepositoryProject.updateProject(updateProject);
 
+        return "redirect:/index";
+    }
 }
