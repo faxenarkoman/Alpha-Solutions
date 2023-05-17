@@ -75,7 +75,7 @@ public class AlphaController
     }
 
     @PostMapping("/create")
-    public String createProduct(Model model,
+    public String createProject(Model model,
             @RequestParam("project-title") String projectTitle,
             @RequestParam("project-description") String projectDescription,
             @RequestParam("deadline") String deadline,
@@ -122,6 +122,33 @@ public class AlphaController
         return "redirect:/project";
     }
 
+    @GetMapping("/createUser")
+    public String createUser(Model model, HttpSession session)
+    {
+        //if (session.getAttribute("email") == null) {
+        //    return "redirect:/";
+        //}
+        return "createUser";
+    }
+    @PostMapping("/createUser")
+    public String createUser(Model model,
+                @RequestParam("email") String email,
+                @RequestParam("password") String password,
+                @RequestParam("hourlyWage") int hourlyWage,
+                @RequestParam("name") String name)
+                 {
 
+        User newUser = new User();
+        newUser.setMail(email);
+        newUser.setPassword(password);
+        newUser.setHourlyWage(hourlyWage);
+        newUser.setName(name);
+
+
+        alphaRepositoryUser.addUser(newUser);
+        model.addAttribute("userList", alphaRepositoryUser.getAll());
+
+        return "redirect:/index";
+    }
 
 }

@@ -17,7 +17,12 @@ public class User
         this.name = name;
         this.hourlyWage = hourlyWage;
     }
-
+    public User(){
+        this.mail = mail;
+        this.password = password;
+        this.name = name;
+        this.hourlyWage = hourlyWage;
+    }
     public User(String name, String mail, String password) {
         this.mail = mail;
         this.name = name;

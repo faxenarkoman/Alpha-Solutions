@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Create Project</title>
+  <link rel="stylesheet" th:href="@{/styles/create.css}">
+  <link rel="stylesheet" th:href="@{/styles/navbar.css}">
+</head>
+<body>
+<div class="logo">
+  <img class="logo" th:src="@{/images/logo.png}" alt="logo">
+</div>
+<div class="sidebar">
+  <a th:href="@{/index}">Home</a>
+  <a th:href="@{/project}">View Projects</a>
+  <a th:href="@{/task}">View Tasks</a>
+  <a th:href="@{/subtask}">View Subtasks</a>
+</div>
+<h1 class="title">Create User</h1>
+<div class="container">
+  <br>
+  <form action="/createUser" method="post">
+    <label for="email">Users Email:</label>
+    <input id="email" name="email" type="text" required>
+
+    <br>
+
+    <label for="password">Users Password:</label>
+    <input id="password" name="password" type="password" required>
+
+    <label for="hourlyWage">Users Hourly Wage:</label>
+    <input id="hourlyWage" name="hourlyWage" type="number" required>
+
+    <br>
+
+    <label for="name">Users Name:</label>
+    <input id="name" name="name" type="text" required>
+
+
+    <div class="buttons">
+      <input type="submit" value="Create User">
+      <button type="submit">Gå tilbage til Hjem</button>
+
+    </div>
+  </form>
+</div>
+<footer class="footer">
+  <p th:text="'© Code Connoisseurs, Inc. '"></p>
+</footer>
+</body>
+</html>
+
+
