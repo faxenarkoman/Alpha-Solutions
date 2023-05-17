@@ -28,7 +28,7 @@
         <label for="user-id">Select User:</label>
         <select id="user-id" name="user-id" required>
             <option value="">Select user(s)</option>
-            <option th:each="user : ${userList}" th:value="${user.userId}" th:text="${user.name}"></option>
+            <option th:each="user : ${userList}" th:text="${user.name}"></option>
         </select>
 
         <br>
