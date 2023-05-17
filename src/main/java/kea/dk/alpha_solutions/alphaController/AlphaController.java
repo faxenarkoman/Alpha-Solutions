@@ -9,9 +9,8 @@ import kea.dk.alpha_solutions.model.User;
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
@@ -101,6 +100,19 @@ public class AlphaController
 
         return "project";
     }
+
+    @GetMapping("/open/{projectID}")
+    public String openProject(@PathVariable("projectID") int projectID, Model model) {
+        // Retrieve the project data based on the projectID
+        Project project = alphaRepositoryProject.getProjectByID(projectID);
+
+        // Add project data to model
+        model.addAttribute("projectTest", project);
+
+        // Return the name of the HTML template to render
+        return "redirect:/project";
+    }
+
 
 
 }
