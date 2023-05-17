@@ -25,6 +25,9 @@ public class Task
         this.taskHoursPrDay = taskHoursPrDay;
     }
 
+    public Task()
+    {}
+
     public int getTaskId()
     {
         return taskId;
