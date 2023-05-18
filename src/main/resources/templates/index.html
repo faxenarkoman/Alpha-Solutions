@@ -16,7 +16,7 @@
     <a href="#">View Projects</a>
     <a href="#">View Tasks</a>
     <a href="#">View Subtasks</a>
-    <a th:if="${isAdmin}" href="#">Admin Panel</a>
+    <a th:if="${isAdmin}" th:href="@{/adminPanel}">Admin Panel</a>
 </div>
 <div class="container">
     <table>

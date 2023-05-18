@@ -128,11 +128,12 @@ public class AlphaController
         return "createUser";
     }
     @PostMapping("/createUser")
-    public String createUser(Model model,
+    public String createUser(Model model, HttpSession session,
                 @RequestParam("email") String email,
                 @RequestParam("password") String password,
                 @RequestParam("hourlyWage") int hourlyWage,
-                @RequestParam("name") String name)
+                @RequestParam("name") String name,
+                @RequestParam(value = "admin", defaultValue = "false") boolean admin)
                  {
         String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt());
         User newUser = new User();
@@ -140,10 +141,13 @@ public class AlphaController
         newUser.setPassword(hashedPassword);
         newUser.setHourlyWage(hourlyWage);
         newUser.setName(name);
+        newUser.setAdmin(admin);
 
 
         alphaRepositoryUser.addUser(newUser);
         model.addAttribute("userList", alphaRepositoryUser.getAll());
+        boolean isAdmin = alphaRepositoryUser.isAdmin(email);
+        model.addAttribute("isAdmin", isAdmin);
 
         return "redirect:/index";
     }
@@ -170,5 +174,16 @@ public class AlphaController
         //alphaRepositoryProject.updateProject(updateProject);
 
         return "redirect:/index";
+    }
+    @GetMapping("/adminPanel")
+    public String admin(Model model, HttpSession session)
+    {
+        //if (session.getAttribute("email") == null) {
+        //    return "redirect:/";
+        //}
+        String email = (String) session.getAttribute("email");
+        boolean isAdmin = alphaRepositoryUser.isAdmin(email);
+        model.addAttribute("isAdmin", isAdmin);
+        return "adminPanel";
     }
 }

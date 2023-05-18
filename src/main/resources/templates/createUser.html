@@ -2,8 +2,8 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
-  <title>Create Project</title>
-  <link rel="stylesheet" th:href="@{/styles/create.css}">
+  <title>Create User</title>
+  <link rel="stylesheet" th:href="@{/styles/createUser.css}">
   <link rel="stylesheet" th:href="@{/styles/navbar.css}">
 </head>
 <body>
@@ -20,27 +20,52 @@
 <div class="container">
   <br>
   <form action="/createUser" method="post">
-    <label for="email">Users Email:</label>
-    <input id="email" name="email" type="text" required>
-
-    <br>
-
-    <label for="password">Users Password:</label>
-    <input id="password" name="password" type="password" required>
-
-    <label for="hourlyWage">Users Hourly Wage:</label>
-    <input id="hourlyWage" name="hourlyWage" type="number" required>
-
-    <br>
-
-    <label for="name">Users Name:</label>
-    <input id="name" name="name" type="text" required>
-
+    <table>
+      <tr>
+        <td>
+          <label for="email">User's Email:</label>
+        </td>
+        <td>
+          <input id="email" name="email" type="text" required>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <label for="password">User's Password:</label>
+        </td>
+        <td>
+          <input id="password" name="password" type="password" required>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <label for="hourlyWage">User's Hourly Wage:</label>
+        </td>
+        <td>
+          <input id="hourlyWage" name="hourlyWage" type="number" required>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <label for="name">User's Name:</label>
+        </td>
+        <td>
+          <input id="name" name="name" type="text" required>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <label for="admin">Admin:</label>
+        </td>
+        <td>
+          <input id="admin" name="admin" type="checkbox" value="true">
+        </td>
+      </tr>
+    </table>
 
     <div class="buttons">
       <input type="submit" value="Create User">
-      <button type="submit">Gå tilbage til Hjem</button>
-
+      <button type="button" onclick="window.location.href='/index'">Go back to Home</button>
     </div>
   </form>
 </div>
@@ -49,5 +74,3 @@
 </footer>
 </body>
 </html>
-
-
