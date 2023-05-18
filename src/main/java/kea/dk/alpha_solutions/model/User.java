@@ -7,6 +7,7 @@ public class User
     private String password;
     private String mail;
     private String name;
+    private boolean admin;
 
 
     //Constructor for User
@@ -17,16 +18,22 @@ public class User
         this.name = name;
         this.hourlyWage = hourlyWage;
     }
-    public User(){
+    public User(String mail, String password, String name, int hourlyWage){
         this.mail = mail;
         this.password = password;
         this.name = name;
         this.hourlyWage = hourlyWage;
     }
-    public User(String name, String mail, String password) {
+    public User() {
         this.mail = mail;
         this.name = name;
         this.password = password;
+    }
+
+    public User(int userId, String email, String passwordHash) {
+        this.userId = userId;
+        this.mail = email;
+        this.password = passwordHash;
     }
 
     //Getters and setters
@@ -68,4 +75,13 @@ public class User
     public void setName(String name) {
         this.name = name;
     }
+
+    public boolean isAdmin() {
+        return admin;
+    }
+
+    public void setAdmin(boolean isAdmin) {
+        this.admin = isAdmin;
+    }
+
 }

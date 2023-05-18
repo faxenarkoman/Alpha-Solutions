@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Opdater produkt</title>
+    <link rel="stylesheet" th:href="@{/static/create.css}">
+</head>
+<body>
+<div class="container">
+    <h1>Opdater eksisterende produkt</h1>
+    <form action="/update" method="post">
+        <input id="id-field" name="id" type="hidden" th:value="${alpha.projectID}">
+
+        <label for="name-field">Produkt navn:</label>
+        <input id="name-field" name="name" type="text" th:value="${alpha.projectTitle}">
+
+        <label for="price-field">Produkt pris:</label>
+        <input id="price-field" name="price" type="number" th:value="${alpha.projectDescription}">
+
+        <label for="url">Produkt URL</label>
+        <input id="url" name="url" type="url" th:value="${alpha.deadline}">
+
+        <div class = "knapper">
+            <input type="submit" value="Opret produkt">
+            <button type="submit">Gå tilbage til Ønskeliste</button>
+        </div>
+    </form>
+
+</div>
+</body>
+</html>

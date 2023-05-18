@@ -14,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collections;
+
 import java.util.List;
 import java.util.Set;
 
@@ -26,7 +27,7 @@ public class AlphaController
     private final AlphaRepositoryTask alphaRepositoryTask;
 
     @Autowired
-    public AlphaController(AlphaRepositoryProject alphaRepositoryProject, AlphaRepositoryUser alphaRepositoryUser, AlphaRepositoryTask alphaRepositoryTask) {
+    public AlphaController(AlphaRepositoryProject alphaRepositoryProject, AlphaRepositoryUser alphaRepositoryUser, AlphaRepositoryTask, alphaRepositoryTask) {
         this.alphaRepositoryProject = alphaRepositoryProject;
         this.alphaRepositoryUser = alphaRepositoryUser;
         this.alphaRepositoryTask = alphaRepositoryTask;
@@ -42,16 +43,16 @@ public class AlphaController
     @PostMapping("/login")
     public String doLogin(@RequestParam("email") String email, HttpSession session,
                           @RequestParam("password") String password, Model model) {
-        String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt());
+        // Retrieve user by email from the repository
         User user = alphaRepositoryUser.getUserByEmail(email);
-
         if (user != null && BCrypt.checkpw(password, user.getPassword())) {
             // If user exists and password matches, set attributes in session
             session.setAttribute("email", email);
-            session.setAttribute("password", user.getPassword()); // Store hashed password in session
+            // Store hashed password in session
+            session.setAttribute("password", user.getPassword());
             return "redirect:/index";
         } else {
-            // If user does not exist or password does not match, return to login page with error message
+            // If user does not exist or match, return to login page with error message
             model.addAttribute("error", "Invalid email or password");
             return "login";
         }
@@ -60,10 +61,13 @@ public class AlphaController
     @GetMapping("/index")
     public String showProjectList(Model model, HttpSession session)
     {
-/*        if (session.getAttribute("email") == null) {
+       /* if (session.getAttribute("email") == null) {
             return "redirect:/";
         }*/
         model.addAttribute("alpha", alphaRepositoryProject.getAll());
+        String email = (String) session.getAttribute("email");
+        boolean isAdmin = alphaRepositoryUser.isAdmin(email);
+        model.addAttribute("isAdmin", isAdmin);
         return "index";
     }
     @GetMapping("/create")
@@ -168,6 +172,31 @@ public class AlphaController
 
         alphaRepositoryUser.addUser(newUser);
         model.addAttribute("userList", alphaRepositoryUser.getAll());
+
+        return "redirect:/index";
+    }
+
+
+
+    @GetMapping("/delete/{projectID}")
+    public String deleteProject(@PathVariable int projectID)
+    {
+        alphaRepositoryProject.deleteByProjectID(projectID);
+
+        return "redirect:/index";
+    }
+
+    @PostMapping("/update/{projectID}")
+    public String updateProject(@RequestParam("projectTitle") String projectTitle,
+                                @RequestParam("projectDescription") String projectDescription,
+                                @RequestParam("deadline") String deadline,
+                                @RequestParam("nrOfUsers") int nrOfUsers,
+                                @RequestParam("nrOfHours") int nrOfHours,
+                                @RequestParam("HoursPerDay") int hoursPerDay,
+                                @PathVariable("projectID") int projectID)
+    {
+        //Project updateProject = new Project(projectTitle, projectDescription, deadline, nrOfUsers, nrOfHours, hoursPerDay, projectID);
+        //alphaRepositoryProject.updateProject(updateProject);
 
         return "redirect:/index";
     }

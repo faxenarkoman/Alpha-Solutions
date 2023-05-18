@@ -51,7 +51,7 @@ public class AlphaRepositoryUser {
             statement.setString(1, email);
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
-                String userId = resultSet.getString("id");
+                int userId = resultSet.getInt("id");
                 String passwordHash = resultSet.getString("password");
                 user = new User(userId, email, passwordHash);
             }
@@ -85,5 +85,30 @@ public class AlphaRepositoryUser {
             e.printStackTrace();
         }
     }
+    public boolean isAdmin(String email) {
+        boolean isAdmin = false;
+        try (Connection connection = DriverManager.getConnection(DB_URL, UID, PWD)) {
+            // Prepare the SQL query with a placeholder for the email parameter
+            PreparedStatement statement = connection.prepareStatement("SELECT admin FROM user WHERE email=?");
+            // Set the email parameter value in the query
+            statement.setString(1, email);
+
+            // Execute the query and retrieve the result set
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                // Retrieve the admin value from the result set
+                int adminValue = resultSet.getInt("admin");
+
+                // Check if the admin value is 1/true to determine the admin status
+                isAdmin = (adminValue == 1);
+            }
+        } catch (SQLException e) {
+            System.out.println("Could not determine admin status");
+            e.printStackTrace();
+        }
+        return isAdmin;
+    }
+
+
 }
 
