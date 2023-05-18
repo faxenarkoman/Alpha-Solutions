@@ -186,4 +186,26 @@ public class AlphaController
         model.addAttribute("isAdmin", isAdmin);
         return "adminPanel";
     }
+    @GetMapping("/deleteUser")
+    public String deleteUser(Model model, HttpSession session)
+    {
+        //if (session.getAttribute("email") == null) {
+        //    return "redirect:/";
+        //}
+        model.addAttribute("userList", alphaRepositoryUser.getAll());
+        String email = (String) session.getAttribute("email");
+        boolean isAdmin = alphaRepositoryUser.isAdmin(email);
+        model.addAttribute("isAdmin",isAdmin);
+        return "deleteUser";
+    }
+    @PostMapping("/deleteUser")
+    public String deleteUser(Model model, HttpSession session,
+                             @RequestParam("email") String email)
+    {
+        alphaRepositoryUser.deleteById(email);
+        model.addAttribute("userList", alphaRepositoryUser.getAll());
+        boolean isAdmin = alphaRepositoryUser.isAdmin(email);
+        model.addAttribute("isAdmin",isAdmin);
+        return "redirect:/index";
+    }
 }

@@ -109,7 +109,28 @@ public class AlphaRepositoryUser {
         }
         return isAdmin;
     }
+    public void deleteById(String email){
+        //SQL-query
+        final String DELETE_QUERY = "DELETE FROM  alpha.user WHERE email=?";
 
+        try {
+            //connect til db
+            Connection connection = DriverManager.getConnection(DB_URL, UID, PWD);
+
+            //create statement
+            PreparedStatement preparedStatement = connection.prepareStatement(DELETE_QUERY);
+
+            //set parameter
+            preparedStatement.setString(1, email);
+
+            //execute statement
+            preparedStatement.executeUpdate();
+
+        } catch (SQLException e){
+            System.out.println("Could not delete User");
+            e.printStackTrace();
+        }
+    }
 
 }
 
