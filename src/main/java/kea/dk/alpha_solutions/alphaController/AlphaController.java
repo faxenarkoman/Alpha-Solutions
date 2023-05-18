@@ -1,7 +1,9 @@
 package kea.dk.alpha_solutions.alphaController;
 
 import kea.dk.alpha_solutions.alphaRepository.AlphaRepositoryProject;
+import kea.dk.alpha_solutions.alphaRepository.AlphaRepositoryTask;
 import kea.dk.alpha_solutions.model.Project;
+import kea.dk.alpha_solutions.model.Task;
 import org.springframework.ui.Model;
 import jakarta.servlet.http.HttpSession;
 import kea.dk.alpha_solutions.alphaRepository.AlphaRepositoryUser;
@@ -10,19 +12,24 @@ import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.Collections;
 import java.util.List;
+import java.util.Set;
 
 @Controller
 public class AlphaController
 {
     private final AlphaRepositoryProject alphaRepositoryProject;
     private final AlphaRepositoryUser alphaRepositoryUser;
+
+    private final AlphaRepositoryTask alphaRepositoryTask;
+
     @Autowired
-    public AlphaController(AlphaRepositoryProject alphaRepositoryProject, AlphaRepositoryUser alphaRepositoryUser) {
+    public AlphaController(AlphaRepositoryProject alphaRepositoryProject, AlphaRepositoryUser alphaRepositoryUser, AlphaRepositoryTask alphaRepositoryTask) {
         this.alphaRepositoryProject = alphaRepositoryProject;
         this.alphaRepositoryUser = alphaRepositoryUser;
+        this.alphaRepositoryTask = alphaRepositoryTask;
     }
 
 
@@ -70,6 +77,9 @@ public class AlphaController
         return "create";
     }
 
+    @GetMapping("showTask")
+
+
     @PostMapping("/create")
     public String createProject(Model model,
             @RequestParam("project-title") String projectTitle,
@@ -98,9 +108,6 @@ public class AlphaController
     @GetMapping("/project")
     public String showProject(Model model, HttpSession session)
     {
-        //if (session.getAttribute("email") == null) {
-        //    return "redirect:/";
-        //}
         model.addAttribute("alpha", alphaRepositoryProject.getAll());
 
         return "project";
@@ -111,12 +118,30 @@ public class AlphaController
         // Retrieve the project data based on the projectID
         Project project = alphaRepositoryProject.getProjectByID(projectID);
 
+
         // Add project data to model
         model.addAttribute("project", project);
+
 
         // Return the name of the HTML template to render
         return "project";
     }
+
+    @GetMapping("/projects/{projectId}/tasks")
+    public Set<Task> getTasksForProject(@PathVariable int projectId) {
+
+        // Retrieve the project with the given projectId from the database
+       Project project = alphaRepositoryProject.getProjectByID(projectId);
+
+        if (project != null) {
+            // Return the tasks associated with the project
+            return project.getTasks();
+        } else {
+            // Handle case when project is not found
+            return Collections.emptySet();
+        }
+    }
+
 
     @GetMapping("/createUser")
     public String createUser(Model model, HttpSession session)
@@ -146,9 +171,4 @@ public class AlphaController
 
         return "redirect:/index";
     }
-
-
-
-
-
 }

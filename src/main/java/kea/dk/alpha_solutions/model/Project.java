@@ -1,6 +1,9 @@
 package kea.dk.alpha_solutions.model;
 
 
+import java.util.HashSet;
+import java.util.Set;
+
 public class Project {
 
     private int projectID;
@@ -12,6 +15,29 @@ public class Project {
     private double projectPrice;
     private int hoursPerDay;
 
+
+    private Set<Task> tasks = new HashSet<>();
+
+    public Set<Task> getTasks()
+    {
+        return tasks;
+    }
+
+    public void setTasks(Set<Task> tasks)
+    {
+        this.tasks = tasks;
+    }
+
+    public void addTask(Task task) {
+        tasks.add(task);
+        task.getProjects().add(this);
+    }
+
+    // Remove a task from the project
+    public void removeTask(Task task) {
+        tasks.remove(task);
+        task.getProjects().remove(this);
+    }
 
     public Project()
     {}
@@ -124,4 +150,5 @@ public class Project {
                 ", hoursPerDay=" + hoursPerDay +
                 '}';
     }
+
 }

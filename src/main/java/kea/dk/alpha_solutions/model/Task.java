@@ -1,6 +1,9 @@
 package kea.dk.alpha_solutions.model;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 
 public class Task
 {
@@ -8,10 +11,14 @@ public class Task
     private String taskName;
     private int taskNrOfHours;
     private int taskNrOfUsers;
-    private String taskDescription;
+     private String taskDescription;
 
     private String taskDeadline;
     private int taskHoursPrDay;
+
+
+    private Set<Project> projects = new HashSet<>();
+
 
 
     public Task(int taskId, String taskName, int taskNrOfHours, int taskNrOfUsers, String taskDescription, String taskDeadline, int taskHoursPrDay)
@@ -23,6 +30,15 @@ public class Task
         this.taskDescription = taskDescription;
         this.taskDeadline = taskDeadline;
         this.taskHoursPrDay = taskHoursPrDay;
+    }
+
+    public Set<Project> getProjects() {
+        return projects;
+    }
+
+    public void setProjects(Set<Project> projects)
+    {
+        this.projects = projects;
     }
 
     public Task()
@@ -97,6 +113,5 @@ public class Task
     {
         this.taskHoursPrDay = taskHoursPrDay;
     }
-
 
 }

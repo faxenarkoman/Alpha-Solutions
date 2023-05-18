@@ -22,7 +22,7 @@ public class AlphaRepositoryTask
 
 
 
-    public List<Task> getAll()
+    public List<Task> getAllTasks()
     {
         List<Task> taskList = new ArrayList<>();
         try {
@@ -51,14 +51,6 @@ public class AlphaRepositoryTask
 
         return taskList;
     }
-    private int taskId;
-    private String taskName;
-    private int taskNrOfHours;
-    private int taskNrOfUsers;
-    private String taskDescription;
-
-    private String taskDeadline;
-    private int taskHoursPrDay;
 
     public void addTask(Task task){
         if (task.getTaskName() == null) {

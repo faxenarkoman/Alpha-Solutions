@@ -1,7 +1,7 @@
 table {
     margin-left: 25%;
     margin-right: 5%;
-    margin-top: 25%;
+    margin-top: 15%;
     border: 1px solid black;
     border-collapse: collapse;
     text-align: center;
@@ -11,6 +11,10 @@ table {
 th, td {
     border: 1px solid black;
     padding: 8px;
+}
+
+th {
+    background-color: #f2f2f2;
 }
 
 
