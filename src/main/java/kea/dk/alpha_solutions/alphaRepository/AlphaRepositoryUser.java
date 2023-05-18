@@ -67,7 +67,7 @@ public class AlphaRepositoryUser {
         try{
             //connect to db
             Connection connection = DriverManager.getConnection(DB_URL, UID, PWD);
-            final String CREATE_QUERY = "INSERT INTO  alpha.user (id, email, password, hourlyWage, name) VALUES  (?, ?, ?, ?, ?)";
+            final String CREATE_QUERY = "INSERT INTO  alpha.user (id, email, password, hourlyWage, name, admin) VALUES  (?, ?, ?, ?, ?, ?)";
             PreparedStatement preparedStatement = connection.prepareStatement(CREATE_QUERY);
 
             //set attributer i prepared statement
@@ -76,6 +76,7 @@ public class AlphaRepositoryUser {
             preparedStatement.setString(3, user.getPassword());
             preparedStatement.setInt(4, user.getHourlyWage());
             preparedStatement.setString(5, user.getName());
+            preparedStatement.setBoolean(6, user.isAdmin());
 
 
             //execute statement
