@@ -157,18 +157,32 @@ public class AlphaController
         return "redirect:/index";
     }
 
+    @GetMapping("/update/{id}")
+    public String showUpdate(@PathVariable("id") int updateId, Model model) {
+        // find produkt med id=updateId i databasen
+        Project updateProject = alphaRepositoryProject.getProjectByID(updateId);
+
+        // tilføj produkt til viewmodel, så det kan bruges i Thymeleaf
+        model.addAttribute("wish", updateProject);
+        // fortæl Spring hvilken HTML side, der skal vises
+        return "update";
+    }
+
     @PostMapping("/update/{projectID}")
-    public String updateProject(@RequestParam("projectTitle") String projectTitle,
-                                @RequestParam("projectDescription") String projectDescription,
-                                @RequestParam("deadline") String deadline,
-                                @RequestParam("nrOfUsers") int nrOfUsers,
-                                @RequestParam("nrOfHours") int nrOfHours,
-                                @RequestParam("HoursPerDay") int hoursPerDay,
-                                @PathVariable("projectID") int projectID)
+    public String updateProjectById(@PathVariable ("projectID") int projectID,
+            @RequestParam("projectTitle") String projectTitle,
+            @RequestParam("projectDescription") String projectDescription,
+            @RequestParam("deadline") String deadline,
+            @RequestParam("nrOfUsers") int nrOfUsers,
+            @RequestParam("nrOfHours") int nrOfHours,
+            @RequestParam("projectPrice") double projectPrice,
+            @RequestParam("HoursPerDay") int hoursPerDay)
+
     {
-        //Project updateProject = new Project(projectTitle, projectDescription, deadline, nrOfUsers, nrOfHours, hoursPerDay, projectID);
-        //alphaRepositoryProject.updateProject(updateProject);
+        Project updateProject = new Project(projectID, projectTitle, projectDescription, deadline, nrOfUsers, nrOfHours,projectPrice, hoursPerDay);
+        alphaRepositoryProject.updateProject(updateProject);
 
         return "redirect:/index";
     }
+
 }
