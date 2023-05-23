@@ -104,14 +104,16 @@ public class AlphaRepositoryProject
                         int nrOfUsers = project.getNrOfUsers();
                         int nrOfHours = project.getNrOfHours();
                         int hoursPrDay = project.getHoursPerDay();
+                        double projectPrice = project.getProjectPrice();
 
-                        preparedStatement.setDouble(1, projectID);
-                        preparedStatement.setString(2, projectTitle);
-                        preparedStatement.setString(3, projectDescription);
-                        preparedStatement.setString(4, deadline);
-                        preparedStatement.setInt(5, nrOfUsers);
-                        preparedStatement.setInt(6, nrOfHours);
+                        preparedStatement.setString(1, projectTitle);
+                        preparedStatement.setString(2, projectDescription);
+                        preparedStatement.setString(3, deadline);
+                        preparedStatement.setInt(4, nrOfUsers);
+                        preparedStatement.setInt(5, nrOfHours);
+                        preparedStatement.setDouble(6, projectPrice);
                         preparedStatement.setInt(7, hoursPrDay);
+                        preparedStatement.setInt(8, projectID);
 
                         //execute statement
                         preparedStatement.executeUpdate();
@@ -166,12 +168,12 @@ public class AlphaRepositoryProject
                         //få product ud af resultset
                         resultSet.next();
                         String projectTitle = resultSet.getString(2);
-                        String projectDescription = resultSet.getString(3);
-                        String deadline = resultSet.getString(4);
+                        String deadline = resultSet.getString(3);
+                        int nrOfHours = resultSet.getInt(4);
                         int nrOfUsers = resultSet.getInt(5);
-                        int nrOfHours = resultSet.getInt(6);
-                        double projectPrice = resultSet.getDouble(7);
-                        int hoursPerDay = resultSet.getInt(8);
+                        double projectPrice = resultSet.getDouble(6);
+                        int hoursPerDay = resultSet.getInt(7);
+                        String projectDescription = resultSet.getString(8);
 
                         project.setProjectID(projectID);
                         project.setProjectTitle(projectTitle);

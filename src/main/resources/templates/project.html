@@ -22,17 +22,21 @@
     <thead>
     <tr>
         <th> Project Title </th>
-        <th> Project Description </th>
-        <th> Nr of days to deadline </th>
+        <th> Deadline </th>
+        <th> Description </th>
+        <th> Number of Hours </th>
+        <th> Number of Users </th>
         <th> Project Price </th>
-        <th> How many are on the project </th>
+        <th> Hours per day </th>
     </tr>
     </thead>
     <tbody>
     <tr>
         <td th:text="${project.getProjectTitle()}"></td>
-        <td th:text="${project.getProjectDescription()}"></td>
         <td th:text="${project.getDeadline()}"></td>
+        <td th:text="${project.getProjectDescription()}"></td>
+        <td th:text="${project.getNrOfHours()}"></td>
+        <td th:text="${project.getNrOfUsers()}"></td>
         <td th:text="${project.getProjectPrice()}"></td>
         <td th:text="${project.getHoursPerDay()}"></td>
     </tr>
