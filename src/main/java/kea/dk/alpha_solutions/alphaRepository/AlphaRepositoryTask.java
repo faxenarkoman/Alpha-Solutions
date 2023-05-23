@@ -3,11 +3,13 @@ package kea.dk.alpha_solutions.alphaRepository;
 import kea.dk.alpha_solutions.model.Project;
 import kea.dk.alpha_solutions.model.Task;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Repository;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@Repository
 public class AlphaRepositoryTask
 {
 
@@ -17,6 +19,7 @@ public class AlphaRepositoryTask
     private String UID;
     @Value("${spring.datasource.password}")
     private String PWD;
+
 
 
 
@@ -175,7 +178,7 @@ public class AlphaRepositoryTask
 
 
         } catch (SQLException e){
-            System.out.println("Could not find project");
+            System.out.println("Could not find task");
             e.printStackTrace();
         }
         System.out.println(task);
@@ -184,5 +187,54 @@ public class AlphaRepositoryTask
     }
 
 
+    public void createTaskInProject(Project project, Task task) {
+        try {
+            Connection connection = DriverManager.getConnection(DB_URL, UID, PWD);
+            PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO task (task_name, project_id) VALUES (?, ?)");
+            preparedStatement.setString(1, task.getTaskName());
+            preparedStatement.setInt(2, project.getProjectID());
+            preparedStatement.executeUpdate();
 
+            preparedStatement.close();
+            connection.close();
+            System.out.println("Task created successfully.");
+        } catch (SQLException e) {
+            System.out.println("Failed to create task.");
+            e.printStackTrace();
+        }
+    }
+
+
+    public List<Task> getTasksByProjectID(int projectID) {
+        final String FIND_QUERY = "SELECT * FROM task WHERE project_id = ?";
+        List<Task> tasks = new ArrayList<>();
+
+        try {
+            Connection connection = DriverManager.getConnection(DB_URL, UID, PWD);
+            PreparedStatement preparedStatement = connection.prepareStatement(FIND_QUERY);
+            preparedStatement.setInt(1, projectID);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                Task task = new Task();
+                task.setTaskId(resultSet.getInt("task_id"));
+                task.setTaskName(resultSet.getString("task_name"));
+                task.setTaskNrOfHours(resultSet.getInt("task_nr_of_hours"));
+                task.setTaskNrOfUsers(resultSet.getInt("task_nr_of_users"));
+                task.setTaskDescription(resultSet.getString("task_description"));
+                task.setTaskDeadline(resultSet.getString("task_deadline"));
+                task.setTaskHoursPrDay(resultSet.getInt("task_hours_per_day"));
+
+                tasks.add(task);
+            }
+
+            preparedStatement.close();
+            connection.close();
+        } catch (SQLException e) {
+            System.out.println("Could not find tasks");
+            e.printStackTrace();
+        }
+
+        return tasks;
+    }
 }

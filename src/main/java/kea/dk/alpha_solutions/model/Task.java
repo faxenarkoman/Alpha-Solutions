@@ -21,6 +21,9 @@ public class Task
 
 
 
+
+
+
     public Task(int taskId, String taskName, int taskNrOfHours, int taskNrOfUsers, String taskDescription, String taskDeadline, int taskHoursPrDay)
     {
         this.taskId = taskId;
@@ -114,4 +117,7 @@ public class Task
         this.taskHoursPrDay = taskHoursPrDay;
     }
 
+    public void getProjects(Project project)
+    {
+    }
 }

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Project Tasks</title>
+</head>
+<body>
+<h1>Project Tasks</h1>
+
+<div id="tasksContainer">
+  <table>
+    <thead>
+    <tr>
+      <th>Task Name</th>
+      <th>Task Description</th>
+      <!-- Add additional task details as needed -->
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="task : ${tasks}">
+      <td th:text="${task.taskName}"></td>
+      <td th:text="${task.taskDescription}"></td>
+      <!-- Render additional task details as needed -->
+    </tr>
+    </tbody>
+  </table>
+</div>
+</body>
+</html>

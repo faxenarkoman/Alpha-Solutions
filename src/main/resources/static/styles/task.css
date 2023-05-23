@@ -22,9 +22,6 @@ td {
     width: 75%;
 }
 
-
-
-
 .buttons {
     margin-top: 20px;
     text-align: right;
@@ -32,10 +29,22 @@ td {
 }
 
 .button {
-    position: absolute;
-    top: 10px;
-    right: 10px;
+    border: none;
+    padding: 10px 20px;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    cursor: pointer;
+    box-sizing: border-box;
 }
 
-
+h1 {
+    margin-left: 30%;
+    margin-bottom: -30px;
+    padding-top: 0;
+    padding-bottom: 0;
+    margin-top: 10%;
+}
 

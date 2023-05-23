@@ -21,11 +21,11 @@
 <table>
     <thead>
     <tr>
-        <th> Project Title </th>
-        <th> Project Description </th>
-        <th> Nr of days to deadline </th>
-        <th> Project Price </th>
-        <th> How many are on the project </th>
+        <th>Project Title</th>
+        <th>Project Description</th>
+        <th>Nr of days to deadline</th>
+        <th>Project Price</th>
+        <th>How many are on the project</th>
     </tr>
     </thead>
     <tbody>
@@ -38,6 +38,12 @@
     </tr>
     </tbody>
 </table>
+
+<div>
+    <button onclick="addTask()">Create Task</button>
+    <a class="button" th:href="@{'/project/' + ${project.getProjectID()} + '/task'}">Open Tasks</a>
+
+</div>
 
 <footer class="footer">
     <p th:text="'© Code Connoisseurs, Inc. '"></p>

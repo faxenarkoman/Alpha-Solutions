@@ -4,6 +4,7 @@ import kea.dk.alpha_solutions.alphaRepository.AlphaRepositoryProject;
 import kea.dk.alpha_solutions.alphaRepository.AlphaRepositoryTask;
 import kea.dk.alpha_solutions.model.Project;
 import kea.dk.alpha_solutions.model.Task;
+import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import jakarta.servlet.http.HttpSession;
 import kea.dk.alpha_solutions.alphaRepository.AlphaRepositoryUser;
@@ -27,11 +28,12 @@ public class AlphaController
     private final AlphaRepositoryTask alphaRepositoryTask;
 
     @Autowired
-    public AlphaController(AlphaRepositoryProject alphaRepositoryProject, AlphaRepositoryUser alphaRepositoryUser, AlphaRepositoryTask, alphaRepositoryTask) {
+    public AlphaController(AlphaRepositoryProject alphaRepositoryProject, AlphaRepositoryUser alphaRepositoryUser, AlphaRepositoryTask alphaRepositoryTask) {
         this.alphaRepositoryProject = alphaRepositoryProject;
         this.alphaRepositoryUser = alphaRepositoryUser;
         this.alphaRepositoryTask = alphaRepositoryTask;
     }
+
 
 
     @GetMapping(value ="/")
@@ -131,19 +133,53 @@ public class AlphaController
         return "project";
     }
 
-    @GetMapping("/projects/{projectId}/tasks")
-    public Set<Task> getTasksForProject(@PathVariable int projectId) {
+    @GetMapping("/projects/{projectId}/tasks/create")
+    public String showCreateTaskForm(@PathVariable("projectId") int projectId, Model model) {
+        // Retrieve the project by ID
+        Project project = alphaRepositoryProject.getProjectByID(projectId);
 
+        // Create a new Task object
+        Task task = new Task();
+
+        // Pass the project and task objects to the view
+        model.addAttribute("project", project);
+        model.addAttribute("task", task);
+
+        // Return the name of the view template
+        return "project";
+    }
+
+    // POST mapping for submitting the form to create a task in a project
+    @PostMapping("/projects/{projectId}/tasks/create")
+    public String createTask(@PathVariable("projectId") int projectId, @ModelAttribute("task") Task task) {
+        // Retrieve the project by ID
+        Project project = alphaRepositoryProject.getProjectByID(projectId);
+
+        // Set the project for the task
+        task.getProjects(project);
+
+
+        // Save the task
+        alphaRepositoryTask.addTask(task);
+
+        // Redirect to the project details page
+        return "redirect:/projects/" + projectId;
+    }
+
+
+    @GetMapping("/project/{projectId}/task")
+    public ResponseEntity<Set<Task>> getTasksForProject(@PathVariable int projectId) {
         // Retrieve the project with the given projectId from the database
-       Project project = alphaRepositoryProject.getProjectByID(projectId);
+        Project project = alphaRepositoryProject.getProjectByID(projectId);
+
 
         if (project != null) {
-            // Return the tasks associated with the project
-            return project.getTasks();
+            Set<Task> task = project.getTasks();
+            return ResponseEntity.ok(task);
         } else {
-            // Handle case when project is not found
-            return Collections.emptySet();
+            return ResponseEntity.notFound().build();
         }
+
     }
 
 
