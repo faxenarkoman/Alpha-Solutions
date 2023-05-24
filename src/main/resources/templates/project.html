@@ -29,7 +29,7 @@
     </tr>
     </thead>
     <tbody>
-    <tr>
+    <tr th:each="project : ${project}">
         <td th:text="${project.getProjectTitle()}"></td>
         <td th:text="${project.getProjectDescription()}"></td>
         <td th:text="${project.getDeadline()}"></td>
@@ -41,7 +41,8 @@
 
 <div>
     <button onclick="addTask()">Create Task</button>
-    <a class="button" th:href="@{'/project/' + ${project.getProjectID()} + '/task'}">Open Tasks</a>
+    <a class="button" th:href="@{/task/{projectID}(projectID=${projectID})}">Open Tasks</a>
+
 
 </div>
 

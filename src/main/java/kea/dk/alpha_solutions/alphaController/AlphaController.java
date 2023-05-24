@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Collections;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -133,10 +134,12 @@ public class AlphaController
         return "project";
     }
 
-    @GetMapping("/projects/{projectId}/tasks/create")
-    public String showCreateTaskForm(@PathVariable("projectId") int projectId, Model model) {
+    @GetMapping("/task/{projectID}")
+    public String showCreateTaskForm(@PathVariable("projectID") int projectID, Model model) {
         // Retrieve the project by ID
-        Project project = alphaRepositoryProject.getProjectByID(projectId);
+        Project project = alphaRepositoryProject.getProjectByID(projectID);
+
+        List<Task> taskList = alphaRepositoryTask.getAllTasks();
 
         // Create a new Task object
         Task task = new Task();
@@ -144,27 +147,31 @@ public class AlphaController
         // Pass the project and task objects to the view
         model.addAttribute("project", project);
         model.addAttribute("task", task);
+        model.addAttribute("projectID", projectID); // Add this line to set the projectID as a model attribute
 
         // Return the name of the view template
-        return "project";
+        return "task";
     }
 
-    // POST mapping for submitting the form to create a task in a project
-    @PostMapping("/projects/{projectId}/tasks/create")
-    public String createTask(@PathVariable("projectId") int projectId, @ModelAttribute("task") Task task) {
+    @PostMapping("/task/{projectID}/create")
+    public String createTask(@PathVariable("projectID") int projectID, @ModelAttribute("task") Task task) {
         // Retrieve the project by ID
-        Project project = alphaRepositoryProject.getProjectByID(projectId);
+        Project project = alphaRepositoryProject.getProjectByID(projectID);
 
-        // Set the project for the task
-        task.getProjects(project);
+        // Create a new set to hold the projects
+        Set<Project> projects = new HashSet<>();
+        projects.add(project);
 
+        // Set the projects for the task
+        task.setProjects(projects);
 
         // Save the task
         alphaRepositoryTask.addTask(task);
 
         // Redirect to the project details page
-        return "redirect:/projects/" + projectId;
+        return "redirect:/project/" + projectID;
     }
+
 
 
     @GetMapping("/project/{projectId}/task")
@@ -179,6 +186,7 @@ public class AlphaController
         } else {
             return ResponseEntity.notFound().build();
         }
+
 
     }
 
@@ -222,18 +230,5 @@ public class AlphaController
         return "redirect:/index";
     }
 
-    @PostMapping("/update/{projectID}")
-    public String updateProject(@RequestParam("projectTitle") String projectTitle,
-                                @RequestParam("projectDescription") String projectDescription,
-                                @RequestParam("deadline") String deadline,
-                                @RequestParam("nrOfUsers") int nrOfUsers,
-                                @RequestParam("nrOfHours") int nrOfHours,
-                                @RequestParam("HoursPerDay") int hoursPerDay,
-                                @PathVariable("projectID") int projectID)
-    {
-        //Project updateProject = new Project(projectTitle, projectDescription, deadline, nrOfUsers, nrOfHours, hoursPerDay, projectID);
-        //alphaRepositoryProject.updateProject(updateProject);
 
-        return "redirect:/index";
-    }
 }

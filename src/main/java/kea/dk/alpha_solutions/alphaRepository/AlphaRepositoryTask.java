@@ -187,8 +187,9 @@ public class AlphaRepositoryTask
     }
 
 
-    public void createTaskInProject(Project project, Task task) {
+    public Task createTaskInProject(Project project, Task task) {
         try {
+
             Connection connection = DriverManager.getConnection(DB_URL, UID, PWD);
             PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO task (task_name, project_id) VALUES (?, ?)");
             preparedStatement.setString(1, task.getTaskName());
@@ -202,6 +203,7 @@ public class AlphaRepositoryTask
             System.out.println("Failed to create task.");
             e.printStackTrace();
         }
+        return task;
     }
 
 
