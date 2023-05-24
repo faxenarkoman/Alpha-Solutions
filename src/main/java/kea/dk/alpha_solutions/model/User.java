@@ -11,12 +11,13 @@ public class User
 
 
     //Constructor for User
-    public User(int userId, String mail, String password, int hourlyWage, String name){
+    public User(int userId, String mail, String password, int hourlyWage, String name, boolean admin){
         this.userId = userId;
         this.mail = mail;
         this.password = password;
         this.name = name;
         this.hourlyWage = hourlyWage;
+        this.admin = admin;
     }
     public User(String mail, String password, String name, int hourlyWage){
         this.mail = mail;
@@ -29,6 +30,14 @@ public class User
         this.name = name;
         this.password = password;
     }
+    public User(String mail, String password, int hourlyWage, String name, boolean admin) {
+        this.mail = mail;
+        this.password = password;
+        this.hourlyWage = hourlyWage;
+        this.name = name;
+        this.admin = admin;
+    }
+
 
     public User(int userId, String email, String passwordHash) {
         this.userId = userId;

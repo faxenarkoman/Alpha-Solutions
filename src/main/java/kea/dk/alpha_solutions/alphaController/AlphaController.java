@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 public class AlphaController
@@ -66,8 +67,7 @@ public class AlphaController
 /*        if (session.getAttribute("email") == null) {
             return "redirect:/";
         }*/
-        List<User>userList = alphaRepositoryUser.getAll();
-        model.addAttribute("userList", userList);
+        model.addAttribute("userList", alphaRepositoryUser.getAll());
         return "create";
     }
 
@@ -125,6 +125,9 @@ public class AlphaController
         //if (session.getAttribute("email") == null) {
         //    return "redirect:/";
         //}
+        String email = (String) session.getAttribute("email");
+        boolean isAdmin = alphaRepositoryUser.isAdmin(email);
+        model.addAttribute("isAdmin", isAdmin);
         return "createUser";
     }
     @PostMapping("/createUser")
@@ -207,5 +210,35 @@ public class AlphaController
         boolean isAdmin = alphaRepositoryUser.isAdmin(email);
         model.addAttribute("isAdmin",isAdmin);
         return "redirect:/index";
+    }
+    @GetMapping("/updateUser")
+    public String updateUser(Model model) {
+        List<User> userList = alphaRepositoryUser.getAll();
+        model.addAttribute("userList", userList);
+        model.addAttribute("user", new User()); // Add an empty User object to the model
+        return "updateUser";
+    }
+//POSTMAPPING VIRKER IKKE GETMAPPING VIRKER
+
+
+
+
+
+
+    @PostMapping("/updateUser")
+    public String updateUser(Model model,
+                             @RequestParam("userId") int userId,
+                             @RequestParam("email") String mail,
+                             @RequestParam("password") String password,
+                             @RequestParam("hourlyWage") int hourlyWage,
+                             @RequestParam("name") String name,
+                             @RequestParam("admin") boolean admin)
+    {
+        User updateUser = new User(userId, mail, password, hourlyWage, name, admin);
+        alphaRepositoryUser.updateUser(updateUser);
+        System.out.println(updateUser);
+
+            return "adminPanel";
+
     }
 }
