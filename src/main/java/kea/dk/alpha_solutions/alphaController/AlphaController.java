@@ -18,7 +18,10 @@ import java.util.Collections;
 
 import java.util.HashSet;
 import java.util.List;
+
 import java.util.Set;
+
+import java.util.stream.Collectors;
 
 @Controller
 public class AlphaController
@@ -79,8 +82,7 @@ public class AlphaController
 /*        if (session.getAttribute("email") == null) {
             return "redirect:/";
         }*/
-        List<User>userList = alphaRepositoryUser.getAll();
-        model.addAttribute("userList", userList);
+        model.addAttribute("userList", alphaRepositoryUser.getAll());
         return "create";
     }
 
@@ -197,14 +199,18 @@ public class AlphaController
         //if (session.getAttribute("email") == null) {
         //    return "redirect:/";
         //}
+        String email = (String) session.getAttribute("email");
+        boolean isAdmin = alphaRepositoryUser.isAdmin(email);
+        model.addAttribute("isAdmin", isAdmin);
         return "createUser";
     }
     @PostMapping("/createUser")
-    public String createUser(Model model,
+    public String createUser(Model model, HttpSession session,
                 @RequestParam("email") String email,
                 @RequestParam("password") String password,
                 @RequestParam("hourlyWage") int hourlyWage,
-                @RequestParam("name") String name)
+                @RequestParam("name") String name,
+                @RequestParam(value = "admin", defaultValue = "false") boolean admin)
                  {
         String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt());
         User newUser = new User();
@@ -212,10 +218,13 @@ public class AlphaController
         newUser.setPassword(hashedPassword);
         newUser.setHourlyWage(hourlyWage);
         newUser.setName(name);
+        newUser.setAdmin(admin);
 
 
         alphaRepositoryUser.addUser(newUser);
         model.addAttribute("userList", alphaRepositoryUser.getAll());
+        boolean isAdmin = alphaRepositoryUser.isAdmin(email);
+        model.addAttribute("isAdmin", isAdmin);
 
         return "redirect:/index";
     }
@@ -230,5 +239,68 @@ public class AlphaController
         return "redirect:/index";
     }
 
+    @GetMapping("/adminPanel")
+    public String admin(Model model, HttpSession session)
+    {
+        //if (session.getAttribute("email") == null) {
+        //    return "redirect:/";
+        //}
+        String email = (String) session.getAttribute("email");
+        boolean isAdmin = alphaRepositoryUser.isAdmin(email);
+        model.addAttribute("isAdmin", isAdmin);
+        return "adminPanel";
+    }
+    @GetMapping("/deleteUser")
+    public String deleteUser(Model model, HttpSession session)
+    {
+        //if (session.getAttribute("email") == null) {
+        //    return "redirect:/";
+        //}
+        model.addAttribute("userList", alphaRepositoryUser.getAll());
+        String email = (String) session.getAttribute("email");
+        boolean isAdmin = alphaRepositoryUser.isAdmin(email);
+        model.addAttribute("isAdmin",isAdmin);
+        return "deleteUser";
+    }
+    @PostMapping("/deleteUser")
+    public String deleteUser(Model model, HttpSession session,
+                             @RequestParam("email") String email)
+    {
+        alphaRepositoryUser.deleteById(email);
+        model.addAttribute("userList", alphaRepositoryUser.getAll());
+        boolean isAdmin = alphaRepositoryUser.isAdmin(email);
+        model.addAttribute("isAdmin",isAdmin);
+        return "redirect:/index";
+    }
+    @GetMapping("/updateUser")
+    public String updateUser(Model model) {
+        List<User> userList = alphaRepositoryUser.getAll();
+        model.addAttribute("userList", userList);
+        model.addAttribute("user", new User()); // Add an empty User object to the model
+        return "updateUser";
+    }
+//POSTMAPPING VIRKER IKKE GETMAPPING VIRKER
+
+
+
+
+
+
+    @PostMapping("/updateUser")
+    public String updateUser(Model model,
+                             @RequestParam("userId") int userId,
+                             @RequestParam("email") String mail,
+                             @RequestParam("password") String password,
+                             @RequestParam("hourlyWage") int hourlyWage,
+                             @RequestParam("name") String name,
+                             @RequestParam("admin") boolean admin)
+    {
+        User updateUser = new User(userId, mail, password, hourlyWage, name, admin);
+        alphaRepositoryUser.updateUser(updateUser);
+        System.out.println(updateUser);
+
+            return "adminPanel";
+
+    }
 
 }

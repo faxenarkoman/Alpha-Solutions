@@ -1,6 +1,7 @@
 package kea.dk.alpha_solutions.alphaRepository;
 
 import kea.dk.alpha_solutions.model.User;
+import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 
@@ -31,7 +32,8 @@ public class AlphaRepositoryUser {
                 String password = resultSet.getString(3);
                 int hourlyWage = resultSet.getInt(4);
                 String name = resultSet.getString(5);
-                User user = new User (userId, mail, password, hourlyWage, name);
+                boolean admin = resultSet.getBoolean(6);
+                User user = new User (userId, mail, password, hourlyWage, name, admin);
                 userList.add(user);
             }
 
@@ -67,7 +69,7 @@ public class AlphaRepositoryUser {
         try{
             //connect to db
             Connection connection = DriverManager.getConnection(DB_URL, UID, PWD);
-            final String CREATE_QUERY = "INSERT INTO  alpha.user (id, email, password, hourlyWage, name) VALUES  (?, ?, ?, ?, ?)";
+            final String CREATE_QUERY = "INSERT INTO  alpha.user (id, email, password, hourlyWage, name, admin) VALUES  (?, ?, ?, ?, ?, ?)";
             PreparedStatement preparedStatement = connection.prepareStatement(CREATE_QUERY);
 
             //set attributer i prepared statement
@@ -76,6 +78,7 @@ public class AlphaRepositoryUser {
             preparedStatement.setString(3, user.getPassword());
             preparedStatement.setInt(4, user.getHourlyWage());
             preparedStatement.setString(5, user.getName());
+            preparedStatement.setBoolean(6, user.isAdmin());
 
 
             //execute statement
@@ -108,7 +111,93 @@ public class AlphaRepositoryUser {
         }
         return isAdmin;
     }
+    public void deleteById(String email){
+        //SQL-query
+        final String DELETE_QUERY = "DELETE FROM  alpha.user WHERE email=?";
 
+        try {
+            //connect til db
+            Connection connection = DriverManager.getConnection(DB_URL, UID, PWD);
+
+            //create statement
+            PreparedStatement preparedStatement = connection.prepareStatement(DELETE_QUERY);
+
+            //set parameter
+            preparedStatement.setString(1, email);
+
+            //execute statement
+            preparedStatement.executeUpdate();
+
+        } catch (SQLException e){
+            System.out.println("Could not delete User");
+            e.printStackTrace();
+        }
+    }
+    public void updateUser(User user) {
+        try (Connection connection = DriverManager.getConnection(DB_URL, UID, PWD)) {
+            final String UPDATE_QUERY = "UPDATE alpha.user SET email=?, password=?, hourlyWage=?, name=?, admin=? WHERE id=?";
+            int id = user.getUserId();
+            String email = user.getMail();
+            int hourlyWage = user.getHourlyWage();
+            String name = user.getName();
+            boolean admin = user.isAdmin();
+            //Encrypter password
+            String password = user.getPassword();
+            String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt());
+
+
+            PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_QUERY);
+            preparedStatement.setString(1, email);
+            preparedStatement.setString(2, hashedPassword);
+            preparedStatement.setInt(3, hourlyWage);
+            preparedStatement.setString(4, name);
+            preparedStatement.setBoolean(5, admin);
+            preparedStatement.setInt(6, id);
+
+            preparedStatement.executeUpdate();
+            System.out.println(user);
+        } catch (SQLException e) {
+            System.out.println("Could not update user");
+            e.printStackTrace();
+        }
+    }
+    public User findUserById(int id){
+        //SQL-statement
+        final String FIND_QUERY = "SELECT * FROM  alpha.user WHERE id = ?";
+        User user =  new User();
+        user.setUserId(id);
+        try {
+            //db connection
+            Connection connection = DriverManager.getConnection(DB_URL, UID, PWD);
+
+            //prepared statement
+            PreparedStatement preparedStatement = connection.prepareStatement(FIND_QUERY);
+
+            //set parameters
+            preparedStatement.setInt(1, id);
+
+            //execute statement
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            //få product ud af resultset
+            resultSet.next();
+            String mail = resultSet.getString(2);
+            String password = resultSet.getString(3);
+            int hourlyWage = resultSet.getInt(4);
+            String name = resultSet.getString(5);
+            boolean admin = resultSet.getBoolean(6);
+            user.setMail(mail);
+            user.setPassword(password);
+            user.setHourlyWage(hourlyWage);
+            user.setName(name);
+            user.setAdmin(admin);
+        } catch (SQLException e){
+            System.out.println("Could not find product");
+            e.printStackTrace();
+        }
+        //return wish
+        return user;
+    }
 
 }
 

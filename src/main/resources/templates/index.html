@@ -16,7 +16,7 @@
     <a href="#">View Projects</a>
     <a href="#">View Tasks</a>
     <a href="#">View Subtasks</a>
-    <a th:if="${isAdmin}" href="#">Admin Panel</a>
+    <a th:if="${isAdmin}" th:href="@{/adminPanel}">Admin Panel</a>
 </div>
 <div class="container">
     <table>
@@ -25,8 +25,10 @@
             <th> Name </th>
             <th> Description </th>
             <th> Open Project </th>
-            <th> Delete Project </th>
-            <th> Update Project </th>
+            <th th:if="${isAdmin}">Delete Project</th>
+            <th th:if="${isAdmin}">Update Project</th>
+
+
         </tr>
         </thead>
         <tbody>
@@ -36,11 +38,11 @@
             <td>
                 <a th:href="@{'/project/' + ${alpha.projectID}}">Open</a>
             </td>
-            <td>
-                <a th:href="@{'/delete/' + ${alpha.projectID}}">Delete</a>
+            <td th:if="${isAdmin}">
+                <a th:if="${isAdmin}" th:href="@{'/delete/' + ${alpha.projectID}}">Delete</a>
             </td>
-            <td>
-                <a th:href="@{'/update/' + ${alpha.projectID}}">Update</a>
+            <td th:if="${isAdmin}">
+                <a th:if="${isAdmin}" th:href="@{'/update/' + ${alpha.projectID}}">Update</a>
             </td>
         </tr>
         </tbody>

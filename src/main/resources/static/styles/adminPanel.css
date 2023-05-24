@@ -1,0 +1,28 @@
+.content{
+    margin-left: 10%;
+    margin-top: 15%;
+    text-align: center;
+    justify-content: center;
+}
+.button {
+    color: #398AB9;
+    background-color: #FFFFFF;
+    width: 5vmax;
+    transition: 0.5s;
+    border: .2vmax solid #398AB9;
+    padding: 1vmax 3vmax;
+    border-radius: 0.5vmax;
+    cursor: pointer;
+}
+
+.button:hover {
+    padding: 1vmax 4vmax;
+}
+.buttontext{
+    font-weight: bold;
+    text-decoration: none;
+    text-align: center;
+    justify-content: center;
+    display: flex;
+    color: #007bff;
+}
