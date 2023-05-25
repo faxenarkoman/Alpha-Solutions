@@ -65,7 +65,7 @@ table {
     padding: 20px;
     max-width: 800px; /* Set the maximum width of the grid container */
     margin: 0 auto; /* Center the grid container horizontally */
-    margin-top: 10.5%;
+    margin-top: 7%;
     margin-left: 34%;
     column-width: 200px;
 }
@@ -92,26 +92,7 @@ table {
 .create-button {
     text-align: center;
     margin-bottom: 40%;
-    margin-left: 53.5%;
-    color: #398AB9;
-    background-color: #FFFFFF;
-    width: 5vmax;
-    transition: 0.5s;
-    border: .2vmax solid #398AB9;
-    padding: 1vmax 3vmax;
-    border-radius: 0.5vmax;
-    cursor: pointer;
-}
-.create-button:hover {
-    padding: 1vmax 4vmax;
-}
-.create-button-text{
-    font-weight: bold;
-    text-decoration: none;
-    text-align: center;
-    justify-content: center;
-    display: flex;
-    color: #007bff;
+    margin-left: 30%;
 }
 
 th {
@@ -131,7 +112,6 @@ td {
 tr:hover {
     background-color: #f5f5f5;
 }
-
 
 
 
