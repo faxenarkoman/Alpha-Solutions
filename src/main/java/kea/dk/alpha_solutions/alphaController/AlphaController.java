@@ -217,12 +217,9 @@ public class AlphaController
     }
     @PostMapping("/deleteUser")
     public String deleteUser(Model model, HttpSession session,
-                             @RequestParam("email") String email)
+                             @RequestParam("userId") String userId)
     {
-        alphaRepositoryUser.deleteById(email);
-        model.addAttribute("userList", alphaRepositoryUser.getAll());
-        boolean isAdmin = alphaRepositoryUser.isAdmin(email);
-        model.addAttribute("isAdmin",isAdmin);
+        alphaRepositoryUser.deleteById(userId);
         return "redirect:/index";
     }
 

@@ -113,7 +113,7 @@ public class AlphaRepositoryUser {
     }
     public void deleteById(String email){
         //SQL-query
-        final String DELETE_QUERY = "DELETE FROM  alpha.user WHERE email=?";
+        final String DELETE_QUERY = "DELETE FROM  alpha.user WHERE id=?";
 
         try {
             //connect til db
