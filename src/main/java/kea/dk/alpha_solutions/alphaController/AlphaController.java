@@ -228,13 +228,17 @@ public class AlphaController
 
     @GetMapping("/updateUser")
     public String updateUser(Model model, HttpSession session) {
+        //if (session.getAttribute("email") == null) {
+        //    return "redirect:/";
+        //}
+
         List<User> userList = alphaRepositoryUser.getAll();
         model.addAttribute("userList", userList);
         model.addAttribute("user", new User());
 
         String email = (String) session.getAttribute("email");
         boolean isAdmin = alphaRepositoryUser.isAdmin(email);
-        model.addAttribute("isAdmin",isAdmin);
+        model.addAttribute("isAdmin", isAdmin);
 
 
         return "updateUser";
