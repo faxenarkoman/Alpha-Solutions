@@ -188,7 +188,7 @@ public class AlphaRepositoryProject
                         System.out.println("Could not find project");
                         e.printStackTrace();
                 }
-                System.out.println(project);
+                
                 //return project
                 return project;
         }
