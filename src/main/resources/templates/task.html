@@ -16,28 +16,28 @@
   <a th:href="@{/task}">View Tasks</a>
   <a th:href="@{/subtask}">View Subtasks</a>
 </div>
-<h1 class="title">Create Project</h1>
+<h1 class="title">Create Task</h1>
 <div class="container">
   <br>
   <form action="/create" method="post">
     <table>
       <tr>
-        <th><label for="project-title">Project Title:</label></th>
-        <td><input id="project-title" name="project-title" type="text" required></td>
+        <th><label for="task-title">Task Title:</label></th>
+        <td><input id="task-title" name="project-title" type="text"  required th:value="taskName" ></td>
       </tr>
       <tr>
         <th><label for="user-id">Select User:</label></th>
         <td>
           <select id="user-id" name="user-id" required>
             <option value="">Select user(s)</option>
-            <option th:each="task : ${taskList}" th:text="${task.taskName}"></option>
+            <option th:each="user : ${userList}" th:text="${user.name}"></option>
           </select>
         </td>
       </tr>
       <tr>
-        <th><label for="project-description">Project Description:</label></th>
+        <th><label for="task-description">Task Description:</label></th>
         <td>
-          <textarea id="project-description" name="project-description" rows="5" required></textarea>
+          <textarea id="task-description" name="project-description" rows="5" required th:value="taskName"></textarea>
         </td>
       </tr>
       <tr>
@@ -66,7 +66,7 @@
       <button>
         <a th:href="@{/index}" type="button" onclick="window.location.href='/projects'">Back to Home</a>
       </button>
-      <input type="submit" value="Create Project">
+      <input type="submit" value="Create Task">
 
     </div>
   </form>

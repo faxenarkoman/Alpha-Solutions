@@ -161,10 +161,12 @@ public class AlphaController
     }
 
     @PostMapping("/task/{projectID}/create")
-    public String createTask(@PathVariable("projectID") int projectID, @ModelAttribute("task") Task task)
+    public String createTask(@PathVariable("projectID") int projectID, @ModelAttribute("task") Task task, Model model)
     {
         // Retrieve the project by ID
         Project project = alphaRepositoryProject.getProjectByID(projectID);
+        List<User> userList = alphaRepositoryUser.getAll();
+        model.addAttribute("userList", userList);
 
         // Create a new set to hold the projects
         Set<Project> projects = new HashSet<>();

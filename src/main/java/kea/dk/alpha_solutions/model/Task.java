@@ -12,10 +12,12 @@ public class Task {
     private String taskDeadline;
     private int taskHoursPrDay;
 
+    private int projectId;
+
     private Set<Project> projects = new HashSet<>();
 
     public Task(int taskId, String taskName, int taskNrOfHours, int taskNrOfUsers, String taskDescription,
-                String taskDeadline, int taskHoursPrDay) {
+                String taskDeadline, int taskHoursPrDay, int projectId) {
         this.taskId = taskId;
         this.taskName = taskName;
         this.taskNrOfHours = taskNrOfHours;
@@ -23,10 +25,21 @@ public class Task {
         this.taskDescription = taskDescription;
         this.taskDeadline = taskDeadline;
         this.taskHoursPrDay = taskHoursPrDay;
+        this.projectId = projectId;
     }
 
     public Task()
     {}
+
+    public int getProjectId()
+    {
+        return projectId;
+    }
+
+    public void setProjectId(int projectId)
+    {
+        this.projectId = projectId;
+    }
 
     public Set<Project> getProjects() {
         return projects;

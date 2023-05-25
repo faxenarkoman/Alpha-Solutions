@@ -22,27 +22,56 @@ public class AlphaRepositoryTask
 
 
 
-
-
-
     public List<Task> getAllTasks()
     {
         List<Task> taskList = new ArrayList<>();
         try {
             Connection connection = DriverManager.getConnection(DB_URL, UID, PWD);
             Statement statement = connection.createStatement();
-            final String SQL_QUERY = "SELECT * FROM alphas.task";
+            final String SQL_QUERY = "SELECT * FROM alpha.task";
             ResultSet resultSet = statement.executeQuery(SQL_QUERY);
             while (resultSet.next()) {
                 int taskId = resultSet.getInt(1);
-                String taskName = resultSet.getString(2);
-                int taskNrOfHours = resultSet.getInt(3);
-                int taskNrOfUsers = resultSet.getInt(4);
-                String taskDescription = resultSet.getString(5);
-                String taskDeadline = resultSet.getString(6);
-                int taskHoursPrDay = resultSet.getInt(7);
+                String taskName = resultSet.getString(3);
+                int taskNrOfHours = resultSet.getInt(4);
+                int taskNrOfUsers = resultSet.getInt(5);
+                String taskDescription = resultSet.getString(2);
+                String taskDeadline = resultSet.getString(7);
+                int taskHoursPrDay = resultSet.getInt(6);
+                int projectId = resultSet.getInt(8);
 
-                Task task = new Task(taskId, taskName, taskNrOfHours, taskNrOfUsers, taskDescription, taskDeadline, taskHoursPrDay);
+                Task task = new Task(taskId, taskName, taskNrOfHours, taskNrOfUsers, taskDescription, taskDeadline, taskHoursPrDay, projectId);
+                taskList.add(task);
+                System.out.println(task);
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Could not query database");
+            e.printStackTrace();
+        }
+
+        return taskList;
+    }
+
+    public List<Task> getAllTasksByProjectId(int projectId)
+    {
+        List<Task> taskList = new ArrayList<>();
+        final String SQL_QUERY = "SELECT * FROM alpha.task projectId = ?";
+        try {
+            Connection connection = DriverManager.getConnection(DB_URL, UID, PWD);
+            PreparedStatement ps = connection.prepareStatement(SQL_QUERY);
+            ps.setInt(1, projectId);
+            ResultSet resultSet = ps.executeQuery(SQL_QUERY);
+            while (resultSet.next()) {
+                int taskId = resultSet.getInt(1);
+                String taskName = resultSet.getString(3);
+                int taskNrOfHours = resultSet.getInt(4);
+                int taskNrOfUsers = resultSet.getInt(5);
+                String taskDescription = resultSet.getString(2);
+                String taskDeadline = resultSet.getString(7);
+                int taskHoursPrDay = resultSet.getInt(6);
+
+                Task task = new Task(taskId, taskName, taskNrOfHours, taskNrOfUsers, taskDescription, taskDeadline, taskHoursPrDay, projectId);
                 taskList.add(task);
                 System.out.println(task);
             }
@@ -62,7 +91,7 @@ public class AlphaRepositoryTask
         try{
             //connect to db
             Connection connection = DriverManager.getConnection(DB_URL, UID, PWD);
-            final String CREATE_QUERY = "INSERT INTO  aplahs.task (taskId, taskName, taskDescription, taskNrOfUsers, taskNrOfHours, taskDescription, taskDeadline, taskHoursPrDay) VALUES  (?, ?, ?, ?, ?, ?, ?, ?)";
+            final String CREATE_QUERY = "INSERT INTO  alpha.task (taskId, taskName, taskDescription, taskNrOfUsers, taskNrOfHours, taskDescription, taskDeadline, taskHoursPrDay) VALUES  (?, ?, ?, ?, ?, ?, ?, ?)";
             PreparedStatement preparedStatement = connection.prepareStatement(CREATE_QUERY);
 
             //set attributer i prepared statement

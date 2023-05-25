@@ -166,12 +166,12 @@ public class AlphaRepositoryProject
                         //få product ud af resultset
                         resultSet.next();
                         String projectTitle = resultSet.getString(2);
-                        String projectDescription = resultSet.getString(3);
-                        String deadline = resultSet.getString(4);
+                        String projectDescription = resultSet.getString(8);
+                        String deadline = resultSet.getString(3);
                         int nrOfUsers = resultSet.getInt(5);
-                        int nrOfHours = resultSet.getInt(6);
-                        double projectPrice = resultSet.getDouble(7);
-                        int hoursPerDay = resultSet.getInt(8);
+                        int nrOfHours = resultSet.getInt(4);
+                        double projectPrice = resultSet.getDouble(6);
+                        int hoursPerDay = resultSet.getInt(7);
 
                         project.setProjectID(projectID);
                         project.setProjectTitle(projectTitle);
