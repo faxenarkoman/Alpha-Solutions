@@ -7,9 +7,8 @@
     <link rel="stylesheet" th:href="@{styles/navbar.css}">
 </head>
 <body>
-
 <div class="logo">
-    <img class="logo" src="images/logo.png" alt="logo">
+    <img class="logo" th:src="@{/images/logo.png}" alt="logo">
 </div>
 <div class="sidebar">
     <a th:href="@{/index}" class="active">Home</a>
@@ -19,22 +18,40 @@
     <a th:if="${isAdmin}" th:href="@{/adminPanel}">Admin Panel</a>
 </div>
 <div class="container">
-    <div class="project-card" th:each="alpha : ${alpha}">
-        <h3 th:text="${alpha.projectTitle}"></h3>
-        <p th:text="${alpha.projectDescription}"></p>
-        <a th:href="@{'/project/' + ${alpha.projectID}}">Open Project</a>
-        <a th:if="${isAdmin}" th:href="@{'/delete/' + ${alpha.projectID}}">Delete Project</a>
-        <a th:if="${isAdmin}" th:href="@{'/update/' + ${alpha.projectID}}">Update Project</a>
+    <table>
+        <thead>
+        <tr>
+            <th> Name </th>
+            <th> Description </th>
+            <th> Open Project </th>
+            <th th:if="${isAdmin}">Delete Project</th>
+            <th th:if="${isAdmin}">Update Project</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="alpha : ${alpha}">
+            <td th:text="${alpha.projectTitle}"></td>
+            <td th:text="${alpha.projectDescription}"></td>
+            <td>
+                <a th:href="@{'/project/' + ${alpha.projectID}}">Open</a>
+            </td>
+            <td th:if="${isAdmin}">
+                <a th:if="${isAdmin}" th:href="@{'/delete/' + ${alpha.projectID}}">Delete</a>
+            </td>
+            <td th:if="${isAdmin}">
+                <a th:if="${isAdmin}" th:href="@{'/update/' + ${alpha.projectID}}">Update</a>
+            </td>
 
-    </div>
+        </tr>
+        </tbody>
+    </table>
 </div>
-<div class="create-button">
+<button>
     <a th:href="@{/create}">Create a new project</a>
-</div>
+</button>
 <footer class="footer">
-    <p>© Code Connoisseurs, Inc.</p>
+    <p th:text="'© Code Connoisseurs, Inc. '"></p>
 </footer>
 
 </body>
 </html>
-

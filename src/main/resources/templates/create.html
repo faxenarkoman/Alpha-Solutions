@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Create Project</title>
+    <title>Create Task</title>
     <link rel="stylesheet" th:href="@{/styles/create.css}">
     <link rel="stylesheet" th:href="@{/styles/navbar.css}">
 </head>
@@ -16,64 +16,44 @@
     <a th:href="@{/task}">View Tasks</a>
     <a th:href="@{/subtask}">View Subtasks</a>
 </div>
-<h1 class="title">Create Project</h1>
+<h1 class="title">Create Task</h1>
 <div class="container">
     <br>
-    <form action="/create" method="post">
+    <form action="/task/{projectId}/create" method="post">
         <table>
             <tr>
-                <th><label for="project-title">Project Title:</label></th>
-                <td><input id="project-title" name="project-title" type="text" required></td>
+                <th><label for="task-name">Task Name:</label></th>
+                <td><input id="task-name" name="task-name" type="text" required></td>
             </tr>
             <tr>
-                <th><label for="user-id">Select User:</label></th>
+                <th><label for="task-description">Task Description:</label></th>
                 <td>
-                    <select id="user-id" name="user-id" required>
-                        <option value="">Select user(s)</option>
-                        <option th:each="user : ${userList}" th:text="${user.name}"></option>
+                    <textarea id="task-description" name="task-description" rows="5" required></textarea>
+                </td>
+            </tr>
+            <tr>
+                <th><label for="task-status">Task Status:</label></th>
+                <td>
+                    <select id="task-status" name="task-status" required>
+                        <option value="">Select status</option>
+                        <option value="TODO">TODO</option>
+                        <option value="IN_PROGRESS">IN PROGRESS</option>
+                        <option value="COMPLETED">COMPLETED</option>
                     </select>
                 </td>
-            </tr>
-            <tr>
-                <th><label for="project-description">Project Description:</label></th>
-                <td>
-                    <textarea id="project-description" name="project-description" rows="5" required></textarea>
-                </td>
-            </tr>
-            <tr>
-                <th><label for="deadline">Deadline:</label></th>
-                <td><input id="deadline" name="deadline" type="date" required></td>
-            </tr>
-            <tr>
-                <th><label for="nr-of-users">Number of Users:</label></th>
-                <td><input id="nr-of-users" name="nr-of-users" type="number" required></td>
-            </tr>
-            <tr>
-                <th><label for="nr-of-hours">Number of Hours:</label></th>
-                <td><input id="nr-of-hours" name="nr-of-hours" type="number" required></td>
-            </tr>
-            <tr>
-                <th><label for="project-price">Project Price:</label></th>
-                <td><input id="project-price" name="project-price" type="number" step="0.01" required></td>
-            </tr>
-            <tr>
-                <th><label for="hours-per-day">Hours per Day:</label></th>
-                <td><input id="hours-per-day" name="hours-per-day" type="number" required></td>
             </tr>
         </table>
         <br>
         <div class="buttons">
-                <input type="submit" value="Create Project">
             <button>
-                <a th:href="@{/index}" type="button" onclick="window.location.href='/projects'">Back to Home</a>
+                <a th:href="@{/projects/{projectId}}" type="button">Back to Project</a>
             </button>
+            <input type="submit" value="Create Task">
         </div>
     </form>
 </div>
 <footer>
-<p th:text="'© Code Connoisseurs, Inc. '"></p>
+    <p th:text="'© Code Connoisseurs, Inc. '"></p>
 </footer>
-
 </body>
 </html>
-
