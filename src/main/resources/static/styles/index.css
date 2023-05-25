@@ -1,78 +1,54 @@
 
 
 
-.description {
-    width: 200px; /* Adjust the width as needed */
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
 }
 
-.btn {
-    display: inline-block;
-    padding: 5px 10px;
-    background-color: #007bff;
-    color: #fff;
-    text-decoration: none;
-    border-radius: 3px;
-    margin-left: 60%;
+.logo {
+    text-align: center;
+    margin: 20px;
 }
 
-.btn:hover {
-    background-color: #0056b3;
-}
-
-button {
-
-
+.sidebar {
+    background-color: #f0f0f0;
+    padding: 20px;
+    width: 200px;
     position: fixed;
-    bottom: 15%;
-    right: 5.3%;
-    padding: 10px 20px;
-    background-color: #007bff;
-    color: #fff;
+    top: 0;
+    bottom: 0;
+    left: 0;
+}
+
+.sidebar a {
+    display: block;
+    padding: 10px;
     text-decoration: none;
-    border: none;
-    border-radius: 5px;
-    font-size: 16px;
+    color: #000;
+}
+
+.sidebar a.active {
+    background-color: #ccc;
     font-weight: bold;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-    cursor: pointer;
-    transition: background-color 0.3s;
-
 }
 
-#create-project-btn:hover {
-    background-color: #0056b3;
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: flex-start;
+    height: 100vh;
+    padding: 20px;
 }
 
-table {
-    margin-left: 25%;
-    margin-right: 5%;
-    margin-top: 13%;
-    width: 70%;
-    border: 1px solid black;
-    border-collapse: collapse;
+.footer {
+    background-color: #f0f0f0;
+    padding: 20px;
     text-align: center;
 }
 
-th {
-    background-color: #f2f2f2;
-    color: #333;
-    font-weight: bold;
-    padding: 8px;
-    border: 1px solid #ccc;
-}
-
-td {
-    padding: 8px;
-    border: 1px solid #ccc;
-}
-
-
-tr:hover {
-    background-color: #f5f5f5;
-}
 
 
 
