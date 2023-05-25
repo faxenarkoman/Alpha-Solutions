@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Update Project</title>
+    <title>Create Project</title>
     <link rel="stylesheet" th:href="@{/styles/create.css}">
     <link rel="stylesheet" th:href="@{/styles/navbar.css}">
 </head>
@@ -16,50 +16,50 @@
     <a th:href="@{/task}">View Tasks</a>
     <a th:href="@{/subtask}">View Subtasks</a>
 </div>
-<h1 class="title">Update Project</h1>
+<h1 class="title">Create Project</h1>
 <div class="container">
     <br>
-    <form action="/update" method="post">
-        <input  name="projectID" type="hidden" required th:value="${projectID}">
+    <form action="/create" method="post">
         <table>
-
             <tr>
-                <th><label for="projectTitle">Project Title:</label></th>
-                <td><input id="projectTitle" name="projectTitle" type="text" required th:value="${project.projectTitle}"></td>
+                <th><label for="project-title">Project Title:</label></th>
+                <td><input id="project-title" name="project-title" type="text" required></td>
             </tr>
-
             <tr>
-                <th><label for="projectDescription">Project Description:</label></th>
+
+            </tr>
+            <tr>
+                <th><label for="project-description" th:value="${projectDescription}">Project Description:</label></th>
                 <td>
-                    <input id="projectDescription" name="projectDescription" rows="5" type="text "required th:value="${project.projectDescription}">
+                    <textarea id="project-description" name="project-description" rows="5" required></textarea>
                 </td>
             </tr>
             <tr>
                 <th><label for="deadline">Deadline:</label></th>
-                <td><input id="deadline" name="deadline" type="date" required th:value="${project.deadline}"></td>
+                <td><input id="deadline" name="deadline" type="date" required th:value="${projectdeadline}"></td>
             </tr>
             <tr>
-                <th><label for="nrOfUsers">Number of Users:</label></th>
-                <td><input id="nrOfUsers" name="nrOfUsers" type="number" required th:value="${project.nrOfUsers}"></td>
+                <th><label for="nr-of-users">Number of Users:</label></th>
+                <td><input id="nr-of-users" name="nr-of-users" type="number" required th:value="${nrOfUsers}"></td>
             </tr>
             <tr>
-                <th><label for="nrOfHours">Number of Hours:</label></th>
-                <td><input id="nrOfHours" name="nrOfHours" type="number" required th:value="${project.nrOfHours}"></td>
+                <th><label for="nr-of-hours">Number of Hours:</label></th>
+                <td><input id="nr-of-hours" name="nr-of-hours" type="number" required th:value="${nrOfHours}"></td>
             </tr>
             <tr>
-                <th><label for="projectPrice">Project Price:</label></th>
-                <td><input id="projectPrice" name="projectPrice" type="number" step="0.01" required th:value="${project.projectPrice}"></td>
+                <th><label for="project-price">Project Price:</label></th>
+                <td><input id="project-price" name="project-price" type="number" step="0.01" required th:value="${projectPrice}"></td>
             </tr>
             <tr>
-                <th><label for="hoursPerDay">Hours per Day:</label></th>
-                <td><input id="hoursPerDay" name="HoursPerDay" type="number" required th:value="${project.hoursPerDay}"></td>
+                <th><label for="hours-per-day">Hours per Day:</label></th>
+                <td><input id="hours-per-day" name="hours-per-day" type="number" required th:value="${hoursPerDay}"></td>
             </tr>
         </table>
         <br>
         <div class="buttons">
             <input type="submit" value="Update Project">
             <button>
-                <a th:href="@{/index}" type="button" onclick="window.location.href='/index.html'">Back to Home</a>
+                <a th:href="@{/index}" type="button" onclick="window.location.href='/projects'">Back to Home</a>
             </button>
         </div>
     </form>
@@ -67,6 +67,6 @@
 <footer>
     <p th:text="'© Code Connoisseurs, Inc. '"></p>
 </footer>
+
 </body>
 </html>
-

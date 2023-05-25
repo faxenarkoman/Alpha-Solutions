@@ -1,80 +1,60 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Home</title>
-    <link rel="stylesheet" href="styles/index.css">
-    <link rel="stylesheet" href="styles/navbar.css">
-    <style>
-        .container {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr); /* Three projects per line */
-            grid-gap: 20px; /* Set the desired gap between grid cells */
-            justify-items: center;
-            align-items: center;
-            padding: 20px;
-            max-width: 800px; /* Set the maximum width of the grid container */
-            margin: 0 auto; /* Center the grid container horizontally */
-            margin-top: 7%;
-            column-width: 200px;
-        }
-
-        .project-card {
-            background-color: #f0f0f0;
-            padding: 20px;
-            border-radius: 20px;
-            text-align: center;
-            box-sizing: border-box;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            width: 100%;
-
-        }
-
-        .project-card h3 {
-            margin-top: 0;
-        }
-
-        .project-card p {
-            margin-bottom: 0;
-        }
-
-        .create-button {
-            text-align: center;
-            margin-bottom: 40%;
-        }
-
-
-    </style>
+    <link rel="stylesheet" th:href="@{/styles/index.css}">
+    <link rel="stylesheet" th:href="@{/styles/navbar.css}">
 </head>
 <body>
 
 <div class="logo">
-    <img class="logo" src="images/logo.png" alt="logo">
+    <img class="logo" th:src="@{/images/logo.png}" alt="logo">
 </div>
 <div class="sidebar">
-    <a href="#" class="active">Home</a>
+    <a th:href="@{/index}" class="active">Home</a>
     <a href="#">View Projects</a>
     <a href="#">View Tasks</a>
     <a href="#">View Subtasks</a>
-    <a href="#">Admin Panel</a>
+    <a th:if="${isAdmin}" th:href="@{/adminPanel}">Admin Panel</a>
 </div>
 <div class="container">
-    <div class="project-card" th:each="alpha : ${alpha}">
-        <h3 th:text="${alpha.projectTitle}"></h3>
-        <p th:text="${alpha.projectDescription}"></p>
-        <a th:href="@{'/project/' + ${alpha.projectID}}">Open Project</a>
-        <a th:if="${isAdmin}" th:href="@{'/delete/' + ${alpha.projectID}}">Delete Project</a>
-        <a th:if="${isAdmin}" th:href="@{'/update/' + ${alpha.projectID}}">Update Project</a>
+    <table>
+        <thead>
+        <tr>
+            <th> Name </th>
+            <th> Description </th>
+            <th> Open Project </th>
+            <th th:if="${isAdmin}">Delete Project</th>
+            <th th:if="${isAdmin}">Update Project</th>
 
-    </div>
+
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="alpha : ${alpha}">
+            <td th:text="${alpha.projectTitle}"></td>
+            <td th:text="${alpha.projectDescription}"></td>
+            <td>
+                <a th:href="@{'/project/' + ${alpha.projectID}}">Open</a>
+            </td>
+            <td th:if="${isAdmin}">
+                <a th:if="${isAdmin}" th:href="@{'/delete/' + ${alpha.projectID}}">Delete</a>
+            </td>
+            <td th:if="${isAdmin}">
+                <a th:if="${isAdmin}" th:href="@{'/update/' + ${alpha.projectID}}">Update</a>
+            </td>
+
+        </tr>
+        </tbody>
+    </table>
 </div>
-<div class="create-button">
+<button>
     <a th:href="@{/create}">Create a new project</a>
-</div>
+</button>
 <footer class="footer">
-    <p>© Code Connoisseurs, Inc.</p>
+    <p th:text="'© Code Connoisseurs, Inc. '"></p>
 </footer>
 
 </body>
 </html>
-
