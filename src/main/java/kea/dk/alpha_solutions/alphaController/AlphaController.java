@@ -1,10 +1,7 @@
 package kea.dk.alpha_solutions.alphaController;
 
 import kea.dk.alpha_solutions.alphaRepository.AlphaRepositoryProject;
-import kea.dk.alpha_solutions.alphaRepository.AlphaRepositoryTask;
 import kea.dk.alpha_solutions.model.Project;
-import kea.dk.alpha_solutions.model.Task;
-import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import jakarta.servlet.http.HttpSession;
 import kea.dk.alpha_solutions.alphaRepository.AlphaRepositoryUser;
@@ -13,14 +10,7 @@ import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.Collections;
-
-import java.util.HashSet;
 import java.util.List;
-
-import java.util.Set;
-
 import java.util.stream.Collectors;
 
 @Controller
@@ -28,19 +18,14 @@ public class AlphaController
 {
     private final AlphaRepositoryProject alphaRepositoryProject;
     private final AlphaRepositoryUser alphaRepositoryUser;
-
-    private final AlphaRepositoryTask alphaRepositoryTask;
-
     @Autowired
-    public AlphaController(AlphaRepositoryProject alphaRepositoryProject, AlphaRepositoryUser alphaRepositoryUser, AlphaRepositoryTask alphaRepositoryTask)
-    {
+    public AlphaController(AlphaRepositoryProject alphaRepositoryProject, AlphaRepositoryUser alphaRepositoryUser) {
         this.alphaRepositoryProject = alphaRepositoryProject;
         this.alphaRepositoryUser = alphaRepositoryUser;
-        this.alphaRepositoryTask = alphaRepositoryTask;
     }
 
 
-    @GetMapping(value = "/")
+    @GetMapping(value ="/")
     public String login()
     {
         return "login";
@@ -48,8 +33,7 @@ public class AlphaController
 
     @PostMapping("/login")
     public String doLogin(@RequestParam("email") String email, HttpSession session,
-                          @RequestParam("password") String password, Model model)
-    {
+                          @RequestParam("password") String password, Model model) {
         // Retrieve user by email from the repository
         User user = alphaRepositoryUser.getUserByEmail(email);
         if (user != null && BCrypt.checkpw(password, user.getPassword())) {
@@ -77,7 +61,6 @@ public class AlphaController
         model.addAttribute("isAdmin", isAdmin);
         return "index";
     }
-
     @GetMapping("/create")
     public String createProject(Model model, HttpSession session)
     {
@@ -88,19 +71,15 @@ public class AlphaController
         return "create";
     }
 
-    @GetMapping("showTask")
-
-
     @PostMapping("/create")
     public String createProject(Model model,
-                                @RequestParam("project-title") String projectTitle,
-                                @RequestParam("project-description") String projectDescription,
-                                @RequestParam("deadline") String deadline,
-                                @RequestParam("nr-of-users") List<Integer> userId,
-                                @RequestParam("nr-of-hours") int nrOfHours,
-                                @RequestParam("project-price") double projectPrice,
-                                @RequestParam("hours-per-day") int hoursPerDay)
-    {
+            @RequestParam("project-title") String projectTitle,
+            @RequestParam("project-description") String projectDescription,
+            @RequestParam("deadline") String deadline,
+            @RequestParam("nr-of-users") List<Integer> userId,
+            @RequestParam("nr-of-hours") int nrOfHours,
+            @RequestParam("project-price") double projectPrice,
+            @RequestParam("hours-per-day") int hoursPerDay) {
 
         Project newProject = new Project();
         newProject.setProjectTitle(projectTitle);
@@ -120,84 +99,25 @@ public class AlphaController
     @GetMapping("/project")
     public String showProject(Model model, HttpSession session)
     {
+        //if (session.getAttribute("email") == null) {
+        //    return "redirect:/";
+        //}
         model.addAttribute("alpha", alphaRepositoryProject.getAll());
 
         return "project";
     }
 
     @GetMapping("/project/{projectID}")
-    public String openProject(@PathVariable("projectID") int projectID, Model model)
-    {
+    public String openProject(@PathVariable("projectID") int projectID, Model model) {
         // Retrieve the project data based on the projectID
         Project project = alphaRepositoryProject.getProjectByID(projectID);
-
 
         // Add project data to model
         model.addAttribute("project", project);
 
-
         // Return the name of the HTML template to render
         return "project";
     }
-
-    @GetMapping("/task/{projectID}")
-    public String showCreateTaskForm(@PathVariable("projectID") int projectID, Model model)
-    {
-        // Retrieve the project by ID
-        Project project = alphaRepositoryProject.getProjectByID(projectID);
-
-        List<Task> taskList = alphaRepositoryTask.getAllTasks();
-
-        // Create a new Task object
-        Task task = new Task();
-
-        // Pass the project and task objects to the view
-        model.addAttribute("project", project);
-        model.addAttribute("task", task);
-        model.addAttribute("projectID", projectID); // Add this line to set the projectID as a model attribute
-
-        // Return the name of the view template
-        return "task";
-    }
-
-    @PostMapping("/task/{projectID}/create")
-    public String createTask(@PathVariable("projectID") int projectID, @ModelAttribute("task") Task task)
-    {
-        // Retrieve the project by ID
-        Project project = alphaRepositoryProject.getProjectByID(projectID);
-
-        // Create a new set to hold the projects
-        Set<Project> projects = new HashSet<>();
-        projects.add(project);
-
-        // Set the projects for the task
-        task.setProjects(projects);
-
-        // Save the task
-        alphaRepositoryTask.addTask(task);
-
-        // Redirect to the project details page
-        return "redirect:/project/" + projectID;
-    }
-
-
-    @GetMapping("/project/{projectId}/task")
-    public ResponseEntity<Set<Task>> getTasksForProject(@PathVariable int projectId)
-    {
-        // Retrieve the project with the given projectId from the database
-        Project project = alphaRepositoryProject.getProjectByID(projectId);
-
-
-        if (project != null) {
-            Set<Task> task = project.getTasks();
-            return ResponseEntity.ok(task);
-        } else {
-            return ResponseEntity.notFound().build();
-        }
-
-
-    }
-
 
     @GetMapping("/createUser")
     public String createUser(Model model, HttpSession session)
@@ -210,15 +130,14 @@ public class AlphaController
         model.addAttribute("isAdmin", isAdmin);
         return "createUser";
     }
-
     @PostMapping("/createUser")
     public String createUser(Model model, HttpSession session,
-                             @RequestParam("email") String email,
-                             @RequestParam("password") String password,
-                             @RequestParam("hourlyWage") int hourlyWage,
-                             @RequestParam("name") String name,
-                             @RequestParam(value = "admin", defaultValue = "false") boolean admin)
-    {
+                @RequestParam("email") String email,
+                @RequestParam("password") String password,
+                @RequestParam("hourlyWage") int hourlyWage,
+                @RequestParam("name") String name,
+                @RequestParam(value = "admin", defaultValue = "false") boolean admin)
+                 {
         String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt());
         User newUser = new User();
         newUser.setMail(email);
@@ -245,10 +164,8 @@ public class AlphaController
         return "redirect:/index";
     }
 
-
     @GetMapping("/update/{id}")
-    public String showUpdate(@PathVariable("id") int updateId, Model model)
-    {
+    public String showUpdate(@PathVariable("id") int updateId, Model model) {
         // find produkt med id=updateId i databasen
         Project updateProject = alphaRepositoryProject.getProjectByID(updateId);
 
@@ -259,22 +176,21 @@ public class AlphaController
     }
 
     @PostMapping("/update/{projectID}")
-    public String updateProjectById(@PathVariable("projectID") int projectID,
-                                    @RequestParam("projectTitle") String projectTitle,
-                                    @RequestParam("projectDescription") String projectDescription,
-                                    @RequestParam("deadline") String deadline,
-                                    @RequestParam("nrOfUsers") int nrOfUsers,
-                                    @RequestParam("nrOfHours") int nrOfHours,
-                                    @RequestParam("projectPrice") double projectPrice,
-                                    @RequestParam("HoursPerDay") int hoursPerDay)
+    public String updateProjectById(@PathVariable ("projectID") int projectID,
+            @RequestParam("projectTitle") String projectTitle,
+            @RequestParam("projectDescription") String projectDescription,
+            @RequestParam("deadline") String deadline,
+            @RequestParam("nrOfUsers") int nrOfUsers,
+            @RequestParam("nrOfHours") int nrOfHours,
+            @RequestParam("projectPrice") double projectPrice,
+            @RequestParam("HoursPerDay") int hoursPerDay)
 
     {
-        Project updateProject = new Project(projectID, projectTitle, projectDescription, deadline, nrOfUsers, nrOfHours, projectPrice, hoursPerDay);
+        Project updateProject = new Project(projectID, projectTitle, projectDescription, deadline, nrOfUsers, nrOfHours,projectPrice, hoursPerDay);
         alphaRepositoryProject.updateProject(updateProject);
 
         return "redirect:/index";
     }
-
 
     @GetMapping("/adminPanel")
     public String admin(Model model, HttpSession session)
@@ -287,7 +203,6 @@ public class AlphaController
         model.addAttribute("isAdmin", isAdmin);
         return "adminPanel";
     }
-
     @GetMapping("/deleteUser")
     public String deleteUser(Model model, HttpSession session)
     {
@@ -297,10 +212,9 @@ public class AlphaController
         model.addAttribute("userList", alphaRepositoryUser.getAll());
         String email = (String) session.getAttribute("email");
         boolean isAdmin = alphaRepositoryUser.isAdmin(email);
-        model.addAttribute("isAdmin", isAdmin);
+        model.addAttribute("isAdmin",isAdmin);
         return "deleteUser";
     }
-
     @PostMapping("/deleteUser")
     public String deleteUser(Model model, HttpSession session,
                              @RequestParam("email") String email)
@@ -308,45 +222,43 @@ public class AlphaController
         alphaRepositoryUser.deleteById(email);
         model.addAttribute("userList", alphaRepositoryUser.getAll());
         boolean isAdmin = alphaRepositoryUser.isAdmin(email);
-        model.addAttribute("isAdmin", isAdmin);
+        model.addAttribute("isAdmin",isAdmin);
         return "redirect:/index";
     }
 
-
     @GetMapping("/updateUser")
-    public String updateUser(Model model, HttpSession session)
-    {
+    public String updateUser(Model model, HttpSession session) {
         //if (session.getAttribute("email") == null) {
         //    return "redirect:/";
         //}
-            List<User> userList = alphaRepositoryUser.getAll();
-            model.addAttribute("userList", userList);
-            model.addAttribute("user", new User());
 
-            String email = (String) session.getAttribute("email");
-            boolean isAdmin = alphaRepositoryUser.isAdmin(email);
-            model.addAttribute("isAdmin", isAdmin);
+        List<User> userList = alphaRepositoryUser.getAll();
+        model.addAttribute("userList", userList);
+        model.addAttribute("user", new User());
+
+        String email = (String) session.getAttribute("email");
+        boolean isAdmin = alphaRepositoryUser.isAdmin(email);
+        model.addAttribute("isAdmin", isAdmin);
 
 
-            return "updateUser";
-        }
+        return "updateUser";
+    }
 
-        @PostMapping("/updateUser")
-        public String updateUser (Model model,
-        @RequestParam("userId") int userId,
-        @RequestParam("email") String mail,
-        @RequestParam("password") String password,
-        @RequestParam("hourlyWage") int hourlyWage,
-        @RequestParam("name") String name,
-        @RequestParam(value = "admin", required = false) boolean admin)
-        {
+    @PostMapping("/updateUser")
+    public String updateUser(Model model,
+                             @RequestParam("userId") int userId,
+                             @RequestParam("email") String mail,
+                             @RequestParam("password") String password,
+                             @RequestParam("hourlyWage") int hourlyWage,
+                             @RequestParam("name") String name,
+                             @RequestParam(value = "admin", required = false) boolean admin)
+    {
 
-            User updateUser = new User(userId, mail, password, hourlyWage, name, admin);
-            alphaRepositoryUser.updateUser(updateUser);
-            System.out.println(updateUser);
+        User updateUser = new User(userId, mail, password, hourlyWage, name, admin);
+        alphaRepositoryUser.updateUser(updateUser);
+        System.out.println(updateUser);
 
             return "adminPanel";
 
-        }
-
     }
+}
