@@ -1,0 +1,11 @@
+.container{
+padding-left: 40%;
+    padding-top: 12%;
+justify-content: center
+}
+.title{
+    font-size: 30px;
+    font-weight: bold;
+    padding-left: 5%;
+}
+

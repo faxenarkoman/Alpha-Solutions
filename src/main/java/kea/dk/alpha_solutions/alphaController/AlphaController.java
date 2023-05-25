@@ -212,18 +212,18 @@ public class AlphaController
         return "redirect:/index";
     }
     @GetMapping("/updateUser")
-    public String updateUser(Model model) {
+    public String updateUser(Model model, HttpSession session) {
         List<User> userList = alphaRepositoryUser.getAll();
         model.addAttribute("userList", userList);
-        model.addAttribute("user", new User()); // Add an empty User object to the model
+        model.addAttribute("user", new User());
+
+        String email = (String) session.getAttribute("email");
+        boolean isAdmin = alphaRepositoryUser.isAdmin(email);
+        model.addAttribute("isAdmin",isAdmin);
+
+
         return "updateUser";
     }
-//POSTMAPPING VIRKER IKKE GETMAPPING VIRKER
-
-
-
-
-
 
     @PostMapping("/updateUser")
     public String updateUser(Model model,
@@ -232,8 +232,9 @@ public class AlphaController
                              @RequestParam("password") String password,
                              @RequestParam("hourlyWage") int hourlyWage,
                              @RequestParam("name") String name,
-                             @RequestParam("admin") boolean admin)
+                             @RequestParam(value = "admin", required = false) boolean admin)
     {
+
         User updateUser = new User(userId, mail, password, hourlyWage, name, admin);
         alphaRepositoryUser.updateUser(updateUser);
         System.out.println(updateUser);
