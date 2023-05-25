@@ -2,8 +2,8 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
-  <title>Create User</title>
-  <link rel="stylesheet" th:href="@{/styles/createUser.css}">
+  <title>Edit User</title>
+  <link rel="stylesheet" th:href="@{/styles/updateUser.css}">
   <link rel="stylesheet" th:href="@{/styles/navbar.css}">
 </head>
 <body>
@@ -16,25 +16,32 @@
   <a th:href="@{/task}">View Tasks</a>
   <a th:if="${isAdmin}" th:href="@{/adminPanel}">Admin Panel</a>
 </div>
-<h1 class="title">Create User</h1>
 <div class="container">
+  <h1 class="title">Edit User</h1>
   <br>
-  <form action="/createUser" method="post">
+  <form action="/updateUser" method="post">
+    <label for="user">Select User:</label>
+    <select id="user" name="userId">
+      <option value=""> Select user </option>
+      <option th:each="user : ${userList}" th:text="${user.name}" th:value="${user.userId}"></option>
+    </select>
+    <br>
     <table>
       <tr>
         <td>
           <label for="email">User's Email:</label>
         </td>
         <td>
-          <input id="email" name="email" type="text" required>
+          <input id="email" name="email" type="text" th:value="${user.getMail()}" required>
         </td>
+
       </tr>
       <tr>
         <td>
           <label for="password">User's Password:</label>
         </td>
         <td>
-          <input id="password" name="password" type="password" required>
+          <input id="password" name="password" type="password" th:value="${user.getPassword()}" required>
         </td>
       </tr>
       <tr>
@@ -42,7 +49,7 @@
           <label for="hourlyWage">User's Hourly Wage:</label>
         </td>
         <td>
-          <input id="hourlyWage" name="hourlyWage" type="number" required>
+          <input id="hourlyWage" name="hourlyWage" type="number" th:value="${user.getHourlyWage()}" required>
         </td>
       </tr>
       <tr>
@@ -50,7 +57,7 @@
           <label for="name">User's Name:</label>
         </td>
         <td>
-          <input id="name" name="name" type="text" required>
+          <input id="name" name="name" type="text" th:value="${user.getName()}" required>
         </td>
       </tr>
       <tr>
@@ -58,14 +65,13 @@
           <label for="admin">Admin:</label>
         </td>
         <td>
-          <input id="admin" name="admin" type="checkbox" value="true">
+          <input id="admin" name="admin" type="checkbox" th:checked="${user.isAdmin()}">
         </td>
       </tr>
     </table>
-
     <div class="buttons">
-      <input type="submit" value="Create User">
-      <button type="button" onclick="window.location.href='/index'">Go back to Home</button>
+      <input type="submit" value="Save Changes">
+      <button type="button" onclick="window.location.href='/adminPanel'">Go back to Admin Panel</button>
     </div>
   </form>
 </div>
