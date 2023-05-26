@@ -88,31 +88,19 @@ public class AlphaController
         return "create";
     }
 
-    @GetMapping("showTask")
-
-
     @PostMapping("/create")
     public String createProject(Model model,
                                 @RequestParam("project-title") String projectTitle,
                                 @RequestParam("project-description") String projectDescription,
                                 @RequestParam("deadline") String deadline,
-                                @RequestParam("nr-of-users") List<Integer> userId,
-                                @RequestParam("nr-of-hours") int nrOfHours,
-                                @RequestParam("project-price") double projectPrice,
-                                @RequestParam("hours-per-day") int hoursPerDay)
+                                @RequestParam("nr-of-hours") int nrOfHours)
     {
 
         Project newProject = new Project();
         newProject.setProjectTitle(projectTitle);
         newProject.setProjectDescription(projectDescription);
         newProject.setDeadline(deadline);
-        newProject.setNrOfUsers(userId.size());
-        newProject.setNrOfHours(nrOfHours);
-        newProject.setProjectPrice(projectPrice);
-        newProject.setHoursPerDay(hoursPerDay);
-
         alphaRepositoryProject.addProject(newProject);
-        model.addAttribute("userList", alphaRepositoryUser.getAll());
 
         return "redirect:/index";
     }
@@ -265,13 +253,10 @@ public class AlphaController
                                     @RequestParam("projectTitle") String projectTitle,
                                     @RequestParam("projectDescription") String projectDescription,
                                     @RequestParam("deadline") String deadline,
-                                    @RequestParam("nrOfUsers") int nrOfUsers,
-                                    @RequestParam("nrOfHours") int nrOfHours,
-                                    @RequestParam("projectPrice") double projectPrice,
                                     @RequestParam("HoursPerDay") int hoursPerDay)
 
     {
-        Project updateProject = new Project(projectID, projectTitle, projectDescription, deadline, nrOfUsers, nrOfHours,projectPrice, hoursPerDay);
+        Project updateProject = new Project(projectID, projectTitle, projectDescription, deadline, hoursPerDay);
         alphaRepositoryProject.updateProject(updateProject);
 
         return "redirect:/index";
