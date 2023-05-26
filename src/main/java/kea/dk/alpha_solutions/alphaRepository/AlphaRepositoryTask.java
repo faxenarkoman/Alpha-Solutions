@@ -225,15 +225,29 @@ public class AlphaRepositoryTask
         return task;
     }
 
-
     public Task createTaskInProject(Project project, Task task) {
         try {
-
             Connection connection = DriverManager.getConnection(DB_URL, UID, PWD);
-            PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO task (task_name, project_id) VALUES (?, ?)");
+            PreparedStatement preparedStatement = connection.prepareStatement(
+                    "INSERT INTO task (taskName, projectId, taskNrOfHours, taskNrOfUsers, taskDiscripton, taskDeadline, taskHoursPrDay) " +
+                            "VALUES (?, ?, ?, ?, ?, ?, ?)",
+                    Statement.RETURN_GENERATED_KEYS
+            );
             preparedStatement.setString(1, task.getTaskName());
             preparedStatement.setInt(2, project.getProjectID());
+            preparedStatement.setInt(3, task.getTaskNrOfHours());
+            preparedStatement.setInt(4, task.getTaskNrOfUsers());
+            preparedStatement.setString(5, task.getTaskDescription());
+            preparedStatement.setString(6, task.getTaskDeadline());
+            preparedStatement.setInt(7, task.getTaskHoursPrDay());
             preparedStatement.executeUpdate();
+
+            // Retrieve the generated task ID
+            ResultSet generatedKeys = preparedStatement.getGeneratedKeys();
+            if (generatedKeys.next()) {
+                int taskId = generatedKeys.getInt(1);
+                task.setTaskId(taskId);
+            }
 
             preparedStatement.close();
             connection.close();
@@ -244,6 +258,7 @@ public class AlphaRepositoryTask
         }
         return task;
     }
+
 
 
     public List<Task> getTasksByProjectID(int projectID) {
