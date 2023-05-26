@@ -308,9 +308,6 @@ public class AlphaController
                              @RequestParam("email") String email)
     {
         alphaRepositoryUser.deleteById(email);
-        model.addAttribute("userList", alphaRepositoryUser.getAll());
-        boolean isAdmin = alphaRepositoryUser.isAdmin(email);
-        model.addAttribute("isAdmin", isAdmin);
         return "redirect:/index";
     }
 

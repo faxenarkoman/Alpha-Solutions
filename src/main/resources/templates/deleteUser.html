@@ -21,17 +21,11 @@
   <h1>Delete User</h1>
   <br>
   <form action="/deleteUser" method="post">
-    <table>
-      <tr>
-        <td>
-          <label for="email">User's Email:</label>
-        </td>
-        <td>
-          <input id="email" name="email" type="text" required>
-        </td>
-      </tr>
-    </table>
-
+    <label for="email">Select User:</label>
+    <select id="email" name="email">
+      <option value=""> Select user </option>
+      <option th:each="user : ${userList}" th:text="${user.name}" th:value="${user.mail}"></option>
+    </select>
     <div class="buttons">
       <input type="submit" value="Delete Selected User">
       <button type="button" onclick="window.location.href='/index'">Go back to Home</button>
