@@ -71,10 +71,13 @@ public class AlphaController
        /* if (session.getAttribute("email") == null) {
             return "redirect:/";
         }*/
-        model.addAttribute("alpha", alphaRepositoryProject.getAll());
+        model.addAttribute("project", alphaRepositoryProject.getAll());
         String email = (String) session.getAttribute("email");
         boolean isAdmin = alphaRepositoryUser.isAdmin(email);
         model.addAttribute("isAdmin", isAdmin);
+
+
+
         return "index";
     }
 
@@ -237,8 +240,9 @@ public class AlphaController
     }
 
 
-    @GetMapping("/update/{projectID}")
-    public String showUpdate(@PathVariable("projectID") int updateId, Model model) {
+    @GetMapping("/update/{id}")
+    public String showUpdate(@PathVariable("id") int updateId, Model model)
+    {
         // find produkt med id=updateId i databasen
         Project updateProject = alphaRepositoryProject.getProjectByID(updateId);
 
@@ -248,16 +252,15 @@ public class AlphaController
         return "update";
     }
 
-
-    @PostMapping("/update")
-    public String updateProject(    @RequestParam("projectID") int projectID,
-                                    @RequestParam("projectTitle") String projectTitle,
-                                    @RequestParam("projectDescription") String projectDescription,
+    @PostMapping("/update/{projectID}")
+    public String updateProjectById(@PathVariable("projectID") int projectID,
+                                    @RequestParam("project-title") String projectTitle,
+                                    @RequestParam("project-description") String projectDescription,
                                     @RequestParam("deadline") String deadline,
-                                    @RequestParam("HoursPerDay") int hoursPerDay)
+                                    @RequestParam("hours-per-day") int hoursPerDay)
 
     {
-        Project updateProject = new Project(projectID, projectTitle, projectDescription, deadline, hoursPerDay);
+        Project updateProject = new Project(projectID, projectTitle, projectDescription, hoursPerDay, deadline);
         alphaRepositoryProject.updateProject(updateProject);
 
         return "redirect:/index";

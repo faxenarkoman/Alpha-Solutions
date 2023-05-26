@@ -22,8 +22,7 @@ public class AlphaRepositoryProject
 
 
 
-        public List<Project> getAll()
-        {
+        public List<Project> getAll() {
                 List<Project> projectList = new ArrayList<>();
                 try {
                         Connection connection = DriverManager.getConnection(DB_URL, UID, PWD);
@@ -36,19 +35,17 @@ public class AlphaRepositoryProject
                                 String deadline = resultSet.getString(3);
                                 int hoursPerDay = resultSet.getInt(4);
                                 String projectDescription = resultSet.getString(5);
-                                Project project = new Project(projectId, projectTitle, deadline,
-                                projectDescription, hoursPerDay);
+
+                                Project project = new Project(projectId, projectTitle, deadline, hoursPerDay, projectDescription);
                                 projectList.add(project);
                         }
-
                 } catch (SQLException e) {
                         System.out.println("Could not query database");
                         e.printStackTrace();
                 }
-
                 return projectList;
-
         }
+
 
         public void addProject(Project project) {
                 if (project.getProjectTitle() == null) {
@@ -78,36 +75,31 @@ public class AlphaRepositoryProject
 
 
 
-        public void updateProject(Project project)
-        {
-                //SQL statement
-                final String UPDATE_QUERY = "UPDATE  alpha.project SET projectTitle = ?, projectDescription = ?, deadline = ?, HoursPrDay = ?  WHERE projectID = ?";
+        public void updateProject(Project project) {
+                try (Connection connection = DriverManager.getConnection(DB_URL, UID, PWD)) {
+                        // SQL statement
+                        final String UPDATE_QUERY = "UPDATE alpha.project SET projectTitle = ?, projectDescription = ?, deadline = ?, HoursPrDay = ? WHERE projectID = ?";
 
-                try {
-                        //connect db
-                        Connection connection = DriverManager.getConnection(DB_URL, UID, PWD);
-
-                        //prepared statement
-                        PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_QUERY);
-
-                        //set parameters
-                        int projectID = project.getProjectID();
+                        // Set parameters
                         String projectTitle = project.getProjectTitle();
                         String projectDescription = project.getProjectDescription();
                         String deadline = project.getDeadline();
-                        int hoursPrDay = project.getHoursPerDay();
+                        int hoursPerDay = project.getHoursPerDay();
+                        int projectID = project.getProjectID();
 
-                        preparedStatement.setDouble(1, projectID);
-                        preparedStatement.setString(2, projectTitle);
-                        preparedStatement.setString(3, projectDescription);
-                        preparedStatement.setString(4, deadline);
-                        preparedStatement.setInt(5, hoursPrDay);
+                        // Prepared statement
+                        PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_QUERY);
+                        preparedStatement.setString(1, projectTitle);
+                        preparedStatement.setString(2, projectDescription);
+                        preparedStatement.setString(3, deadline);
+                        preparedStatement.setInt(4, hoursPerDay);
+                        preparedStatement.setInt(5, projectID);
 
-                        //execute statement
+                        // Execute statement
                         preparedStatement.executeUpdate();
-
+                        System.out.println(project);
                 } catch (SQLException e) {
-                        System.out.println("Could not update product");
+                        System.out.println("Could not update project");
                         e.printStackTrace();
                 }
         }
@@ -157,11 +149,8 @@ public class AlphaRepositoryProject
                         resultSet.next();
                         String projectTitle = resultSet.getString(2);
                         String deadline = resultSet.getString(3);
-                        int nrOfHours = resultSet.getInt(4);
-                        int nrOfUsers = resultSet.getInt(5);
-                        double projectPrice = resultSet.getDouble(6);
-                        int hoursPerDay = resultSet.getInt(7);
-                        String projectDescription = resultSet.getString(8);
+                        int hoursPerDay = resultSet.getInt(4);
+                        String projectDescription = resultSet.getString(5);
 
                         project.setProjectID(projectID);
                         project.setProjectTitle(projectTitle);
