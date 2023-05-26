@@ -23,6 +23,8 @@ public class Project {
         this.tasks = tasks;
     }
 
+
+
     public void addTask(Task task) {
         tasks.add(task);
         task.getProjects().add(this);

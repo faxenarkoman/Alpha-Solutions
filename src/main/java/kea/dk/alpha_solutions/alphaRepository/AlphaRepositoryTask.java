@@ -84,28 +84,38 @@ public class AlphaRepositoryTask
         return taskList;
     }
 
-    public void addTask(Task task){
+    public void addTask(Task task) {
         if (task.getTaskName() == null) {
-            throw new IllegalArgumentException("Project object must have a non-null title attribute");
+            throw new IllegalArgumentException("Task object must have a non-null taskName attribute");
         }
-        try{
-            //connect to db
+        try {
+            // Connect to the database
             Connection connection = DriverManager.getConnection(DB_URL, UID, PWD);
-            final String CREATE_QUERY = "INSERT INTO  alpha.task (taskId, taskName, taskDescription, taskNrOfUsers, taskNrOfHours, taskDescription, taskDeadline, taskHoursPrDay) VALUES  (?, ?, ?, ?, ?, ?, ?, ?)";
+
+            final String CREATE_QUERY = "INSERT INTO alpha.task (taskId, taskName, taskDescription, taskNrOfUsers, taskNrOfHours, taskDeadline, taskHoursPrDay, projectId) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
             PreparedStatement preparedStatement = connection.prepareStatement(CREATE_QUERY);
 
-            //set attributer i prepared statement
+            // Set values in the prepared statement
             preparedStatement.setInt(1, task.getTaskId());
+            preparedStatement.setString(2, task.getTaskName());
+            preparedStatement.setString(3, task.getTaskDescription());
+            preparedStatement.setInt(4, task.getTaskNrOfUsers());
+            preparedStatement.setInt(5, task.getTaskNrOfHours());
+            preparedStatement.setString(6, task.getTaskDeadline());
+            preparedStatement.setInt(7, task.getTaskHoursPrDay());
+            preparedStatement.setInt(8, task.getProjectId());
 
-
-            //execute statement
+            // Execute the statement
             preparedStatement.executeUpdate();
+
+            // Close the resources
+            preparedStatement.close();
+            connection.close();
         } catch (SQLException e) {
-            System.out.println("Could not create product");
+            System.out.println("Could not create task");
             e.printStackTrace();
         }
     }
-
 
 
     public void updateTask(Task task)
