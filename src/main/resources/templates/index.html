@@ -22,9 +22,11 @@
     <div class="project-card" th:each="alpha : ${alpha}">
         <h3 th:text="${alpha.projectTitle}"></h3>
         <p th:text="${alpha.projectDescription}"></p>
-        <a th:href="@{'/project/' + ${alpha.projectID}}">Open Project</a>
-        <a th:if="${isAdmin}" th:href="@{'/delete/' + ${alpha.projectID}}">Delete Project</a>
-        <a th:if="${isAdmin}" th:href="@{'/update/' + ${alpha.projectID}}">Update Project</a>
+        <div class="button-container">
+            <a class="button project-button" th:href="@{'/project/' + ${alpha.projectID}}">Open Project</a>
+            <a class="button delete-button" th:if="${isAdmin}" th:href="@{'/delete/' + ${alpha.projectID}}">Delete Project</a>
+            <a class="button update-button" th:if="${isAdmin}" th:href="@{'/update/' + ${alpha.projectID}}">Update Project</a>
+        </div>
 
     </div>
 </div>
