@@ -36,7 +36,7 @@ public class Project {
     public Project() {
     }
 
-    public Project(int projectID, String projectTitle, String projectDescription, String deadline, int hoursPerDay) {
+    public Project(int projectID, String projectTitle, String deadline, int hoursPerDay, String projectDescription) {
         this.projectID = projectID;
         this.projectTitle = projectTitle;
         this.projectDescription = projectDescription;
@@ -89,9 +89,11 @@ public class Project {
         return "Project{" +
                 "projectID=" + projectID +
                 ", projectTitle='" + projectTitle + '\'' +
-                ", projectDescription='" + projectDescription + '\'' +
                 ", deadline='" + deadline + '\'' +
+                ", projectDescription='" + projectDescription + '\'' +
                 ", hoursPerDay=" + hoursPerDay +
                 '}';
     }
+
+
 }

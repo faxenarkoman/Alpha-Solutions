@@ -71,10 +71,13 @@ public class AlphaController
        /* if (session.getAttribute("email") == null) {
             return "redirect:/";
         }*/
-        model.addAttribute("alpha", alphaRepositoryProject.getAll());
+        model.addAttribute("project", alphaRepositoryProject.getAll());
         String email = (String) session.getAttribute("email");
         boolean isAdmin = alphaRepositoryUser.isAdmin(email);
         model.addAttribute("isAdmin", isAdmin);
+
+
+
         return "index";
     }
 
@@ -244,20 +247,20 @@ public class AlphaController
         Project updateProject = alphaRepositoryProject.getProjectByID(updateId);
 
         // tilføj produkt til viewmodel, så det kan bruges i Thymeleaf
-        model.addAttribute("wish", updateProject);
+        model.addAttribute("project", updateProject);
         // fortæl Spring hvilken HTML side, der skal vises
         return "update";
     }
 
     @PostMapping("/update/{projectID}")
     public String updateProjectById(@PathVariable("projectID") int projectID,
-                                    @RequestParam("projectTitle") String projectTitle,
-                                    @RequestParam("projectDescription") String projectDescription,
+                                    @RequestParam("project-title") String projectTitle,
+                                    @RequestParam("project-description") String projectDescription,
                                     @RequestParam("deadline") String deadline,
-                                    @RequestParam("HoursPerDay") int hoursPerDay)
+                                    @RequestParam("hours-per-day") int hoursPerDay)
 
     {
-        Project updateProject = new Project(projectID, projectTitle, projectDescription, deadline, hoursPerDay);
+        Project updateProject = new Project(projectID, projectTitle, projectDescription, hoursPerDay, deadline);
         alphaRepositoryProject.updateProject(updateProject);
 
         return "redirect:/index";
