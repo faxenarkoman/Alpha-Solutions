@@ -119,11 +119,12 @@ public class AlphaController
     {
         // Retrieve the project data based on the projectID
         Project project = alphaRepositoryProject.getProjectByID(projectID);
+        List<Task> tasks = alphaRepositoryTask.getTasksByProjectID(projectID);
 
 
         // Add project data to model
         model.addAttribute("project", project);
-
+        model.addAttribute("tasks", tasks);
 
         // Return the name of the HTML template to render
         return "project";
@@ -134,6 +135,8 @@ public class AlphaController
         // Retrieve the project by ID
         Project project = alphaRepositoryProject.getProjectByID(projectID);
         List<User> userList = alphaRepositoryUser.getAll();
+        List<Task> tasks = alphaRepositoryTask.getTasksByProjectID(projectID);
+        System.out.println(tasks.size());
         model.addAttribute("userList", userList);
 
         // Create a new Task object

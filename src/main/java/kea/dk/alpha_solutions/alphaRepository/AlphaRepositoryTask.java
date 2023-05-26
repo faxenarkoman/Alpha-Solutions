@@ -262,7 +262,7 @@ public class AlphaRepositoryTask
 
 
     public List<Task> getTasksByProjectID(int projectID) {
-        final String FIND_QUERY = "SELECT * FROM task WHERE project_id = ?";
+        final String FIND_QUERY = "SELECT * FROM task WHERE projectId = ?";
         List<Task> tasks = new ArrayList<>();
 
         try {
@@ -273,13 +273,13 @@ public class AlphaRepositoryTask
 
             while (resultSet.next()) {
                 Task task = new Task();
-                task.setTaskId(resultSet.getInt("task_id"));
-                task.setTaskName(resultSet.getString("task_name"));
-                task.setTaskNrOfHours(resultSet.getInt("task_nr_of_hours"));
-                task.setTaskNrOfUsers(resultSet.getInt("task_nr_of_users"));
-                task.setTaskDescription(resultSet.getString("task_description"));
-                task.setTaskDeadline(resultSet.getString("task_deadline"));
-                task.setTaskHoursPrDay(resultSet.getInt("task_hours_per_day"));
+                task.setTaskId(resultSet.getInt("taskId"));
+                task.setTaskName(resultSet.getString("taskName"));
+                task.setTaskNrOfHours(resultSet.getInt("taskNrOfHours"));
+                task.setTaskNrOfUsers(resultSet.getInt("taskNrOfUsers"));
+                task.setTaskDescription(resultSet.getString("taskDiscripton"));
+                task.setTaskDeadline(resultSet.getString("taskDeadline"));
+                task.setTaskHoursPrDay(resultSet.getInt("taskHoursPrDay"));
 
                 tasks.add(task);
             }
