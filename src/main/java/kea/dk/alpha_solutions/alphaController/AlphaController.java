@@ -136,7 +136,6 @@ public class AlphaController
         Project project = alphaRepositoryProject.getProjectByID(projectID);
         List<User> userList = alphaRepositoryUser.getAll();
         List<Task> tasks = alphaRepositoryTask.getTasksByProjectID(projectID);
-        System.out.println(tasks.size());
         model.addAttribute("userList", userList);
 
         // Create a new Task object
