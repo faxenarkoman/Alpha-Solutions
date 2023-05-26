@@ -66,7 +66,7 @@ table {
     max-width: 800px; /* Set the maximum width of the grid container */
     margin: 0 auto; /* Center the grid container horizontally */
     margin-top: 7%;
-    margin-left: 34%;
+    margin-left: 30%;
     column-width: 200px;
     grid-auto-rows: 1fr;
 }
@@ -112,7 +112,8 @@ table {
 .create-button {
     text-align: center;
     margin-bottom: 40%;
-    margin-left: 30%;
+    margin-left: 18%;
+    justify-content: center;
 }
 
 th {
@@ -190,10 +191,13 @@ tr:hover {
 }
 
 .project-card p {
-    font-weight: bold; /* Make the description font thicker */
-    font-size: 18px; /* Increase the description font size */
+    font-size: 20px; /* Increase the description font size */
 }
-
+small{
+    font-size: 13px;
+    font-weight: bold;
+    font-style: italic;
+}
 
 
 
