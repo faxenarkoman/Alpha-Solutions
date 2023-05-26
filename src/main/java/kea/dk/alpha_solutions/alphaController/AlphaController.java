@@ -122,23 +122,25 @@ public class AlphaController
     {
         // Retrieve the project data based on the projectID
         Project project = alphaRepositoryProject.getProjectByID(projectID);
+        List<Task> tasks = alphaRepositoryTask.getTasksByProjectID(projectID);
 
 
         // Add project data to model
         model.addAttribute("project", project);
-
+        model.addAttribute("tasks", tasks);
 
         // Return the name of the HTML template to render
         return "project";
     }
 
     @GetMapping("/task/{projectID}")
-    public String showCreateTaskForm(@PathVariable("projectID") int projectID, Model model)
-    {
+    public String showCreateTask(@PathVariable("projectID") int projectID, Model model) {
         // Retrieve the project by ID
         Project project = alphaRepositoryProject.getProjectByID(projectID);
-
-        List<Task> taskList = alphaRepositoryTask.getAllTasks();
+        List<User> userList = alphaRepositoryUser.getAll();
+        List<Task> tasks = alphaRepositoryTask.getTasksByProjectID(projectID);
+        System.out.println(tasks.size());
+        model.addAttribute("userList", userList);
 
         // Create a new Task object
         Task task = new Task();
@@ -152,45 +154,28 @@ public class AlphaController
         return "task";
     }
 
-    @PostMapping("/task/{projectID}/create")
-    public String createTask(@PathVariable("projectID") int projectID, @ModelAttribute("task") Task task, Model model)
-    {
+    @PostMapping("/task/{projectID}/createTask")
+    public String createTask(@PathVariable("projectID") int projectID, @ModelAttribute("task") Task task) {
         // Retrieve the project by ID
         Project project = alphaRepositoryProject.getProjectByID(projectID);
-        List<User> userList = alphaRepositoryUser.getAll();
-        model.addAttribute("userList", userList);
 
-        // Create a new set to hold the projects
-        Set<Project> projects = new HashSet<>();
-        projects.add(project);
+        // Set the project ID for the task
+        task.setProjectId(projectID);
 
-        // Set the projects for the task
-        task.setProjects(projects);
+        // Create the task in the project
+        Task createdTask = alphaRepositoryTask.createTaskInProject(project, task);
 
-        // Save the task
-        alphaRepositoryTask.addTask(task);
-
-        // Redirect to the project details page
-        return "redirect:/project/" + projectID;
-    }
-
-
-    @GetMapping("/project/{projectId}/task")
-    public ResponseEntity<Set<Task>> getTasksForProject(@PathVariable int projectId)
-    {
-        // Retrieve the project with the given projectId from the database
-        Project project = alphaRepositoryProject.getProjectByID(projectId);
-
-
-        if (project != null) {
-            Set<Task> task = project.getTasks();
-            return ResponseEntity.ok(task);
+        if (createdTask != null) {
+            // Task creation successful
+            // Redirect to the project details page
+            return "redirect:/project/" + projectID;
         } else {
-            return ResponseEntity.notFound().build();
+            // Task creation failed
+            // Handle the error or redirect to an error page
+            return "redirect:/error";
         }
-
-
     }
+
 
 
     @GetMapping("/createUser")

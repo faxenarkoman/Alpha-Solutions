@@ -84,28 +84,38 @@ public class AlphaRepositoryTask
         return taskList;
     }
 
-    public void addTask(Task task){
+    public void addTask(Task task) {
         if (task.getTaskName() == null) {
-            throw new IllegalArgumentException("Project object must have a non-null title attribute");
+            throw new IllegalArgumentException("Task object must have a non-null taskName attribute");
         }
-        try{
-            //connect to db
+        try {
+            // Connect to the database
             Connection connection = DriverManager.getConnection(DB_URL, UID, PWD);
-            final String CREATE_QUERY = "INSERT INTO  alpha.task (taskId, taskName, taskDescription, taskNrOfUsers, taskNrOfHours, taskDescription, taskDeadline, taskHoursPrDay) VALUES  (?, ?, ?, ?, ?, ?, ?, ?)";
+
+            final String CREATE_QUERY = "INSERT INTO alpha.task (taskId, taskName, taskDescription, taskNrOfUsers, taskNrOfHours, taskDeadline, taskHoursPrDay, projectId) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
             PreparedStatement preparedStatement = connection.prepareStatement(CREATE_QUERY);
 
-            //set attributer i prepared statement
+            // Set values in the prepared statement
             preparedStatement.setInt(1, task.getTaskId());
+            preparedStatement.setString(2, task.getTaskName());
+            preparedStatement.setString(3, task.getTaskDescription());
+            preparedStatement.setInt(4, task.getTaskNrOfUsers());
+            preparedStatement.setInt(5, task.getTaskNrOfHours());
+            preparedStatement.setString(6, task.getTaskDeadline());
+            preparedStatement.setInt(7, task.getTaskHoursPrDay());
+            preparedStatement.setInt(8, task.getProjectId());
 
-
-            //execute statement
+            // Execute the statement
             preparedStatement.executeUpdate();
+
+            // Close the resources
+            preparedStatement.close();
+            connection.close();
         } catch (SQLException e) {
-            System.out.println("Could not create product");
+            System.out.println("Could not create task");
             e.printStackTrace();
         }
     }
-
 
 
     public void updateTask(Task task)
@@ -215,15 +225,29 @@ public class AlphaRepositoryTask
         return task;
     }
 
-
     public Task createTaskInProject(Project project, Task task) {
         try {
-
             Connection connection = DriverManager.getConnection(DB_URL, UID, PWD);
-            PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO task (task_name, project_id) VALUES (?, ?)");
+            PreparedStatement preparedStatement = connection.prepareStatement(
+                    "INSERT INTO task (taskName, projectId, taskNrOfHours, taskNrOfUsers, taskDiscripton, taskDeadline, taskHoursPrDay) " +
+                            "VALUES (?, ?, ?, ?, ?, ?, ?)",
+                    Statement.RETURN_GENERATED_KEYS
+            );
             preparedStatement.setString(1, task.getTaskName());
             preparedStatement.setInt(2, project.getProjectID());
+            preparedStatement.setInt(3, task.getTaskNrOfHours());
+            preparedStatement.setInt(4, task.getTaskNrOfUsers());
+            preparedStatement.setString(5, task.getTaskDescription());
+            preparedStatement.setString(6, task.getTaskDeadline());
+            preparedStatement.setInt(7, task.getTaskHoursPrDay());
             preparedStatement.executeUpdate();
+
+            // Retrieve the generated task ID
+            ResultSet generatedKeys = preparedStatement.getGeneratedKeys();
+            if (generatedKeys.next()) {
+                int taskId = generatedKeys.getInt(1);
+                task.setTaskId(taskId);
+            }
 
             preparedStatement.close();
             connection.close();
@@ -236,8 +260,9 @@ public class AlphaRepositoryTask
     }
 
 
+
     public List<Task> getTasksByProjectID(int projectID) {
-        final String FIND_QUERY = "SELECT * FROM task WHERE project_id = ?";
+        final String FIND_QUERY = "SELECT * FROM task WHERE projectId = ?";
         List<Task> tasks = new ArrayList<>();
 
         try {
@@ -248,13 +273,13 @@ public class AlphaRepositoryTask
 
             while (resultSet.next()) {
                 Task task = new Task();
-                task.setTaskId(resultSet.getInt("task_id"));
-                task.setTaskName(resultSet.getString("task_name"));
-                task.setTaskNrOfHours(resultSet.getInt("task_nr_of_hours"));
-                task.setTaskNrOfUsers(resultSet.getInt("task_nr_of_users"));
-                task.setTaskDescription(resultSet.getString("task_description"));
-                task.setTaskDeadline(resultSet.getString("task_deadline"));
-                task.setTaskHoursPrDay(resultSet.getInt("task_hours_per_day"));
+                task.setTaskId(resultSet.getInt("taskId"));
+                task.setTaskName(resultSet.getString("taskName"));
+                task.setTaskNrOfHours(resultSet.getInt("taskNrOfHours"));
+                task.setTaskNrOfUsers(resultSet.getInt("taskNrOfUsers"));
+                task.setTaskDescription(resultSet.getString("taskDiscripton"));
+                task.setTaskDeadline(resultSet.getString("taskDeadline"));
+                task.setTaskHoursPrDay(resultSet.getInt("taskHoursPrDay"));
 
                 tasks.add(task);
             }
