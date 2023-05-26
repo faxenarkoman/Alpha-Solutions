@@ -202,13 +202,9 @@ public class AlphaController
         return "deleteUser";
     }
     @PostMapping("/deleteUser")
-    public String deleteUser(Model model, HttpSession session,
-                             @RequestParam("email") String email)
+    public String deleteUser(Model model, HttpSession session, @RequestParam("email") String email)
     {
         alphaRepositoryUser.deleteById(email);
-        model.addAttribute("userList", alphaRepositoryUser.getAll());
-        boolean isAdmin = alphaRepositoryUser.isAdmin(email);
-        model.addAttribute("isAdmin",isAdmin);
         return "redirect:/index";
     }
     @GetMapping("/updateUser")
