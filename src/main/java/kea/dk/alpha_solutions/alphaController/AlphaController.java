@@ -93,13 +93,14 @@ public class AlphaController
                                 @RequestParam("project-title") String projectTitle,
                                 @RequestParam("project-description") String projectDescription,
                                 @RequestParam("deadline") String deadline,
-                                @RequestParam("nr-of-hours") int nrOfHours)
+                                @RequestParam("hours-per-day") int hoursPerDay )
     {
 
         Project newProject = new Project();
         newProject.setProjectTitle(projectTitle);
         newProject.setProjectDescription(projectDescription);
         newProject.setDeadline(deadline);
+        newProject.setHoursPerDay(hoursPerDay);
         alphaRepositoryProject.addProject(newProject);
 
         return "redirect:/index";
