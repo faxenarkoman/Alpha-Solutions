@@ -65,7 +65,7 @@ public class AlphaRepositoryProject
                         preparedStatement.setString(2, project.getProjectTitle());
                         preparedStatement.setString(3, project.getDeadline());
                         preparedStatement.setInt(4, project.getHoursPerDay());
-                        preparedStatement.setString(3, project.getProjectDescription());
+                        preparedStatement.setString(5, project.getProjectDescription());
 
 
                         // Execute the statement
