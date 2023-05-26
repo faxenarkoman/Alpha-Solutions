@@ -1,4 +1,19 @@
+body{
+    font-family: sans-serif;
 
+}
+
+.background {
+    position: fixed;
+    top: -30%;
+    left: -30%;
+    height: auto;
+    max-height: 100vh;
+    width: 100vw;
+    z-index: -1;
+    object-fit: cover;
+    transform: scale(0.4);
+}
 
 
 .description {
@@ -72,7 +87,7 @@ table {
 }
 
 .project-card {
-    background-color: lightsteelblue;
+    background-color: aliceblue;
     padding: 20px;
     border-radius: 10px;
     text-align: center;
@@ -112,7 +127,14 @@ table {
 .create-button {
     text-align: center;
     margin-bottom: 40%;
-    margin-left: 30%;
+    margin-left: 53.5%;
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: steelblue;
+    color: white;
+    text-decoration: none;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
 }
 
 th {
@@ -137,12 +159,12 @@ tr:hover {
 .button {
     display: inline-block;
     padding: 10px 20px;
-    background-color: #4CAF50;
+    background-color: seagreen;
     color: white;
     text-decoration: none;
     border-radius: 4px;
     transition: background-color 0.3s ease;
-    margin-bottom: 10px;
+    margin-bottom: 30px;
 
 }
 
@@ -156,7 +178,7 @@ tr:hover {
 }
 
 .delete-button {
-    background-color: #f44336;
+    background-color: red;
     margin-right: 4px;
 }
 
@@ -165,7 +187,7 @@ tr:hover {
 }
 
 .update-button {
-    background-color: #3f51b5;
+    background-color: steelblue;
     margin-right: 3px;
 
 }
