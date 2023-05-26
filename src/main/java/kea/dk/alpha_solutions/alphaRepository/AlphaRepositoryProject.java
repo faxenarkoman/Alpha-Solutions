@@ -34,13 +34,10 @@ public class AlphaRepositoryProject
                                 int projectId = resultSet.getInt(1);
                                 String projectTitle = resultSet.getString(2);
                                 String deadline = resultSet.getString(3);
-                                int nrOfHours = resultSet.getInt(4);
-                                int nrOfUsers = resultSet.getInt(5);
-                                double projectPrice = resultSet.getDouble(6);
-                                int hoursPerDay = resultSet.getInt(7);
-                                String projectDescription = resultSet.getString(8);
-                                Project project = new Project(projectId, projectTitle, projectDescription,
-                                deadline, nrOfUsers, nrOfHours, projectPrice, hoursPerDay);
+                                int hoursPerDay = resultSet.getInt(4);
+                                String projectDescription = resultSet.getString(5);
+                                Project project = new Project(projectId, projectTitle, deadline,
+                                projectDescription, hoursPerDay);
                                 projectList.add(project);
                         }
 
@@ -60,18 +57,15 @@ public class AlphaRepositoryProject
                 try {
                         // Connect to the database
                         Connection connection = DriverManager.getConnection(DB_URL, UID, PWD);
-                        final String CREATE_QUERY = "INSERT INTO alpha.project (projectID, projectTitle, projectDescription, deadline, nrOfUsers, nrOfHours, projectPrice, hoursPrDay) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+                        final String CREATE_QUERY = "INSERT INTO alpha.project (projectID, projectTitle, deadline, hoursPrDay, projectDescription) VALUES (?, ?, ?, ?, ?)";
                         PreparedStatement preparedStatement = connection.prepareStatement(CREATE_QUERY);
 
                         // Set attributes in the prepared statement
                         preparedStatement.setInt(1, project.getProjectID());
                         preparedStatement.setString(2, project.getProjectTitle());
+                        preparedStatement.setString(3, project.getDeadline());
+                        preparedStatement.setInt(4, project.getHoursPerDay());
                         preparedStatement.setString(3, project.getProjectDescription());
-                        preparedStatement.setString(4, project.getDeadline());
-                        preparedStatement.setInt(5, project.getNrOfUsers());
-                        preparedStatement.setInt(6, project.getNrOfHours());
-                        preparedStatement.setDouble(7, project.getProjectPrice());
-                        preparedStatement.setInt(8, project.getHoursPerDay());
 
 
                         // Execute the statement
@@ -87,7 +81,7 @@ public class AlphaRepositoryProject
         public void updateProject(Project project)
         {
                 //SQL statement
-                final String UPDATE_QUERY = "UPDATE  alpha.project SET projectTitle = ?, projectDescription = ?, deadline = ?, nrOfUsers = ?, nrOfHours = ?, projectPrice = ?, HoursPrDay = ?  WHERE projectID = ?";
+                final String UPDATE_QUERY = "UPDATE  alpha.project SET projectTitle = ?, projectDescription = ?, deadline = ?, HoursPrDay = ?  WHERE projectID = ?";
 
                 try {
                         //connect db
@@ -101,17 +95,13 @@ public class AlphaRepositoryProject
                         String projectTitle = project.getProjectTitle();
                         String projectDescription = project.getProjectDescription();
                         String deadline = project.getDeadline();
-                        int nrOfUsers = project.getNrOfUsers();
-                        int nrOfHours = project.getNrOfHours();
                         int hoursPrDay = project.getHoursPerDay();
 
                         preparedStatement.setDouble(1, projectID);
                         preparedStatement.setString(2, projectTitle);
                         preparedStatement.setString(3, projectDescription);
                         preparedStatement.setString(4, deadline);
-                        preparedStatement.setInt(5, nrOfUsers);
-                        preparedStatement.setInt(6, nrOfHours);
-                        preparedStatement.setInt(7, hoursPrDay);
+                        preparedStatement.setInt(5, hoursPrDay);
 
                         //execute statement
                         preparedStatement.executeUpdate();
@@ -166,27 +156,24 @@ public class AlphaRepositoryProject
                         //få product ud af resultset
                         resultSet.next();
                         String projectTitle = resultSet.getString(2);
-                        String projectDescription = resultSet.getString(8);
                         String deadline = resultSet.getString(3);
-                        int nrOfUsers = resultSet.getInt(5);
                         int nrOfHours = resultSet.getInt(4);
+                        int nrOfUsers = resultSet.getInt(5);
                         double projectPrice = resultSet.getDouble(6);
                         int hoursPerDay = resultSet.getInt(7);
+                        String projectDescription = resultSet.getString(8);
 
                         project.setProjectID(projectID);
                         project.setProjectTitle(projectTitle);
                         project.setProjectDescription(projectDescription);
                         project.setDeadline(deadline);
-                        project.setNrOfUsers(nrOfUsers);
-                        project.setNrOfHours(nrOfHours);
-                        project.setProjectPrice(projectPrice);
                         project.setHoursPerDay(hoursPerDay);
 
                 } catch (SQLException e){
                         System.out.println("Could not find project");
                         e.printStackTrace();
                 }
-                System.out.println(project);
+                
                 //return project
                 return project;
         }

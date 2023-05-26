@@ -88,31 +88,19 @@ public class AlphaController
         return "create";
     }
 
-    @GetMapping("showTask")
-
-
     @PostMapping("/create")
     public String createProject(Model model,
                                 @RequestParam("project-title") String projectTitle,
                                 @RequestParam("project-description") String projectDescription,
                                 @RequestParam("deadline") String deadline,
-                                @RequestParam("nr-of-users") List<Integer> userId,
-                                @RequestParam("nr-of-hours") int nrOfHours,
-                                @RequestParam("project-price") double projectPrice,
-                                @RequestParam("hours-per-day") int hoursPerDay)
+                                @RequestParam("nr-of-hours") int nrOfHours)
     {
 
         Project newProject = new Project();
         newProject.setProjectTitle(projectTitle);
         newProject.setProjectDescription(projectDescription);
         newProject.setDeadline(deadline);
-        newProject.setNrOfUsers(userId.size());
-        newProject.setNrOfHours(nrOfHours);
-        newProject.setProjectPrice(projectPrice);
-        newProject.setHoursPerDay(hoursPerDay);
-
         alphaRepositoryProject.addProject(newProject);
-        model.addAttribute("userList", alphaRepositoryUser.getAll());
 
         return "redirect:/index";
     }
@@ -250,30 +238,27 @@ public class AlphaController
     }
 
 
-    @GetMapping("/update/{id}")
-    public String showUpdate(@PathVariable("id") int updateId, Model model)
-    {
+    @GetMapping("/update/{projectID}")
+    public String showUpdate(@PathVariable("projectID") int updateId, Model model) {
         // find produkt med id=updateId i databasen
         Project updateProject = alphaRepositoryProject.getProjectByID(updateId);
 
         // tilføj produkt til viewmodel, så det kan bruges i Thymeleaf
-        model.addAttribute("wish", updateProject);
+        model.addAttribute("project", updateProject);
         // fortæl Spring hvilken HTML side, der skal vises
         return "update";
     }
 
-    @PostMapping("/update/{projectID}")
-    public String updateProjectById(@PathVariable("projectID") int projectID,
+
+    @PostMapping("/update")
+    public String updateProject(    @RequestParam("projectID") int projectID,
                                     @RequestParam("projectTitle") String projectTitle,
                                     @RequestParam("projectDescription") String projectDescription,
                                     @RequestParam("deadline") String deadline,
-                                    @RequestParam("nrOfUsers") int nrOfUsers,
-                                    @RequestParam("nrOfHours") int nrOfHours,
-                                    @RequestParam("projectPrice") double projectPrice,
                                     @RequestParam("HoursPerDay") int hoursPerDay)
 
     {
-        Project updateProject = new Project(projectID, projectTitle, projectDescription, deadline, nrOfUsers, nrOfHours, projectPrice, hoursPerDay);
+        Project updateProject = new Project(projectID, projectTitle, projectDescription, deadline, hoursPerDay);
         alphaRepositoryProject.updateProject(updateProject);
 
         return "redirect:/index";
@@ -310,9 +295,6 @@ public class AlphaController
                              @RequestParam("email") String email)
     {
         alphaRepositoryUser.deleteById(email);
-        model.addAttribute("userList", alphaRepositoryUser.getAll());
-        boolean isAdmin = alphaRepositoryUser.isAdmin(email);
-        model.addAttribute("isAdmin", isAdmin);
         return "redirect:/index";
     }
 
