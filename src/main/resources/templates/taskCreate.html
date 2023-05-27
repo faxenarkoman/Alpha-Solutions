@@ -6,6 +6,12 @@
     <link rel="stylesheet" th:href="@{/static/create.css}">
 </head>
 <body>
+<div class="sidebar">
+    <a th:href="@{/index}" class="active">Home</a>
+    <a href="#">View Tasks</a>
+    <a th:if="${isAdmin}" th:href="@{/adminPanel}">Admin Panel</a>
+</div>
+
 <h1>Create Task</h1>
 <form action="/projects/{projectId}/tasks/create" method="post">
     <input type="hidden" name="_csrf" value="${_csrf.token}"/> <!-- Include CSRF token if using Spring Security -->
