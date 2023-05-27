@@ -7,8 +7,11 @@
   <link rel="stylesheet" th:href="@{/styles/navbar.css}">
 </head>
 <body>
-<div class="logo">
-  <img class="logo" th:src="@{/images/logo.png}" alt="logo">
+  <div class="logo">
+    <a th:href="@{/index}">
+      <img class="logo" th:src="@{/images/logo.png}" alt="logo">
+    </a>
+  </div>
   <div class="sidebar">
     <a th:href="@{/index}" class="active">Home</a>
     <a href="#">View Tasks</a>
