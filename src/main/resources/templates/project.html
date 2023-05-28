@@ -29,30 +29,22 @@
     </tr>
     </thead>
     <tbody>
-
     <tr th:each="project : ${project}">
         <td th:text="${project.getProjectTitle()}"></td>
         <td th:text="${project.getProjectDescription()}"></td>
         <td th:text="${project.getDeadline()}"></td>
         <td th:text="${project.getHoursPerDay()}"></td>
-
-    <tr>
-        <td th:text="${project.projectTitle}"></td>
-        <td th:text="${project.projectDescription}"></td>
-        <td th:text="${project.deadline}"></td>
-        <!-- Add more table cells as needed -->
     </tr>
     </tbody>
 </table>
 
-<h2>Tasks</h2>
 <table>
     <thead>
     <tr>
         <th>Task Name</th>
         <th>Task Description</th>
         <th>Task Deadline</th>
-        <th>Task number of hours </th>
+        <th>Task number of hours</th>
     </tr>
     </thead>
     <tbody>
@@ -65,9 +57,9 @@
     </tbody>
 </table>
 
-<div class="button">
-    <a th:href="@{/index}" class="button-link">Back to Home</a>
-    <a th:href="@{/task/{projectID}(projectID=${projectID})}">Create Tasks</a>
+<div class="buttons">
+    <button a th:href="@{/index}" class="button-link">Back to Home</button>
+    <button a th:href="@{/task/{projectID}(projectID=${projectID})}">Create Tasks</button>
 </div>
 
 <footer class="footer">
