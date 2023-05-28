@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <title>Create Task</title>
-  <link rel="stylesheet" th:href="@{/styles/create.css}">
+  <link rel="stylesheet" th:href="@{/styles/task.css}">
   <link rel="stylesheet" th:href="@{/styles/navbar.css}">
 </head>
 <body>
@@ -17,10 +17,10 @@
   <a href="#">View Tasks</a>
   <a th:if="${isAdmin}" th:href="@{/adminPanel}">Admin Panel</a>
 </div>
-<h1 class="title">Create Task</h1>
-<div class="container">
   <br>
   <form method="post" th:action="@{'/task/' + ${projectID} + '/createTask'}" >
+    <div class="container">
+      <h1> Create Task </h1>
     <div>
       <label for="task-title">Task Title:</label>
       <input id="task-title" name="taskName" type="text" required>
@@ -32,7 +32,7 @@
         <option th:each="user : ${userList}" th:text="${user.name}"></option>
       </select>
     </div>
-    <div>
+      <div>
       <label for="task-description">Task Description:</label>
       <textarea id="task-description" name="taskDescription" rows="5" required></textarea>
     </div>
@@ -52,10 +52,12 @@
       <label for="hours-per-day">Hours per Day:</label>
       <input id="hours-per-day" name="hoursPerDay" type="number" required>
     </div>
+    </div>
+
 
     <br>
     <div class="buttons">
-      <a th:href="@{/index}" class="button-link">Back to Home</a>
+     <button a th:href="@{/index}" class="button-link">Back to Home</a> </button>
       <button type="submit">Create Task</button>
     </div>
   </form>
