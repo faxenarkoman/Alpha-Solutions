@@ -9,13 +9,14 @@
 <body>
 
 <div class="logo">
-    <img class="logo" th:src="@{/images/logo.png}" alt="logo">
+    <a th:href="@{/index}">
+        <img class="logo" th:src="@{/images/logo.png}" alt="logo">
+    </a>
 </div>
 <div class="sidebar">
-    <a href="#" class="active">Home</a>
-    <a href="#">View Projects</a>
+    <a th:href="@{/index}" class="active">Home</a>
     <a href="#">View Tasks</a>
-    <a href="#">View Subtasks</a>
+    <a th:if="${isAdmin}" th:href="@{/adminPanel}">Admin Panel</a>
 </div>
 
 <table>
@@ -25,10 +26,16 @@
         <th>Project Description</th>
         <th>Nr of days to deadline</th>
         <th>Project Price</th>
-        <th>How many are on the project</th>
     </tr>
     </thead>
     <tbody>
+
+    <tr th:each="project : ${project}">
+        <td th:text="${project.getProjectTitle()}"></td>
+        <td th:text="${project.getProjectDescription()}"></td>
+        <td th:text="${project.getDeadline()}"></td>
+        <td th:text="${project.getHoursPerDay()}"></td>
+
     <tr>
         <td th:text="${project.projectTitle}"></td>
         <td th:text="${project.projectDescription}"></td>

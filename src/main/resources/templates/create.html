@@ -8,13 +8,14 @@
 </head>
 <body>
 <div class="logo">
-    <img class="logo" th:src="@{/images/logo.png}" alt="logo">
+    <a th:href="@{/index}">
+        <img class="logo" th:src="@{/images/logo.png}" alt="logo">
+    </a>
 </div>
 <div class="sidebar">
-    <a th:href="@{/index}">Home</a>
-    <a th:href="@{/project}">View Projects</a>
-    <a th:href="@{/task}">View Tasks</a>
-    <a th:href="@{/subtask}">View Subtasks</a>
+    <a th:href="@{/index}" class="active">Home</a>
+    <a href="#">View Tasks</a>
+    <a th:if="${isAdmin}" th:href="@{/adminPanel}">Admin Panel</a>
 </div>
 
 <form class="form" action="/create" method="POST">
