@@ -31,17 +31,14 @@
     <tbody>
 
     <tr th:each="project : ${project}">
-        <td th:text="${project.getProjectTitle()}"></td>
-        <td th:text="${project.getProjectDescription()}"></td>
-        <td th:text="${project.getDeadline()}"></td>
-        <td th:text="${project.getHoursPerDay()}"></td>
 
-    <tr>
+
+
         <td th:text="${project.projectTitle}"></td>
         <td th:text="${project.projectDescription}"></td>
         <td th:text="${project.deadline}"></td>
         <!-- Add more table cells as needed -->
-    </tr>
+
     </tbody>
 </table>
 
