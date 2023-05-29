@@ -17,7 +17,6 @@
     <a href="#">View Tasks</a>
     <a th:if="${isAdmin}" th:href="@{/adminPanel}">Admin Panel</a>
 </div>
-
 <table>
     <thead>
     <tr>
@@ -30,30 +29,28 @@
     <tbody>
 
     <tr th:each="project : ${project}">
-
-
-
         <td th:text="${project.projectTitle}"></td>
         <td th:text="${project.projectDescription}"></td>
         <td th:text="${project.deadline}"></td>
 
     </tbody>
 </table>
-
-<h2>Tasks</h2>
+<h1 class="active">Active Tasks: <span th:text="${tasks.size()}"></span></h1>
 <table>
     <thead>
     <tr>
         <th>Task Name</th>
         <th>Task Description</th>
-        <!-- Add more table headers as needed -->
+        <th>Estimated time consumption (Hrs)</th>
+        <th>Task Deadline</th>
     </tr>
     </thead>
     <tbody>
     <tr th:each="task : ${tasks}">
         <td th:text="${task.taskName}"></td>
         <td th:text="${task.taskDescription}"></td>
-        <!-- Add more table cells as needed -->
+        <td th:text="${task.taskNrOfHours}"></td>
+        <td th:text="${task.taskDeadline}"></td>
 
     </tr>
     </tbody>

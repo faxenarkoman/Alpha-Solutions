@@ -56,7 +56,7 @@ public class AlphaRepositoryTask
     public List<Task> getAllTasksByProjectId(int projectId)
     {
         List<Task> taskList = new ArrayList<>();
-        final String SQL_QUERY = "SELECT * FROM alpha.task projectId = ?";
+        final String SQL_QUERY = "SELECT * FROM alpha.task WHERE projectId = ?";
         try {
             Connection connection = DriverManager.getConnection(DB_URL, UID, PWD);
             PreparedStatement ps = connection.prepareStatement(SQL_QUERY);
@@ -121,7 +121,7 @@ public class AlphaRepositoryTask
     public void updateTask(Task task)
     {
         //SQL statement
-        final String UPDATE_QUERY = "UPDATE  alpha.task SET taskName = ?, taskNrOfHours = ?, tasknrOfUsers = ?, taskDesciption = ?, taskDeadline = ?, taskHoursPrDay = ? WHERE taskID = ?";
+        final String UPDATE_QUERY = "UPDATE  alpha.task SET taskName = ?, taskNrOfHours = ?, tasknrOfUsers = ?, taskDescription = ?, taskDeadline = ?, taskHoursPrDay = ? WHERE taskID = ?";
 
         try {
             //connect db
@@ -229,7 +229,7 @@ public class AlphaRepositoryTask
         try {
             Connection connection = DriverManager.getConnection(DB_URL, UID, PWD);
             PreparedStatement preparedStatement = connection.prepareStatement(
-                    "INSERT INTO task (taskName, projectId, taskNrOfHours, taskNrOfUsers, taskDiscripton, taskDeadline, taskHoursPrDay) " +
+                    "INSERT INTO task (taskName, projectId, taskNrOfHours, taskNrOfUsers, taskDescription, taskDeadline, taskHoursPrDay) " +
                             "VALUES (?, ?, ?, ?, ?, ?, ?)",
                     Statement.RETURN_GENERATED_KEYS
             );
@@ -277,7 +277,7 @@ public class AlphaRepositoryTask
                 task.setTaskName(resultSet.getString("taskName"));
                 task.setTaskNrOfHours(resultSet.getInt("taskNrOfHours"));
                 task.setTaskNrOfUsers(resultSet.getInt("taskNrOfUsers"));
-                task.setTaskDescription(resultSet.getString("taskDiscripton"));
+                task.setTaskDescription(resultSet.getString("taskDescription"));
                 task.setTaskDeadline(resultSet.getString("taskDeadline"));
                 task.setTaskHoursPrDay(resultSet.getInt("taskHoursPrDay"));
 

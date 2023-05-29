@@ -23,9 +23,11 @@ th {
 td {
     width: 75%;
 }
-
-
-
+.active{
+    justify-content: center;
+    align-items: center;
+    margin-left: 50vw;
+}
 
 .buttons {
     margin-top: 20px;

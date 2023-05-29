@@ -1,12 +1,12 @@
 body {
     background-image: url("../images/background.jpeg");
-    background-repeat: no-repeat;
+    background-repeat: repeat;
     background-size: cover;
     background-position: center;
     z-index: -1;
     height: 100vh;
     width: 100vw;
-
+    font-family: sans-serif;
 }
 
 .logo {
