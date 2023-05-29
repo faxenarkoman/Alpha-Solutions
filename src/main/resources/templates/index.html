@@ -24,9 +24,9 @@
         <p th:text="${project.projectDescription}"></p>
         <small class="deadline" th:text="${project.deadline}"></small>
         <br>
-        <a th:href="@{'/project/' + ${project.projectID}}">Open Project</a>
-        <a th:if="${isAdmin}" th:href="@{'/delete/' + ${project.projectID}}">Delete Project</a>
-        <a th:if="${isAdmin}" th:href="@{'/update/' + ${project.projectID}}">Update Project</a>
+        <a class="open-project-link" th:href="@{'/project/' + ${project.projectID}}">Open Project</a>
+        <a class="delete-project-link" th:if="${isAdmin}" th:href="@{'/delete/' + ${project.projectID}}">Delete Project</a>
+        <a class="update-project-link" th:if="${isAdmin}" th:href="@{'/update/' + ${project.projectID}}">Update Project</a>
 
     </div>
 </div>
