@@ -18,7 +18,11 @@
     <a href="#">View Tasks</a>
     <a th:if="${isAdmin}" th:href="@{/adminPanel}">Admin Panel</a>
 </div>
+<div class="active-projects">
+    <h1>Active Projects: <span th:text="${project.size()}"></span></h1>
+</div>
 <div class="container">
+
     <div class="project-card" th:each="project : ${project}">
         <h3 th:text="${project.projectTitle}"></h3>
         <p th:text="${project.projectDescription}"></p>

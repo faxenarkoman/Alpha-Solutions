@@ -2,7 +2,6 @@ body{
     font-family: sans-serif;
 
 }
-
 .background {
     position: fixed;
     top: -30%;
@@ -14,15 +13,12 @@ body{
     object-fit: cover;
     transform: scale(0.4);
 }
-
-
 .description {
     width: 200px; /* Adjust the width as needed */
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
 }
-
 .btn {
     display: inline-block;
     padding: 5px 10px;
@@ -32,14 +28,10 @@ body{
     border-radius: 3px;
     margin-left: 60%;
 }
-
 .btn:hover {
     background-color: #0056b3;
 }
-
 button {
-
-
     position: fixed;
     bottom: 15%;
     right: 5.3%;
@@ -54,13 +46,11 @@ button {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
     cursor: pointer;
     transition: background-color 0.3s;
-
 }
 
 #create-project-btn:hover {
     background-color: #0056b3;
 }
-
 table {
     margin-left: 25%;
     margin-right: 5%;
@@ -70,21 +60,19 @@ table {
     border-collapse: collapse;
     text-align: center;
 }
-
 .container {
     display: grid;
-    grid-template-columns: repeat(3, 1fr); /* Three projects per line */
-    grid-gap: 20px; /* Set the desired gap between grid cells */
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 20px;
     justify-items: center;
     align-items: center;
     padding: 20px;
-    max-width: 800px; /* Set the maximum width of the grid container */
+    max-width: 800px;
     margin-top: 7%;
-    margin-left: 37%;
+    margin-left: 39%;
     column-width: 200px;
     grid-auto-rows: 1fr;
 }
-
 .project-card {
     background-color: aliceblue;
     padding: 20px;
@@ -97,17 +85,14 @@ table {
     position: relative;
     justify-content: center;
 }
-
 .project-card:hover {
     background-color: royalblue;
     transform: translateY(-2px);
 }
-
 .project-card h3 {
     margin-top: 0;
     font-size: 22px;
 }
-
 .project-card p {
     margin-bottom: 0;
     font-size: 16px;
@@ -122,7 +107,7 @@ table {
     text-align: center;
     margin-bottom: 40%;
     justify-content: center;
-    margin-left: 50%;
+    margin-left: 52%;
     display: inline-block;
     padding: 10px 20px;
     background-color: steelblue;
@@ -130,7 +115,6 @@ table {
     text-decoration: none;
     border-radius: 4px;
     transition: background-color 0.3s ease;
-    justify-content: center;
 
 }
 
@@ -218,7 +202,9 @@ small{
     font-style: italic;
 }
 
-
+.active-projects{
+    margin-left: 50%;
+}
 
 
 
