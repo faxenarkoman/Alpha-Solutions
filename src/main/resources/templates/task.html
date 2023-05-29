@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <title>Create Task</title>
-  <link rel="stylesheet" th:href="@{/styles/create.css}">
+  <link rel="stylesheet" th:href="@{/styles/task.css}">
   <link rel="stylesheet" th:href="@{/styles/navbar.css}">
 </head>
 <body>
@@ -17,41 +17,44 @@
   <a href="#">View Tasks</a>
   <a th:if="${isAdmin}" th:href="@{/adminPanel}">Admin Panel</a>
 </div>
-<h1 class="title">Create Task</h1>
 <div class="container">
-  <br>
   <form method="post" th:action="@{'/task/' + ${projectID} + '/createTask'}" >
-    <div>
-      <label for="task-title">Task Title:</label>
-      <input id="task-title" name="taskName" type="text" required>
-    </div>
-    <div>
-      <label for="user-id">Select User:</label>
-      <select id="user-id" name="userID" required>
+    <h1 class="title">Create Task</h1>
+    <br>
+    <label for="task-title">Task Title:</label>
+    <br>
+    <input id="task-title" name="taskName" type="text" required>
+    <br>
+    <label for="user-id">Select User:</label>
+    <br>
+    <select id="user-id" name="userID" required>
         <option value="">Select user(s)</option>
         <option th:each="user : ${userList}" th:text="${user.name}"></option>
       </select>
-    </div>
-    <div>
+      <br>
       <label for="task-description">Task Description:</label>
+      <br>
       <textarea id="task-description" name="taskDescription" rows="5" required></textarea>
-    </div>
-    <div>
+      <br>
+
       <label for="deadline">Deadline:</label>
+      <br>
       <input id="deadline" name="taskDeadline" type="date" required>
-    </div>
-    <div>
+      <br>
+
       <label for="nr-of-users">Number of Users:</label>
+      <br>
       <input id="nr-of-users" name="numberOfUsers" type="number" required>
-    </div>
-    <div>
+      <br>
+
       <label for="nr-of-hours">Number of Hours:</label>
+      <br>
       <input id="nr-of-hours" name="numberOfHours" type="number" required>
-    </div>
-    <div>
+      <br>
+
       <label for="hours-per-day">Hours per Day:</label>
+      <br>
       <input id="hours-per-day" name="hoursPerDay" type="number" required>
-    </div>
 
     <br>
     <div class="buttons">
