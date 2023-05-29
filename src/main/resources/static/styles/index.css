@@ -99,7 +99,7 @@ table {
 }
 
 .project-card:hover {
-    background-color: steelblue;
+    background-color: royalblue;
     transform: translateY(-2px);
 }
 
@@ -113,13 +113,7 @@ table {
     font-size: 16px;
 }
 
-.button-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 100%;
-}
+
 
 
 
@@ -164,7 +158,7 @@ tr:hover {
     text-decoration: none;
     border-radius: 4px;
     transition: background-color 0.3s ease;
-    margin-bottom: 30px;
+    margin-bottom: 40px;
 
 }
 
@@ -201,7 +195,8 @@ tr:hover {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    height: 100%;
+    height: 80%;
+    margin-top: 10px;
 
 }
 
