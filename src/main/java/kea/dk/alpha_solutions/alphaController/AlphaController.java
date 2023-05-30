@@ -149,6 +149,7 @@ public class AlphaController
         // Retrieve the project data based on the projectID
         Project project = alphaRepositoryProject.getProjectByID(projectID);
         List<Task> tasks = alphaRepositoryTask.getTasksByProjectID(projectID);
+        //
         int totalCost = 0;
         for (Task task : tasks){
             totalCost = + totalCost + task.getTaskNrOfHours();
