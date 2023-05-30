@@ -29,4 +29,21 @@
     box-sizing: border-box;
 }
 
+.button1{
+    border: none;
+    padding: 10px 20px;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    cursor: pointer;
+    box-sizing: border-box;
+    margin-top: 50%;
+    margin-left: 50%;
+
+}
+
+
+
 

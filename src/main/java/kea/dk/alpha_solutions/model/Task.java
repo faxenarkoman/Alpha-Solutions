@@ -14,6 +14,8 @@ public class Task {
 
     private int projectId;
 
+    private boolean completed;
+
     private Set<Project> projects = new HashSet<>();
 
     public Task(int taskId, String taskName, int taskNrOfHours, int taskNrOfUsers, String taskDescription,
@@ -25,8 +27,11 @@ public class Task {
         this.taskDescription = taskDescription;
         this.taskDeadline = taskDeadline;
         this.taskHoursPrDay = taskHoursPrDay;
+        this.completed = completed;
         this.projectId = projectId;
     }
+
+
 
     public Task()
     {}
@@ -113,6 +118,15 @@ public class Task {
 
     public void setTaskHoursPrDay(int taskHoursPrDay) {
         this.taskHoursPrDay = taskHoursPrDay;
+    }
+
+    public Boolean setCompleted(boolean completed) {
+    	this.completed = completed;
+        return false;
+    }
+
+    public Boolean getCompleted() {
+    	return this.completed;
     }
 
     @Override

@@ -156,6 +156,8 @@ public class AlphaController
         }
         totalCost = totalCost * 150; // 150 is the hourly rate
 
+        System.out.println(tasks.get(0).getCompleted());
+
 
         // Add project data to model
         model.addAttribute("project", project);
@@ -194,6 +196,7 @@ public class AlphaController
         return "task";
     }
 
+
     @PostMapping("/task/{projectID}/createTask")
     public String createTask(@PathVariable("projectID") int projectID, @ModelAttribute("task") Task task) {
         // Retrieve the project by ID
@@ -217,7 +220,8 @@ public class AlphaController
     }
 
     @PostMapping("/task/{taskID}/delete")
-    public String deleteTask(@PathVariable("taskID") int taskID, @RequestParam("projectID") int projectID, HttpSession session, Model model) {
+    public String deleteTask(@PathVariable("taskID") int taskID, @RequestParam("projectID") int projectID, HttpSession session, Model model)
+    {
         // Check if user is admin
         String email = (String) session.getAttribute("email");
         boolean isAdmin = alphaRepositoryUser.isAdmin(email);
@@ -229,6 +233,27 @@ public class AlphaController
         alphaRepositoryTask.deleteByTaskID(taskID);
 
         return "redirect:/project/" + projectID;
+    }
+    @GetMapping("/editTask/{taskId}")
+    public String showTask(@PathVariable("taskId") int taskID, Model model)
+    {
+        Task task = alphaRepositoryTask.getTaskByID(taskID);
+        model.addAttribute("task", task);
+        return "taskUpdate";
+    }
+
+    @PostMapping("/editTask/{taskId}")
+    public String editTask(@PathVariable("taskID") int taskID, @ModelAttribute("task") Task updatedTask){
+        alphaRepositoryTask.updateTask(taskID, updatedTask);
+        return "redirect:/tasks";
+    }
+
+    @PostMapping("/taskDone/{taskId}")
+    public String taskDone(@PathVariable("taskId") int taskId) {
+        Task task = alphaRepositoryTask.getTaskByID(taskId);
+        task.setCompleted(true);
+        alphaRepositoryTask.updateTask(taskId, task);
+        return "redirect:/project/" + task.getProjectId();
     }
 
 

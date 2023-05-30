@@ -46,6 +46,8 @@
         <th>Estimated time consumption (Hrs)</th>
         <th>Task Deadline</th>
         <th th:if="${isAdmin}">Delete</th>
+        <th>Update Task</th>
+        <th>Task Status</th>
     </tr>
     </thead>
     <tbody>
@@ -60,8 +62,14 @@
                 <input type="hidden" name="projectID" th:value="${projectID}">
                 <button th:if="${isAdmin}" type="submit">Delete</button>
             </form>
-        </td>
+        <td>
+            <a class="update-task-link" th:if="${isAdmin}" th:href="@{/editTask/{taskId}(taskId=${task.taskId})}">Update Task</a>
 
+        </td>
+        <td>
+            <p th:if="${task.completed}">Done</p>
+            <p th:unless="${task.completed}">Not done</p>
+        </td>
     </tr>
     </tbody>
 </table>
