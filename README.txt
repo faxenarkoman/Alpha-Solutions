@@ -1,6 +1,6 @@
-HOW TO OPERATE PROGRAM:
-
-Login to page, be aware that the password is case-sensitive, and encrypted by the time it's stored in MySQL.
+How the site works:
+Login to page, otherwise you can't acces any of the sites html templates.
+Be aware that the password is case-sensitive, and encrypted by the time it's stored in MySQL.
 Also be aware that some users have less/more functionality than others (Admin or not Admin).
 
 Dummy@dummy.com is an admin account, and has access to all functionality.
