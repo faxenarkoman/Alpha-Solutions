@@ -154,7 +154,7 @@ public class AlphaRepositoryTask
         }
     }
 
-    public void deleteByProjectID(int taskId){
+    public void deleteByTaskID(int taskId){
         //SQL-query
         final String DELETE_QUERY = "DELETE FROM  alpha.task WHERE taskId=?";
 
