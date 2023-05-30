@@ -18,39 +18,36 @@
   <a th:if="${isAdmin}" th:href="@{/adminPanel}">Admin Panel</a>
 </div>
 <br>
-<form class="form" th:action="@{/taskDone/{taskID}(taskID=${task.taskId})}" method="post">
+<form class="form" th:action="@{/editTask/{taskID}(taskID=${task.taskId})}" method="post">
   <h1 class="title">Update Project</h1>
   <label for="task-title">Task Title:</label>
-  <input id="task-title" name="task-title" type="text"  th:value="${task.taskName}" required>
+  <input id="task-title" name="taskName" type="text"  th:value="${task.taskName}" required>
   <br>
   <label for="task-description">Task Description:</label>
-  <textarea id="task-description" name="task-description" rows="5" th:text="${task.taskDescription}"required ></textarea>
+  <textarea id="task-description" name="taskDescription" rows="5" th:text="${task.taskDescription}"required ></textarea>
   <br>
 
   <label for="taskDeadline">Task Deadline:</label>
   <input id="taskDeadline" name="taskDeadline" type="date" th:value="${task.taskDeadline}"required >
   <br>
   <label hidden="hidden" for="task-hours-per-day">Hours per Day:</label>
-  <input hidden="hidden" id="task-hours-per-day" name="task-hours-per-day" type="number" th:value="${task.taskHoursPrDay}"required ></td>
+  <input hidden="hidden" id="task-hours-per-day" name="taskHoursPrDay" type="number" th:value="${task.taskHoursPrDay}"required ></td>
   <br>
   <label for="nr-of-users">Number of Users:</label>
   <br>
-  <input id="nr-of-users" name="numberOfUsers" type="number" th:value="${task.taskNrOfUsers}"required>
+  <input id="nr-of-users" name="taskNrOfUsers" type="number" th:value="${task.taskNrOfUsers}"required>
   <br>
-
   <label for="nr-of-hours">Number of Hours:</label>
   <br>
-  <input id="nr-of-hours" name="NrOfHours" type="number" th:value="${task.taskNrOfHours}"required>
+  <input id="nr-of-hours" name="taskNrOfHours" type="number" th:value="${task.taskNrOfHours}"required>
 <br>
-  <div class="button1">
-    <form th:action="@{/taskDone/{taskId}(taskId=${task.taskId})}" method="post">
-      <input type="submit" value="Mark as done">
-      <input type="submit" value="Update Project">
-    </form>
-  </div>
-
-
+  <div class="button1"><input type="submit" value="Update Project"></div>
 </form>
+
+<form class="done" th:action="@{/taskDone/{taskId}(taskId=${task.taskId})}" method="post">
+  <input type="submit" value="Mark as done">
+</form>
+
 <!-- change to fit your code -->
 
 <footer>

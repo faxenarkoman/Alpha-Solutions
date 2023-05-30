@@ -23,8 +23,6 @@
         <th>Project Title</th>
         <th>Project Description</th>
         <th>Deadline</th>
-
-
         <th th:if="${isAdmin}">Est Project Price</th>
     </tr>
     </thead>
@@ -59,7 +57,7 @@
         <td th:text="${task.taskNrOfHours}"></td>
         <td th:text="${task.taskDeadline}"></td>
         <td>
-            <a class="update-task-link" th:if="${isAdmin}" th:href="@{/editTask/{taskId}(taskId=${task.taskId})}">Update Task</a>
+            <a class="update-task-link" th:if="${isAdmin}" th:href="@{'/editTask/' + ${task.taskId}}">Update Task</a>
 
         </td>
         <td>
