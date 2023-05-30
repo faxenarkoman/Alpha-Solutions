@@ -149,12 +149,17 @@ public class AlphaController
         // Retrieve the project data based on the projectID
         Project project = alphaRepositoryProject.getProjectByID(projectID);
         List<Task> tasks = alphaRepositoryTask.getTasksByProjectID(projectID);
+        int totalCost = 0;
+        for (Task task : tasks){
+            totalCost = + totalCost + task.getTaskNrOfHours();
+        }
+        totalCost = totalCost * 150; // 150 is the hourly rate
 
 
         // Add project data to model
         model.addAttribute("project", project);
         model.addAttribute("tasks", tasks);
-
+        model.addAttribute("totalCost", totalCost);
         // Return the name of the HTML template to render
         return "project";
     }
