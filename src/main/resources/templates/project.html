@@ -23,7 +23,7 @@
         <th>Project Title</th>
         <th>Project Description</th>
         <th>Deadline</th>
-        <th>Est Project Price</th>
+        <th th:if="${isAdmin}">Est Project Price</th>
     </tr>
     </thead>
     <tbody>
@@ -32,7 +32,7 @@
         <td th:text="${project.projectTitle}"></td>
         <td th:text="${project.projectDescription}"></td>
         <td th:text="${project.deadline}"></td>
-        <td th:text="${totalCost}"></td>
+        <td th:if="${isAdmin}" th:text="${totalCost}"></td>
     </tr>
 
     </tbody>
