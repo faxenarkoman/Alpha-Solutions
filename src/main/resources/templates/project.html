@@ -13,7 +13,7 @@
     </a>
 </div>
 <div class="sidebar">
-    <a th:href="@{/index}" class="active">Home</a>
+    <a th:href="@{/index}">Home</a>
     <a href="#">View Tasks</a>
     <a th:if="${isAdmin}" th:href="@{/adminPanel}">Admin Panel</a>
 </div>
@@ -23,8 +23,9 @@
         <th>Project Title</th>
         <th>Project Description</th>
         <th>Deadline</th>
-        <th>Est Project Price</th>
 
+
+        <th th:if="${isAdmin}">Est Project Price</th>
     </tr>
     </thead>
     <tbody>
@@ -33,6 +34,8 @@
         <td th:text="${project.projectTitle}"></td>
         <td th:text="${project.projectDescription}"></td>
         <td th:text="${project.deadline}"></td>
+        <td th:if="${isAdmin}" th:text="${totalCost}"></td>
+    </tr>
 
     </tbody>
 </table>
@@ -46,6 +49,7 @@
         <th>Task Deadline</th>
         <th>Update Task</th>
         <th>Task Status</th>
+        <th th:if="${isAdmin}">Delete</th>
     </tr>
     </thead>
     <tbody>
@@ -62,17 +66,23 @@
             <p th:if="${task.completed}">Done</p>
             <p th:unless="${task.completed}">Not done</p>
 
+        <td th:if="${isAdmin}">
+            <form th:action="@{/task/{taskID}/delete(taskID=${task.taskId}, projectID=${projectID})}" method="post">
+                <input type="hidden" name="_method" value="DELETE">
+                <input type="hidden" name="projectID" th:value="${projectID}">
+                <button th:if="${isAdmin}" type="submit">Delete</button>
+            </form>
         </td>
 
     </tr>
     </tbody>
 </table>
 
-<div>
-    <button onclick="addTask()">Create Task</button>
-    <a class="button" th:href="@{/task/{projectID}(projectID=${projectID})}">Create Task</a>
+<div class="button-container">
+    <a class="button" th:href="@{/task/{projectID}(projectID=${projectID})}">
+        <span>Create Task</span>
+    </a>
 </div>
-
 <footer class="footer">
     <p th:text="'© Code Connoisseurs, Inc. '"></p>
 </footer>

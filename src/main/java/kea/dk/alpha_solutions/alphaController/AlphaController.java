@@ -149,6 +149,12 @@ public class AlphaController
         // Retrieve the project data based on the projectID
         Project project = alphaRepositoryProject.getProjectByID(projectID);
         List<Task> tasks = alphaRepositoryTask.getTasksByProjectID(projectID);
+        //
+        int totalCost = 0;
+        for (Task task : tasks){
+            totalCost = + totalCost + task.getTaskNrOfHours();
+        }
+        totalCost = totalCost * 150; // 150 is the hourly rate
 
         System.out.println(tasks.get(0).getCompleted());
 
@@ -156,7 +162,7 @@ public class AlphaController
         // Add project data to model
         model.addAttribute("project", project);
         model.addAttribute("tasks", tasks);
-
+        model.addAttribute("totalCost", totalCost);
         // Return the name of the HTML template to render
         return "project";
     }
@@ -213,6 +219,7 @@ public class AlphaController
         }
     }
 
+
     @GetMapping("/editTask/{taskId}")
     public String showTask(@PathVariable("taskId") int taskID, Model model) {
         Task task = alphaRepositoryTask.getTaskByID(taskID);
@@ -227,11 +234,28 @@ public class AlphaController
     }
 
     @PostMapping("/taskDone/{taskId}")
-    public String taskDone(@PathVariable("taskId") int taskId) {
+    public String taskDone(@PathVariable("taskId") int taskId)
+    {
         Task task = alphaRepositoryTask.getTaskByID(taskId);
         task.setCompleted(true);
         alphaRepositoryTask.updateTask(taskId, task);
         return "redirect:/project/" + task.getProjectId();
+    }
+
+    @PostMapping("/task/{taskID}/delete")
+    public String deleteTask(@PathVariable("taskID") int taskID, @RequestParam("projectID") int projectID, HttpSession session, Model model) {
+        // Check if user is admin
+        String email = (String) session.getAttribute("email");
+        boolean isAdmin = alphaRepositoryUser.isAdmin(email);
+        model.addAttribute("isAdmin", isAdmin);
+
+        List<Task> tasks = alphaRepositoryTask.getTasksByProjectID(projectID);
+        model.addAttribute("tasks", tasks);
+
+        alphaRepositoryTask.deleteByTaskID(taskID);
+
+        return "redirect:/project/" + projectID;
+
     }
 
 
@@ -274,6 +298,8 @@ public class AlphaController
 
         return "redirect:/index";
     }
+
+
 
 
     @GetMapping("/delete/{projectID}")

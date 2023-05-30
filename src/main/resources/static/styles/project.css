@@ -29,16 +29,21 @@ td {
     margin-left: 50vw;
 }
 
-.buttons {
-    margin-top: 20px;
-    text-align: right;
-    margin-left: 20%;
+.button-container {
+    position: absolute;
+    top: 110%; /* Adjust the value to move the button higher */
+    right: 8%; /* Adjust the value to move the button closer to the right */
 }
 
 .button {
-    position: absolute;
-    top: 10px;
-    right: 10px;
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #f5f5f5;
+    color: #333;
+    border: 1px solid #ccc;
+    text-decoration: none;
+    font-weight: bold;
+    cursor: pointer;
 }
 
 
