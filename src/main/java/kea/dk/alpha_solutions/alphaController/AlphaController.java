@@ -216,6 +216,21 @@ public class AlphaController
         }
     }
 
+    @PostMapping("/task/{taskID}/delete")
+    public String deleteTask(@PathVariable("taskID") int taskID, @RequestParam("projectID") int projectID, HttpSession session, Model model) {
+        // Check if user is admin
+        String email = (String) session.getAttribute("email");
+        boolean isAdmin = alphaRepositoryUser.isAdmin(email);
+        model.addAttribute("isAdmin", isAdmin);
+
+        List<Task> tasks = alphaRepositoryTask.getTasksByProjectID(projectID);
+        model.addAttribute("tasks", tasks);
+
+        alphaRepositoryTask.deleteByTaskID(taskID);
+
+        return "redirect:/project/" + projectID;
+    }
+
 
 
     @GetMapping("/createUser")
@@ -256,6 +271,8 @@ public class AlphaController
 
         return "redirect:/index";
     }
+
+
 
 
     @GetMapping("/delete/{projectID}")

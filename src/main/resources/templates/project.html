@@ -35,6 +35,7 @@
         <td th:text="${totalCost}"></td>
     </tr>
 
+    </tr>
     </tbody>
 </table>
 <h1 class="active">Active Tasks: <span th:text="${tasks.size()}"></span></h1>
@@ -45,6 +46,7 @@
         <th>Task Description</th>
         <th>Estimated time consumption (Hrs)</th>
         <th>Task Deadline</th>
+        <th>Delete</th>
     </tr>
     </thead>
     <tbody>
@@ -53,6 +55,14 @@
         <td th:text="${task.taskDescription}"></td>
         <td th:text="${task.taskNrOfHours}"></td>
         <td th:text="${task.taskDeadline}"></td>
+        <td>
+            <form th:action="@{/task/{taskID}/delete(taskID=${task.taskId}, projectID=${projectID})}" method="post">
+                <input type="hidden" name="_method" value="DELETE">
+                <input type="hidden" name="projectID" th:value="${projectID}">
+                <button type="submit">Delete</button>
+            </form>
+        </td>
+
     </tr>
     </tbody>
 </table>
