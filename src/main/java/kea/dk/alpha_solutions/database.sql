@@ -17,8 +17,10 @@ CREATE TABLE `task` (
                         `taskHoursPrDay` int NOT NULL,
                         `taskDeadline` varchar(45) NOT NULL,
                         `projectId` int NOT NULL,
+                        `completed` tinyint DEFAULT NULL,
                         PRIMARY KEY (`taskID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
 
 CREATE TABLE `user` (
                         `Id` int NOT NULL AUTO_INCREMENT,
