@@ -150,6 +150,8 @@ public class AlphaController
         Project project = alphaRepositoryProject.getProjectByID(projectID);
         List<Task> tasks = alphaRepositoryTask.getTasksByProjectID(projectID);
 
+        System.out.println(tasks.get(0).getCompleted());
+
 
         // Add project data to model
         model.addAttribute("project", project);
@@ -188,6 +190,7 @@ public class AlphaController
         return "task";
     }
 
+
     @PostMapping("/task/{projectID}/createTask")
     public String createTask(@PathVariable("projectID") int projectID, @ModelAttribute("task") Task task) {
         // Retrieve the project by ID
@@ -208,6 +211,27 @@ public class AlphaController
             // Handle the error or redirect to an error page
             return "redirect:/error";
         }
+    }
+
+    @GetMapping("/editTask/{taskId}")
+    public String showTask(@PathVariable("taskId") int taskID, Model model) {
+        Task task = alphaRepositoryTask.getTaskByID(taskID);
+        model.addAttribute("task", task);
+        return "taskUpdate";
+    }
+
+    @PostMapping("/editTask/{taskId}")
+    public String editTask(@PathVariable("taskID") int taskID, @ModelAttribute("task") Task updatedTask) {
+        alphaRepositoryTask.updateTask(taskID, updatedTask);
+        return "redirect:/tasks";
+    }
+
+    @PostMapping("/taskDone/{taskId}")
+    public String taskDone(@PathVariable("taskId") int taskId) {
+        Task task = alphaRepositoryTask.getTaskByID(taskId);
+        task.setCompleted(true);
+        alphaRepositoryTask.updateTask(taskId, task);
+        return "redirect:/project/" + task.getProjectId();
     }
 
 
