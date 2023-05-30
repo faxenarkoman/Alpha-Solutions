@@ -66,11 +66,11 @@
     </tbody>
 </table>
 
-<div>
-    <button onclick="addTask()">Create Task</button>
-    <a class="button" th:href="@{/task/{projectID}(projectID=${projectID})}">Create Task</a>
+<div class="button-container">
+    <a class="button" th:href="@{/task/{projectID}(projectID=${projectID})}">
+        <span>Create Task</span>
+    </a>
 </div>
-
 <footer class="footer">
     <p th:text="'© Code Connoisseurs, Inc. '"></p>
 </footer>
