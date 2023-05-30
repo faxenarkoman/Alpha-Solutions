@@ -18,9 +18,9 @@
   <a th:if="${isAdmin}" th:href="@{/adminPanel}">Admin Panel</a>
 </div>
 <div class="container">
-  <h1 class="title">Edit User</h1>
   <br>
   <form action="/updateUser" method="post">
+    <h1 class="title">Edit User</h1>
     <label for="user">Select User:</label>
     <select id="user" name="userId">
       <option value=""> Select user </option>

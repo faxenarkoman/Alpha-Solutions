@@ -17,15 +17,19 @@
     <a href="#">View Tasks</a>
     <a th:if="${isAdmin}" th:href="@{/adminPanel}">Admin Panel</a>
 </div>
+<div class="active-projects">
+    <h1>Active Projects: <span th:text="${project.size()}"></span></h1>
+</div>
 <div class="container">
+
     <div class="project-card" th:each="project : ${project}">
         <h3 th:text="${project.projectTitle}"></h3>
         <p th:text="${project.projectDescription}"></p>
         <small class="deadline" th:text="${project.deadline}"></small>
         <br>
-        <a th:href="@{'/project/' + ${project.projectID}}">Open Project</a>
-        <a th:if="${isAdmin}" th:href="@{'/delete/' + ${project.projectID}}">Delete Project</a>
-        <a th:if="${isAdmin}" th:href="@{'/update/' + ${project.projectID}}">Update Project</a>
+        <a class="open-project-link" th:href="@{'/project/' + ${project.projectID}}">Open Project</a>
+        <a class="delete-project-link" th:if="${isAdmin}" th:href="@{'/delete/' + ${project.projectID}}">Delete Project</a>
+        <a class="update-project-link" th:if="${isAdmin}" th:href="@{'/update/' + ${project.projectID}}">Update Project</a>
 
     </div>
 </div>
@@ -35,7 +39,6 @@
 <footer class="footer">
     <p>© Code Connoisseurs, Inc.</p>
 </footer>
-
 </body>
 </html>
 

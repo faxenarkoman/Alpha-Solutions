@@ -17,36 +17,21 @@
     <a href="#">View Tasks</a>
     <a th:if="${isAdmin}" th:href="@{/adminPanel}">Admin Panel</a>
 </div>
-<div class="container">
     <br>
     <form class="form" th:action="@{/update/{projectID}(projectID=${project.projectID})}" method="post">
-        <h1 class="title">Create Project</h1>
-        <table>
-            <tr>
-                <th><label for="project-title">Project Title:</label></th>
-                <td><input id="project-title" name="project-title" type="text" th:value="${project.projectTitle}" required></td>
-            </tr>
-            <tr>
+        <h1 class="title">Update Project</h1>
+                <label for="project-title">Project Title:</label>
+                <input id="project-title" name="project-title" type="text" th:value="${project.projectTitle}" required>
 
-            </tr>
-            <tr>
-                <th>
-                    <label for="project-description">Project Description:</label></th>
-                <td>
-                    <textarea id="project-description" name="project-description" rows="5" required th:text="${project.projectDescription}"></textarea>
-                </td>
-            </tr>
-            <tr>
-                <th><label for="deadline">Deadline:</label></th>
-                <td><input id="deadline" name="deadline" type="date" required th:value="${project.deadline}"></td>
-            </tr>
-            <tr>
-                <th>
-                    <label hidden="hidden" for="hours-per-day">Hours per Day:</label></th>
-                <td>
-                    <input hidden="hidden" id="hours-per-day" name="hours-per-day" type="number" required th:value="${project.hoursPerDay}"></td>
-            </tr>
-        </table>
+                <label for="project-description">Project Description:</label>
+                <textarea id="project-description" name="project-description" rows="5" required th:text="${project.projectDescription}"></textarea>
+
+                <label for="deadline">Deadline:</label>
+                <input id="deadline" name="deadline" type="date" required th:value="${project.deadline}">
+
+                <label hidden="hidden" for="hours-per-day">Hours per Day:</label>
+                <input hidden="hidden" id="hours-per-day" name="hours-per-day" type="number" required th:value="${project.hoursPerDay}"></td>
+
         <br>
         <div class="buttons">
             <input type="submit" value="Update Project">
@@ -55,7 +40,6 @@
             </button>
         </div>
     </form>
-</div>
 <footer>
     <p th:text="'© Code Connoisseurs, Inc. '"></p>
 </footer>

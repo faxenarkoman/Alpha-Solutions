@@ -1,10 +1,13 @@
-/* project.css */
-
-/* Adjustments for the table */
 table {
-    margin-bottom: 20px;
+    margin-left: 23%;
+    margin-top: 10%;
+    margin-right: 5%;
+    border: 1px solid black;
     border-collapse: collapse;
-    width: 100%;
+    text-align: left;
+    width: 70%;
+    opacity: 1;
+    background-color: white;
 }
 
 th, td {
@@ -14,31 +17,29 @@ th, td {
 
 th {
     background-color: #f2f2f2;
+    width: 25%;
 }
 
-/* Adjustments for the buttons */
+td {
+    width: 75%;
+}
+.active{
+    justify-content: center;
+    align-items: center;
+    margin-left: 50vw;
+}
+
 .buttons {
-    display: flex;
-    justify-content: flex-end;
     margin-top: 20px;
-    margin-right: 20px;
+    text-align: right;
+    margin-left: 20%;
 }
 
-.buttons button {
-    margin-left: 10px;
+.button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
 }
 
-/* Adjustments for the footer */
-.footer {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    padding: 10px;
-    background-color: #f2f2f2;
-    text-align: center;
-}
 
-.footer p {
-    margin: 0;
-}
+

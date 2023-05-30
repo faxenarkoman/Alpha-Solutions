@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <title>Create User</title>
-  <link rel="stylesheet" th:href="@{/styles/createUser.css}">
+  <link rel="stylesheet" th:href="@{/styles/updateUser.css}">
   <link rel="stylesheet" th:href="@{/styles/navbar.css}">
 </head>
 <body>
@@ -17,53 +17,51 @@
     <a href="#">View Tasks</a>
     <a th:if="${isAdmin}" th:href="@{/adminPanel}">Admin Panel</a>
   </div>
-<h1 class="title">Create User</h1>
-<div class="container">
-  <br>
+  <div class="container">
   <form action="/createUser" method="post">
+    <h1 class="title">Create User</h1>
     <table>
-      <tr>
-        <td>
-          <label for="email">User's Email:</label>
-        </td>
-        <td>
-          <input id="email" name="email" type="text" required>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <label for="password">User's Password:</label>
-        </td>
-        <td>
-          <input id="password" name="password" type="password" required>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <label for="hourlyWage">User's Hourly Wage:</label>
-        </td>
-        <td>
-          <input id="hourlyWage" name="hourlyWage" type="number" required>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <label for="name">User's Name:</label>
-        </td>
-        <td>
-          <input id="name" name="name" type="text" required>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <label for="admin">Admin:</label>
-        </td>
-        <td>
-          <input id="admin" name="admin" type="checkbox" value="true">
-        </td>
-      </tr>
+        <tr>
+          <td>
+            <label for="email">User's Email:</label>
+          </td>
+          <td>
+            <input id="email" name="email" type="text" required>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <label for="password">User's Password:</label>
+          </td>
+          <td>
+            <input id="password" name="password" type="password" required>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <label for="hourlyWage">User's Hourly Wage:</label>
+          </td>
+          <td>
+            <input id="hourlyWage" name="hourlyWage" type="number" required>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <label for="name">User's Name:</label>
+          </td>
+          <td>
+            <input id="name" name="name" type="text" required>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <label for="admin">Admin:</label>
+          </td>
+          <td>
+            <input id="admin" name="admin" type="checkbox" th:checked="${isAdmin}">
+          </td>
+        </tr>
     </table>
-
     <div class="buttons">
       <input type="submit" value="Create User">
       <button type="button" onclick="window.location.href='/index'">Go back to Home</button>
