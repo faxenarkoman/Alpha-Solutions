@@ -224,6 +224,11 @@ public class AlphaController
         }
     }
 
+
+
+
+
+
     @PostMapping("/task/{taskID}/delete")
     public String deleteTask(@PathVariable("taskID") int taskID, @RequestParam("projectID") int projectID, HttpSession session, Model model)
     {
@@ -238,20 +243,23 @@ public class AlphaController
         alphaRepositoryTask.deleteByTaskID(taskID);
 
         return "redirect:/project/" + projectID;
+
     }
-    @GetMapping("/editTask/{taskId}")
-    public String showTask(@PathVariable("taskId") int taskID, Model model)
-    {
+    @GetMapping("/editTask/{taskID}")
+    public String showTask(@PathVariable("taskID") int taskID, Model model) {
         Task task = alphaRepositoryTask.getTaskByID(taskID);
         model.addAttribute("task", task);
         return "taskUpdate";
     }
 
     @PostMapping("/editTask/{taskId}")
-    public String editTask(@PathVariable("taskID") int taskID, @ModelAttribute("task") Task updatedTask){
+    public String editTask(@PathVariable("taskId") int taskID, Model model, @ModelAttribute("task") Task updatedTask) {
         alphaRepositoryTask.updateTask(taskID, updatedTask);
-        return "redirect:/tasks";
+        Task task = alphaRepositoryTask.getTaskByID(taskID);
+        model.addAttribute("task", task);
+        return "redirect:/project/" + task.getProjectId();
     }
+
 
     @PostMapping("/taskDone/{taskId}")
     public String taskDone(@PathVariable("taskId") int taskId) {
@@ -259,6 +267,7 @@ public class AlphaController
         task.setCompleted(true);
         alphaRepositoryTask.updateTask(taskId, task);
         return "redirect:/project/" + task.getProjectId();
+
     }
 
 
@@ -353,7 +362,7 @@ public class AlphaController
                                     @RequestParam("hours-per-day") int hoursPerDay)
 
     {
-        Project updateProject = new Project(projectID, projectTitle, projectDescription, hoursPerDay, deadline);
+        Project updateProject = new Project(projectID, projectTitle, deadline, hoursPerDay, projectDescription);
         alphaRepositoryProject.updateProject(updateProject);
 
         return "redirect:/index";

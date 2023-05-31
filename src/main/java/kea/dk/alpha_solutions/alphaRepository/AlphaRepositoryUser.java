@@ -141,11 +141,10 @@ public class AlphaRepositoryUser {
             int hourlyWage = user.getHourlyWage();
             String name = user.getName();
             boolean admin = user.isAdmin();
-            //Encrypter password
+            //Encrypt password
             String password = user.getPassword();
             String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt());
-
-
+            //Prepared statements
             PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_QUERY);
             preparedStatement.setString(1, email);
             preparedStatement.setString(2, hashedPassword);
@@ -161,43 +160,5 @@ public class AlphaRepositoryUser {
             e.printStackTrace();
         }
     }
-    public User findUserById(int id){
-        //SQL-statement
-        final String FIND_QUERY = "SELECT * FROM  alpha.user WHERE id = ?";
-        User user =  new User();
-        user.setUserId(id);
-        try {
-            //db connection
-            Connection connection = DriverManager.getConnection(DB_URL, UID, PWD);
-
-            //prepared statement
-            PreparedStatement preparedStatement = connection.prepareStatement(FIND_QUERY);
-
-            //set parameters
-            preparedStatement.setInt(1, id);
-
-            //execute statement
-            ResultSet resultSet = preparedStatement.executeQuery();
-
-            //få product ud af resultset
-            resultSet.next();
-            String mail = resultSet.getString(2);
-            String password = resultSet.getString(3);
-            int hourlyWage = resultSet.getInt(4);
-            String name = resultSet.getString(5);
-            boolean admin = resultSet.getBoolean(6);
-            user.setMail(mail);
-            user.setPassword(password);
-            user.setHourlyWage(hourlyWage);
-            user.setName(name);
-            user.setAdmin(admin);
-        } catch (SQLException e){
-            System.out.println("Could not find product");
-            e.printStackTrace();
-        }
-        //return wish
-        return user;
-    }
-
 }
 

@@ -14,7 +14,6 @@
 </div>
 <div class="sidebar">
     <a th:href="@{/index}">Home</a>
-    <a href="#">View Tasks</a>
     <a th:if="${isAdmin}" th:href="@{/adminPanel}">Admin Panel</a>
 </div>
 <table>
@@ -48,6 +47,9 @@
         <th th:if="${isAdmin}">Delete</th>
         <th>Update Task</th>
         <th>Task Status</th>
+
+
+
     </tr>
     </thead>
     <tbody>
@@ -63,13 +65,14 @@
                 <button th:if="${isAdmin}" type="submit">Delete</button>
             </form>
         <td>
-            <a class="update-task-link" th:if="${isAdmin}" th:href="@{/editTask/{taskId}(taskId=${task.taskId})}">Update Task</a>
+            <a class="update-task-link" th:if="${isAdmin}" th:href="@{'/editTask/' + ${task.taskId}}">Update Task</a>
 
         </td>
         <td>
             <p th:if="${task.completed}">Done</p>
             <p th:unless="${task.completed}">Not done</p>
-        </td>
+
+
     </tr>
     </tbody>
 </table>

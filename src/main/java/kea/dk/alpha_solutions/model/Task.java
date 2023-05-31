@@ -30,9 +30,6 @@ public class Task {
         this.completed = completed;
         this.projectId = projectId;
     }
-
-
-
     public Task()
     {}
 
@@ -46,23 +43,6 @@ public class Task {
         this.projectId = projectId;
     }
 
-    public Set<Project> getProjects() {
-        return projects;
-    }
-
-    public void setProjects(Set<Project> projects) {
-        this.projects = projects;
-    }
-
-    public void addProject(Project project) {
-        projects.add(project);
-        project.getTasks().add(this);
-    }
-
-    public void removeProject(Project project) {
-        projects.remove(project);
-        project.getTasks().remove(this);
-    }
 
     public int getTaskId() {
         return taskId;

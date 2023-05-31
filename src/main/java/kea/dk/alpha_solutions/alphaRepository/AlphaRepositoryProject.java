@@ -78,7 +78,7 @@ public class AlphaRepositoryProject
         public void updateProject(Project project) {
                 try (Connection connection = DriverManager.getConnection(DB_URL, UID, PWD)) {
                         // SQL statement
-                        final String UPDATE_QUERY = "UPDATE alpha.project SET projectTitle = ?, projectDescription = ?, deadline = ?, HoursPrDay = ? WHERE projectID = ?";
+                        final String UPDATE_QUERY = "UPDATE alpha.project SET projectTitle = ?, deadline = ?, HoursPrDay = ?, projectDescription = ? WHERE projectID = ?";
 
                         // Set parameters
                         String projectTitle = project.getProjectTitle();
@@ -90,9 +90,9 @@ public class AlphaRepositoryProject
                         // Prepared statement
                         PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_QUERY);
                         preparedStatement.setString(1, projectTitle);
-                        preparedStatement.setString(2, projectDescription);
-                        preparedStatement.setString(3, deadline);
-                        preparedStatement.setInt(4, hoursPerDay);
+                        preparedStatement.setString(4, projectDescription);
+                        preparedStatement.setString(2, deadline);
+                        preparedStatement.setInt(3, hoursPerDay);
                         preparedStatement.setInt(5, projectID);
 
                         // Execute statement

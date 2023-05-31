@@ -17,21 +17,6 @@ public class Project {
         return tasks;
     }
 
-    public void setTasks(Set<Task> tasks) {
-        this.tasks = tasks;
-    }
-
-
-
-    public void addTask(Task task) {
-        tasks.add(task);
-        task.getProjects().add(this);
-    }
-
-    public void removeTask(Task task) {
-        tasks.remove(task);
-        task.getProjects().remove(this);
-    }
 
     // Constructors, getters, and setters
 
