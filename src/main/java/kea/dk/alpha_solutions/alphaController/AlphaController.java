@@ -162,8 +162,6 @@ public class AlphaController
         //Calculate percentage of completed tasks
         
         int totalTasks = tasks.size();
-
-        System.out.println(tasks.get(0).getCompleted());
         int completedTasks = 0;
 
 
@@ -323,7 +321,7 @@ public class AlphaController
         boolean isAdmin = alphaRepositoryUser.isAdmin(email);
         model.addAttribute("isAdmin", isAdmin);
 
-        return "redirect:/index";
+        return "redirect:/adminPanel";
     }
 
 
@@ -418,7 +416,7 @@ public class AlphaController
                              @RequestParam("email") String email)
     {
         alphaRepositoryUser.deleteByEmail(email);
-        return "redirect:/index";
+        return "redirect:/adminPanel";
     }
 
 
@@ -456,8 +454,6 @@ public class AlphaController
 
         User updateUser = new User(userId, mail, password, hourlyWage, name, admin);
         alphaRepositoryUser.updateUser(updateUser);
-        System.out.println(updateUser);
-
         return "adminPanel";
 
     }
