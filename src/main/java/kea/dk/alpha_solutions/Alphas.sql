@@ -1,12 +1,12 @@
 CREATE TABLE `project` (
                            `projectID` int NOT NULL AUTO_INCREMENT,
                            `projectTitle` varchar(45) NOT NULL,
-                           `deadline` varchar(45) NOT NULL,
+                           `deadline` varchar(150) NOT NULL,
                            `HoursPrDay` int NOT NULL,
                            `projectDescription` varchar(300) NOT NULL,
                            PRIMARY KEY (`projectID`),
                            UNIQUE KEY `projectID_UNIQUE` (`projectID`)
-) ENGINE=InnoDB AUTO_INCREMENT=59 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=61 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 CREATE TABLE `task` (
                         `taskID` int NOT NULL AUTO_INCREMENT,
@@ -19,7 +19,7 @@ CREATE TABLE `task` (
                         `projectId` int NOT NULL,
                         `completed` tinyint DEFAULT NULL,
                         PRIMARY KEY (`taskID`)
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 
 CREATE TABLE `user` (
@@ -31,7 +31,6 @@ CREATE TABLE `user` (
                         `admin` tinyint NOT NULL,
                         PRIMARY KEY (`Id`),
                         UNIQUE KEY `ID_UNIQUE` (`Id`),
-                        UNIQUE KEY `email_UNIQUE` (`email`),
-                        UNIQUE KEY `password_UNIQUE` (`password`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+                        UNIQUE KEY `email_UNIQUE` (`email`)
+) ENGINE=InnoDB AUTO_INCREMENT=1016 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 

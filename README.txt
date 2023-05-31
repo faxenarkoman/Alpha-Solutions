@@ -5,8 +5,8 @@ db_user=skinke
 pass=Ost12345
 url=jdbc:mysql://alphas.mysql.database.azure.com:3306/alpha
 Must be exact, otherwise the program will not work!
+Remember to also add environment variables to your test applications, if you want to run tests.
 
-How the site works:
 Login to page, otherwise you can't acces any of the html templates.
 Be aware that the password is case-sensitive.
 
