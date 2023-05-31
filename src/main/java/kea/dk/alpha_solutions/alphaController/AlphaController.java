@@ -158,12 +158,26 @@ public class AlphaController
 
         System.out.println(tasks.get(0).getCompleted());
 
+        int totalTasks = tasks.size();
 
+        int completedTasks = 0;
+
+
+        for (Task task : tasks) {
+            if (task.getCompleted()) {
+                completedTasks++;
+            }
+        }
+
+        int percentageCompleted = (int) ((completedTasks / (double) totalTasks) * 100);
+
+        System.out.println(percentageCompleted);
 
 
         // Add project data to model
         model.addAttribute("project", project);
         model.addAttribute("tasks", tasks);
+        model.addAttribute("percentageCompleted", percentageCompleted);
 
 
         model.addAttribute("totalCost", totalCost);
