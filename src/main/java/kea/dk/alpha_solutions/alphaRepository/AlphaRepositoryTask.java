@@ -58,7 +58,7 @@ public class AlphaRepositoryTask
             preparedStatement.executeUpdate();
 
         } catch (SQLException e) {
-            System.out.println("Could not update product");
+            System.out.println("Could not update task");
             e.printStackTrace();
         }
     }
@@ -81,7 +81,7 @@ public class AlphaRepositoryTask
             preparedStatement.executeUpdate();
 
         } catch (SQLException e){
-            System.out.println("Could not delete product");
+            System.out.println("Could not delete task");
             e.printStackTrace();
         }
     }
