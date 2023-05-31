@@ -44,26 +44,36 @@ public class AlphaController
     {
         // Retrieve user by email from the repository
         User user = alphaRepositoryUser.getUserByEmail(email);
-        if (user != null && BCrypt.checkpw(password, user.getPassword())) {
-            // If user exists and password matches, set attributes in session
-            session.setAttribute("email", email);
-            // Store hashed password in session
-            session.setAttribute("password", user.getPassword());
-            return "redirect:/index";
-        } else {
-            // If user does not exist or match, return to login page with error message
-            model.addAttribute("error", "Invalid email or password");
-            return "login";
+
+        if (user != null)
+        {
+            if (user.getPassword() != null && BCrypt.checkpw(password, user.getPassword()))
+            {
+                // If password matches, set attributes in session
+                session.setAttribute("email", email);
+                // Store hashed password in session
+                session.setAttribute("password", user.getPassword());
+                return "redirect:/index";
+            }
+            else
+            {
+                // If password does not match, return to login page with error message
+                model.addAttribute("error", "Invalid password");
+                return "login";
+            }
         }
+    return "login";
     }
+
+
 
     @GetMapping("/index")
     public String showProjectList(Model model, HttpSession session)
     {
         //Check if user is logged in
-       /* if (session.getAttribute("email") == null) {
+       if (session.getAttribute("email") == null) {
             return "redirect:/";
-        }*/
+        }
         model.addAttribute("project", alphaRepositoryProject.getAll());
         //Check if user is admin
         String email = (String) session.getAttribute("email");
@@ -79,9 +89,9 @@ public class AlphaController
     public String createProject(Model model, HttpSession session)
     {
         //Check if user is logged in
-/*        if (session.getAttribute("email") == null) {
+        if (session.getAttribute("email") == null) {
             return "redirect:/";
-        }*/
+        }
         model.addAttribute("userList", alphaRepositoryUser.getAll());
         //check if user is admin
         String email = (String) session.getAttribute("email");
@@ -112,9 +122,9 @@ public class AlphaController
     public String showProject(Model model, HttpSession session)
     {
         //Check if user is logged in
-        //if (session.getAttribute("email") == null) {
-        //    return "redirect:/";
-        //}
+        if (session.getAttribute("email") == null) {
+            return "redirect:/";
+        }
 
         model.addAttribute("alpha", alphaRepositoryProject.getAll());
         //Check if user is admin
@@ -129,9 +139,9 @@ public class AlphaController
     public String openProject(@PathVariable("projectID") int projectID, Model model, HttpSession session)
     {
         //Check if user is logged in
-        //if (session.getAttribute("email") == null) {
-        //    return "redirect:/";
-        //}
+        if (session.getAttribute("email") == null) {
+            return "redirect:/";
+        }
 
         //Check if user is admin
         String email = (String) session.getAttribute("email");
@@ -141,12 +151,15 @@ public class AlphaController
         // Retrieve the project data based on the projectID
         Project project = alphaRepositoryProject.getProjectByID(projectID);
         List<Task> tasks = alphaRepositoryTask.getTasksByProjectID(projectID);
-        //
+
+        //Calculate total cost of project
         int totalCost = 0;
         for (Task task : tasks){
             totalCost = + totalCost + task.getTaskNrOfHours();
         }
         totalCost = totalCost * 150; // 150 is the hourly rate
+
+        //Calculate percentage of completed tasks
         
         int totalTasks = tasks.size();
 
@@ -161,8 +174,6 @@ public class AlphaController
         }
 
         int percentageCompleted = (int) ((completedTasks / (double) totalTasks) * 100);
-
-        System.out.println(percentageCompleted);
 
 
         // Add project data to model
@@ -180,9 +191,9 @@ public class AlphaController
     @GetMapping("/task/{projectID}")
     public String showCreateTask(@PathVariable("projectID") int projectID, Model model, HttpSession session) {
         //Check if user is logged in
-        //if (session.getAttribute("email") == null) {
-        //    return "redirect:/";
-        //}
+        if (session.getAttribute("email") == null) {
+            return "redirect:/";
+        }
         //Check if user is admin
         String email = (String) session.getAttribute("email");
         boolean isAdmin = alphaRepositoryUser.isAdmin(email);
@@ -229,11 +240,6 @@ public class AlphaController
         }
     }
 
-
-
-
-
-
     @PostMapping("/task/{taskID}/delete")
     public String deleteTask(@PathVariable("taskID") int taskID, @RequestParam("projectID") int projectID, HttpSession session, Model model)
     {
@@ -251,7 +257,11 @@ public class AlphaController
 
     }
     @GetMapping("/editTask/{taskID}")
-    public String showTask(@PathVariable("taskID") int taskID, Model model) {
+    public String showTask(@PathVariable("taskID") int taskID, Model model, HttpSession session) {
+        //Check if user is logged in
+        if (session.getAttribute("email") == null) {
+            return "redirect:/";
+        }
         Task task = alphaRepositoryTask.getTaskByID(taskID);
         model.addAttribute("task", task);
         return "taskUpdate";
@@ -281,9 +291,9 @@ public class AlphaController
     public String createUser(Model model, HttpSession session)
     {
         //Check if user is logged in
-        //if (session.getAttribute("email") == null) {
-        //    return "redirect:/";
-        //}
+        if (session.getAttribute("email") == null) {
+            return "redirect:/";
+        }
         //check if user is admin
         String email = (String) session.getAttribute("email");
         boolean isAdmin = alphaRepositoryUser.isAdmin(email);
@@ -323,9 +333,9 @@ public class AlphaController
     public String deleteProject(@PathVariable int projectID, HttpSession session, Model model)
     {
         //Check if user is logged in
-        //if (session.getAttribute("email") == null) {
-        //    return "redirect:/";
-        //}
+        if (session.getAttribute("email") == null) {
+            return "redirect:/";
+        }
 
         //Check if user is admin
         String email = (String) session.getAttribute("email");
@@ -342,9 +352,9 @@ public class AlphaController
     public String showUpdate(@PathVariable("id") int updateId, Model model, HttpSession session)
     {
         //Check if user is logged in
-        //if (session.getAttribute("email") == null) {
-        //    return "redirect:/";
-        //}
+        if (session.getAttribute("email") == null) {
+            return "redirect:/";
+        }
 
         //Check if user is admin
         String email = (String) session.getAttribute("email");
@@ -378,9 +388,9 @@ public class AlphaController
     public String admin(Model model, HttpSession session)
     {
         //Check if user is logged in
-        //if (session.getAttribute("email") == null) {
-        //    return "redirect:/";
-        //}
+        if (session.getAttribute("email") == null) {
+            return "redirect:/";
+        }
         //Check if user is admin
         String email = (String) session.getAttribute("email");
         boolean isAdmin = alphaRepositoryUser.isAdmin(email);
@@ -392,9 +402,9 @@ public class AlphaController
     public String deleteUser(Model model, HttpSession session)
     {
         //Check if user is logged in
-        //if (session.getAttribute("email") == null) {
-        //    return "redirect:/";
-        //}
+        if (session.getAttribute("email") == null) {
+            return "redirect:/";
+        }
         model.addAttribute("userList", alphaRepositoryUser.getAll());
         //Check if user is admin
         String email = (String) session.getAttribute("email");
@@ -417,9 +427,9 @@ public class AlphaController
     public String updateUser(Model model, HttpSession session)
     {
         //Check if user is logged in
-        //if (session.getAttribute("email") == null) {
-        //    return "redirect:/";
-        //}
+        if (session.getAttribute("email") == null) {
+            return "redirect:/";
+        }
 
         List<User> userList = alphaRepositoryUser.getAll();
         model.addAttribute("userList", userList);
