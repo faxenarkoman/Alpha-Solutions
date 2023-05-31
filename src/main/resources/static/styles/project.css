@@ -10,6 +10,14 @@ table {
     background-color: white;
 }
 
+h1, h2{
+    margin-left: 50%;
+    margin-right: -20%;
+
+
+
+}
+
 th, td {
     border: 1px solid black;
     padding: 8px;
@@ -31,8 +39,9 @@ td {
 
 .button-container {
     position: absolute;
-    top: 110%; /* Adjust the value to move the button higher */
-    right: 8%; /* Adjust the value to move the button closer to the right */
+    margin-bottom: 5%;
+    margin-top: 5%;
+    margin-left: 80%;
 }
 
 .button {
@@ -45,6 +54,19 @@ td {
     font-weight: bold;
     cursor: pointer;
 }
+#task{
+    margin-left: 23%;
+    margin-right: 5%;
+    border: 1px solid black;
+    border-collapse: collapse;
+    text-align: left;
+    width: 70%;
+    opacity: 1;
+    background-color: white;
+    margin-top: 2%;
+
+}
+
 
 
 

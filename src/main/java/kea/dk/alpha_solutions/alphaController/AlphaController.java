@@ -147,16 +147,32 @@ public class AlphaController
             totalCost = + totalCost + task.getTaskNrOfHours();
         }
         totalCost = totalCost * 150; // 150 is the hourly rate
-
+        
         int totalTasks = tasks.size();
 
         System.out.println(tasks.get(0).getCompleted());
+        int completedTasks = 0;
+
+
+        for (Task task : tasks) {
+            if (task.getCompleted()) {
+                completedTasks++;
+            }
+        }
+
+        int percentageCompleted = (int) ((completedTasks / (double) totalTasks) * 100);
+
+        System.out.println(percentageCompleted);
 
 
         // Add project data to model
         model.addAttribute("project", project);
         model.addAttribute("tasks", tasks);
+        model.addAttribute("percentageCompleted", percentageCompleted);
+
+
         model.addAttribute("totalCost", totalCost);
+
         // Return the name of the HTML template to render
         return "project";
     }
@@ -351,7 +367,7 @@ public class AlphaController
                                     @RequestParam("hours-per-day") int hoursPerDay)
 
     {
-        Project updateProject = new Project(projectID, projectTitle, projectDescription, hoursPerDay, deadline);
+        Project updateProject = new Project(projectID, projectTitle, deadline, hoursPerDay, projectDescription);
         alphaRepositoryProject.updateProject(updateProject);
 
         return "redirect:/index";

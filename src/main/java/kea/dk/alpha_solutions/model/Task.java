@@ -19,7 +19,7 @@ public class Task {
     private Set<Project> projects = new HashSet<>();
 
     public Task(int taskId, String taskName, int taskNrOfHours, int taskNrOfUsers, String taskDescription,
-                String taskDeadline, int taskHoursPrDay, int projectId) {
+                String taskDeadline, int taskHoursPrDay, boolean completed, int projectId) {
         this.taskId = taskId;
         this.taskName = taskName;
         this.taskNrOfHours = taskNrOfHours;

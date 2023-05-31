@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Create Project</title>
-    <link rel="stylesheet" th:href="@{/styles/create.css}">
+    <link rel="stylesheet" th:href="@{/styles/task.css}">
     <link rel="stylesheet" th:href="@{/styles/navbar.css}">
 </head>
 <body>
@@ -17,6 +17,8 @@
     <a th:if="${isAdmin}" th:href="@{/adminPanel}">Admin Panel</a>
 </div>
     <br>
+
+<div class="container">
     <form class="form" th:action="@{/update/{projectID}(projectID=${project.projectID})}" method="post">
         <h1 class="title">Update Project</h1>
                 <label for="project-title">Project Title:</label>
@@ -26,7 +28,7 @@
                 <textarea id="project-description" name="project-description" rows="5" required th:text="${project.projectDescription}"></textarea>
 
                 <label for="deadline">Deadline:</label>
-                <input id="deadline" name="deadline" type="date" required th:value="${project.deadline}">
+                <input id="deadline" name="deadline" type="date" th:value="${project.deadline}"required>
 
                 <label hidden="hidden" for="hours-per-day">Hours per Day:</label>
                 <input hidden="hidden" id="hours-per-day" name="hours-per-day" type="number" required th:value="${project.hoursPerDay}"></td>
@@ -39,6 +41,7 @@
             </button>
         </div>
     </form>
+</div>
 <footer>
     <p th:text="'© Code Connoisseurs, Inc. '"></p>
 </footer>
