@@ -357,7 +357,7 @@ public class AlphaController
                                     @RequestParam("hours-per-day") int hoursPerDay)
 
     {
-        Project updateProject = new Project(projectID, projectTitle, projectDescription, hoursPerDay, deadline);
+        Project updateProject = new Project(projectID, projectTitle, deadline, hoursPerDay, projectDescription);
         alphaRepositoryProject.updateProject(updateProject);
 
         return "redirect:/index";
