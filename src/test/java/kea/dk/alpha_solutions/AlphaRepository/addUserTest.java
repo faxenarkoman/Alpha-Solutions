@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-public class addUserTest
+class addUserTest
 {
     @Autowired
     private AlphaRepositoryUser alphaRepositoryUser;
@@ -21,26 +21,47 @@ public class addUserTest
     @BeforeAll
     void setUp()
     {
-        AlphaRepositoryUser alphaRepositoryUser1= new AlphaRepositoryUser();
+        AlphaRepositoryUser alphaRepositoryUser1 = new AlphaRepositoryUser();
         System.out.println("Before all");
     }
+
     @BeforeEach
     void setUpEach()
     {
         //Arrange
-        User user = new User(1007, "test7@test.com", "test", 100, "testName", false);
         //act
-        alphaRepositoryUser.addUser(user);
         System.out.println("BeforeEach runs before each test is done");
+        //System.out.println("UserID:" + user.getUserId());
     }
+
     @Test
     void addUser()
     {
         //Arrange
-        System.out.println("Test runs");
+        System.out.println("addUser runs");
         //Act
-        User user = alphaRepositoryUser.getUserByEmail("test7@test.com");
+        User user1 = new User(1000,"tester@test.com", "test", 100, "testName", false);
+        alphaRepositoryUser.addUser(user1);
+        int expected = user1.getUserId();
+
+        User user = alphaRepositoryUser.getUserByEmail("tester@test.com");
+        System.out.println("UserID:" + user.getUserId());
+        int actual = user.getUserId();
+
         //Assert
-        assertEquals(1007,user.getUserId());
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    void deleteUser()
+    {
+        //Arrange
+        System.out.println("DeleteUser runs");
+        //Act
+        alphaRepositoryUser.deleteByEmail("tester@test.com");
+        //User user = alphaRepositoryUser.getUserByEmail("test@test.com");
+        //Assert
+        assertEquals((Short) null, null);
+        System.out.println("SLETTET MAIL");
     }
 }

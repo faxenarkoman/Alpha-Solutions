@@ -4,7 +4,6 @@ import kea.dk.alpha_solutions.alphaRepository.AlphaRepositoryProject;
 import kea.dk.alpha_solutions.alphaRepository.AlphaRepositoryTask;
 import kea.dk.alpha_solutions.model.Project;
 import kea.dk.alpha_solutions.model.Task;
-import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import jakarta.servlet.http.HttpSession;
 import kea.dk.alpha_solutions.alphaRepository.AlphaRepositoryUser;
@@ -14,14 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Collections;
-
-import java.util.HashSet;
 import java.util.List;
-
-import java.util.Set;
-
-import java.util.stream.Collectors;
 
 @Controller
 public class AlphaController
@@ -155,6 +147,8 @@ public class AlphaController
             totalCost = + totalCost + task.getTaskNrOfHours();
         }
         totalCost = totalCost * 150; // 150 is the hourly rate
+
+        int totalTasks = tasks.size();
 
         System.out.println(tasks.get(0).getCompleted());
 
@@ -397,7 +391,7 @@ public class AlphaController
     public String deleteUser(Model model, HttpSession session,
                              @RequestParam("email") String email)
     {
-        alphaRepositoryUser.deleteById(email);
+        alphaRepositoryUser.deleteByEmail(email);
         return "redirect:/index";
     }
 

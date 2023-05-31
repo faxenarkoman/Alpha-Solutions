@@ -47,37 +47,37 @@ public class AlphaRepositoryUser {
     }
 
     public User getUserByEmail(String email) {
-        User user = null;
+        User user = new User();
         try (Connection connection = DriverManager.getConnection(DB_URL, UID, PWD)) {
             PreparedStatement statement = connection.prepareStatement("SELECT * FROM user WHERE email=?");
             statement.setString(1, email);
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
-                int userId = resultSet.getInt("id");
-                String passwordHash = resultSet.getString("password");
-                String name = resultSet.getString("name");
-                boolean admin = resultSet.getBoolean("admin");
-                user = new User(userId, email, passwordHash, name, admin);
+                user.setUserId(resultSet.getInt("id"));
+                user.setMail(resultSet.getString("email"));
+                user.setPassword(resultSet.getString("password"));
+                user.setName(resultSet.getString("name"));
+                user.setAdmin(resultSet.getBoolean("admin"));
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        //System.out.println(user.getUserId());
         return user;
     }
     public void addUser(User user){
-        if (getUserByEmail(user.getMail()) != null) {
-            throw new IllegalArgumentException("User with the same email already exists");
-        }
         try{
             //connect to db
             Connection connection = DriverManager.getConnection(DB_URL, UID, PWD);
             final String CREATE_QUERY = "INSERT INTO  alpha.user (id, email, password, hourlyWage, name, admin) VALUES  (?, ?, ?, ?, ?, ?)";
             PreparedStatement preparedStatement = connection.prepareStatement(CREATE_QUERY);
-
+            //Encrypt password
+            String password = user.getPassword();
+            String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt());
             //set attributer i prepared statement
             preparedStatement.setInt(1, user.getUserId());
             preparedStatement.setString(2, user.getMail());
-            preparedStatement.setString(3, user.getPassword());
+            preparedStatement.setString(3, hashedPassword);
             preparedStatement.setInt(4, user.getHourlyWage());
             preparedStatement.setString(5, user.getName());
             preparedStatement.setBoolean(6, user.isAdmin());
@@ -113,7 +113,7 @@ public class AlphaRepositoryUser {
         }
         return isAdmin;
     }
-    public void deleteById(String email){
+    public void deleteByEmail(String email){
         //SQL-query
         final String DELETE_QUERY = "DELETE FROM  alpha.user WHERE email=?";
 
