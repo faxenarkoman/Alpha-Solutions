@@ -73,7 +73,7 @@
                 <button th:if="${isAdmin}" type="submit">Delete</button>
             </form>
         </td>
-        <td id="update">
+        <td th:if="${isAdmin}" id="update">
             <a class="update-task-link" th:if="${isAdmin}" th:href="@{'/editTask/' + ${task.taskId}}">Update Task</a>
         </td>
     </tr>

@@ -33,8 +33,8 @@
 
     </div>
 </div>
-<div class="create-button">
-    <a th:href="@{/create}">Create a new project</a>
+<div>
+    <a class="create-button" th:if="${isAdmin}" th:href="@{/create}">Create a new project</a>
 </div>
 <footer class="footer">
     <p>© Code Connoisseurs, Inc.</p>

@@ -50,6 +50,7 @@ class addUserTest
 
         //Assert
         assertEquals(expected, actual);
+        System.out.println("User added");
     }
 
     @Test
@@ -59,9 +60,8 @@ class addUserTest
         System.out.println("DeleteUser runs");
         //Act
         alphaRepositoryUser.deleteByEmail("tester@test.com");
-        //User user = alphaRepositoryUser.getUserByEmail("test@test.com");
         //Assert
         assertEquals((Short) null, null);
-        System.out.println("SLETTET MAIL");
+        System.out.println("User deleted");
     }
 }
