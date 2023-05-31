@@ -24,6 +24,7 @@
     <div class="project-card" th:each="project : ${project}">
         <h3 th:text="${project.projectTitle}"></h3>
         <p th:text="${project.projectDescription}"></p>
+        <br>
         <small class="deadline" th:text="${project.deadline}"></small>
         <br>
         <a class="open-project-link" th:href="@{'/project/' + ${project.projectID}}">Open Project</a>

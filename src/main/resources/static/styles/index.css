@@ -86,7 +86,7 @@ table {
     justify-content: center;
 }
 .project-card:hover {
-    background-color: royalblue;
+    background-color: lightskyblue;
     transform: translateY(-2px);
 }
 .project-card h3 {
@@ -189,6 +189,7 @@ small{
 
 .active-projects{
     margin-left: 51.2%;
+    margin-top: 5%;
 }
 
 
