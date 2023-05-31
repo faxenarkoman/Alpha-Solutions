@@ -159,11 +159,13 @@ public class AlphaController
         System.out.println(tasks.get(0).getCompleted());
 
 
+
+
         // Add project data to model
         model.addAttribute("project", project);
         model.addAttribute("tasks", tasks);
 
-        
+
         model.addAttribute("totalCost", totalCost);
 
         // Return the name of the HTML template to render
