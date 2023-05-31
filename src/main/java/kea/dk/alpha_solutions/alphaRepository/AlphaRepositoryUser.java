@@ -144,8 +144,7 @@ public class AlphaRepositoryUser {
             //Encrypter password
             String password = user.getPassword();
             String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt());
-
-
+            //Prepared statements
             PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_QUERY);
             preparedStatement.setString(1, email);
             preparedStatement.setString(2, hashedPassword);
