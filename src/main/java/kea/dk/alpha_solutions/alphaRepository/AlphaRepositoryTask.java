@@ -118,10 +118,10 @@ public class AlphaRepositoryTask
     }
 
 
-    public void updateTask(Task task)
+    public void updateTask(int taskID, Task task)
     {
         //SQL statement
-        final String UPDATE_QUERY = "UPDATE  alpha.task SET taskName = ?, taskNrOfHours = ?, tasknrOfUsers = ?, taskDescription = ?, taskDeadline = ?, taskHoursPrDay = ? WHERE taskID = ?";
+        final String UPDATE_QUERY = "UPDATE  alpha.task SET taskName = ?, taskNrOfHours = ?, tasknrOfUsers = ?, taskDescription = ?, taskDeadline = ?, taskHoursPrDay = ?, completed = ? WHERE taskID = ?";
 
         try {
             //connect db
@@ -137,13 +137,20 @@ public class AlphaRepositoryTask
             int taskNrOfUsers = task.getTaskNrOfUsers();
             String taskDeadline = task.getTaskDeadline();
             int taskHoursPrDay = task.getTaskHoursPrDay();
+            String taskDescription = task.getTaskDescription();
+            boolean completed = task.getCompleted();
 
-            preparedStatement.setInt(1,taskId);
-            preparedStatement.setString(2, taskName);
-            preparedStatement.setInt(3, taskNrOfHours);
-            preparedStatement.setInt(4, taskNrOfUsers);
+            System.out.println(completed);
+
+            preparedStatement.setInt(8,taskId);
+            preparedStatement.setString(1, taskName);
+            preparedStatement.setInt(2, taskNrOfHours);
+            preparedStatement.setInt(3, taskNrOfUsers);
             preparedStatement.setString(5, taskDeadline);
             preparedStatement.setInt(6, taskHoursPrDay);
+            preparedStatement.setString(4, taskDescription);
+            preparedStatement.setBoolean(7, completed);
+
 
             //execute statement
             preparedStatement.executeUpdate();
@@ -179,7 +186,7 @@ public class AlphaRepositoryTask
 
     public Task getTaskByID(int taskId){
         //SQL-statement
-        final String FIND_QUERY = "SELECT * FROM  alpha.task WHERE taskId = ?";
+        final String FIND_QUERY = "SELECT * FROM  alpha.task WHERE taskID = ?";
         Task task = new Task();
         task.setTaskId(taskId);
         try {
@@ -200,12 +207,14 @@ public class AlphaRepositoryTask
 
             //få product ud af resultset
             resultSet.next();
-            String taskName = resultSet.getString(2);
-            int taskNrOfHours = resultSet.getInt(3);
-            int taskNrOfUsers = resultSet.getInt(4);
-            String taskDescription = resultSet.getString(5);
-            String taskDeadline = resultSet.getString(6);
-            int taskHoursPrDay = resultSet.getInt(7);
+            String taskName = resultSet.getString(3);
+            int taskNrOfHours = resultSet.getInt(4);
+            int taskNrOfUsers = resultSet.getInt(5);
+            String taskDescription = resultSet.getString(2);
+            String taskDeadline = resultSet.getString(7);
+            int taskHoursPrDay = resultSet.getInt(6);
+            int projectId = resultSet.getInt(8);
+            boolean completed = resultSet.getBoolean(9);
 
             task.setTaskId(taskId);
             task.setTaskName(taskName);
@@ -214,6 +223,8 @@ public class AlphaRepositoryTask
             task.setTaskDescription(taskDescription);
             task.setTaskDeadline(taskDeadline);
             task.setTaskHoursPrDay(taskHoursPrDay);
+            task.setProjectId(projectId);
+            task.setCompleted(completed);
 
 
         } catch (SQLException e){
@@ -229,8 +240,8 @@ public class AlphaRepositoryTask
         try {
             Connection connection = DriverManager.getConnection(DB_URL, UID, PWD);
             PreparedStatement preparedStatement = connection.prepareStatement(
-                    "INSERT INTO task (taskName, projectId, taskNrOfHours, taskNrOfUsers, taskDescription, taskDeadline, taskHoursPrDay) " +
-                            "VALUES (?, ?, ?, ?, ?, ?, ?)",
+                    "INSERT INTO task (taskName, projectId, taskNrOfHours, taskNrOfUsers, taskDescription, taskDeadline, taskHoursPrDay, Completed) " +
+                            "VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
                     Statement.RETURN_GENERATED_KEYS
             );
             preparedStatement.setString(1, task.getTaskName());
@@ -240,6 +251,7 @@ public class AlphaRepositoryTask
             preparedStatement.setString(5, task.getTaskDescription());
             preparedStatement.setString(6, task.getTaskDeadline());
             preparedStatement.setInt(7, task.getTaskHoursPrDay());
+            preparedStatement.setBoolean(8, task.getCompleted());
             preparedStatement.executeUpdate();
 
             // Retrieve the generated task ID
@@ -280,6 +292,7 @@ public class AlphaRepositoryTask
                 task.setTaskDescription(resultSet.getString("taskDescription"));
                 task.setTaskDeadline(resultSet.getString("taskDeadline"));
                 task.setTaskHoursPrDay(resultSet.getInt("taskHoursPrDay"));
+                task.setCompleted(resultSet.getBoolean("Completed"));
 
                 tasks.add(task);
             }
@@ -293,4 +306,5 @@ public class AlphaRepositoryTask
 
         return tasks;
     }
+
 }

@@ -13,7 +13,7 @@
     </a>
 </div>
 <div class="sidebar">
-    <a th:href="@{/index}" class="active">Home</a>
+    <a th:href="@{/index}">Home</a>
     <a href="#">View Tasks</a>
     <a th:if="${isAdmin}" th:href="@{/adminPanel}">Admin Panel</a>
 </div>
@@ -23,7 +23,7 @@
         <th>Project Title</th>
         <th>Project Description</th>
         <th>Deadline</th>
-        <th>Est Project Price</th>
+        <th th:if="${isAdmin}">Est Project Price</th>
     </tr>
     </thead>
     <tbody>
@@ -32,8 +32,9 @@
         <td th:text="${project.projectTitle}"></td>
         <td th:text="${project.projectDescription}"></td>
         <td th:text="${project.deadline}"></td>
-
+        <td th:if="${isAdmin}" th:text="${totalCost}"></td>
     </tr>
+
     </tbody>
 </table>
 <h1 class="active">Active Tasks: <span th:text="${tasks.size()}"></span></h1>
@@ -44,7 +45,9 @@
         <th>Task Description</th>
         <th>Estimated time consumption (Hrs)</th>
         <th>Task Deadline</th>
-        <th>Delete</th>
+        <th th:if="${isAdmin}">Delete</th>
+        <th>Update Task</th>
+        <th>Task Status</th>
     </tr>
     </thead>
     <tbody>
@@ -53,12 +56,19 @@
         <td th:text="${task.taskDescription}"></td>
         <td th:text="${task.taskNrOfHours}"></td>
         <td th:text="${task.taskDeadline}"></td>
-        <td>
+        <td th:if="${isAdmin}">
             <form th:action="@{/task/{taskID}/delete(taskID=${task.taskId}, projectID=${projectID})}" method="post">
                 <input type="hidden" name="_method" value="DELETE">
                 <input type="hidden" name="projectID" th:value="${projectID}">
-                <button type="submit">Delete</button>
+                <button th:if="${isAdmin}" type="submit">Delete</button>
             </form>
+        <td>
+            <a class="update-task-link" th:if="${isAdmin}" th:href="@{/editTask/{taskId}(taskId=${task.taskId})}">Update Task</a>
+
+        </td>
+        <td>
+            <p th:if="${task.completed}">Done</p>
+            <p th:unless="${task.completed}">Not done</p>
         </td>
     </tr>
     </tbody>
