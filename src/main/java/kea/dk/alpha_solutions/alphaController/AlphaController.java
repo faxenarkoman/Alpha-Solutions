@@ -155,9 +155,7 @@ public class AlphaController
             totalCost = + totalCost + task.getTaskNrOfHours();
         }
         totalCost = totalCost * 150; // 150 is the hourly rate
-
-        System.out.println(tasks.get(0).getCompleted());
-
+        
         int totalTasks = tasks.size();
 
         int completedTasks = 0;
