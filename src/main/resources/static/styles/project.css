@@ -37,8 +37,9 @@ td {
 
 .button-container {
     position: absolute;
-    top: 110%; /* Adjust the value to move the button higher */
-    right: 8%; /* Adjust the value to move the button closer to the right */
+    margin-bottom: 5%;
+    margin-top: 5%;
+    margin-left: 80%;
 }
 
 .button {
