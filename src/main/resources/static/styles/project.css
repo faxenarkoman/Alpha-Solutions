@@ -14,8 +14,6 @@ h1, h2{
     margin-left: 50%;
     margin-right: -20%;
 
-
-
 }
 
 th, td {
@@ -39,10 +37,7 @@ td {
 
 .button-container {
     position: absolute;
-
-    margin-top: -20.5%;
     margin-left: 53%;
-
     align-items: center;
 }
 
@@ -65,7 +60,7 @@ td {
     width: 70%;
     opacity: 1;
     background-color: white;
-    margin-top: 4%;
+    margin-top: 7%;
 
 }
 
