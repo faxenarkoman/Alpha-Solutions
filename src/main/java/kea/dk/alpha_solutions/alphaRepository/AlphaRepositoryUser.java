@@ -55,7 +55,9 @@ public class AlphaRepositoryUser {
             if (resultSet.next()) {
                 int userId = resultSet.getInt("id");
                 String passwordHash = resultSet.getString("password");
-                user = new User(userId, email, passwordHash);
+                String name = resultSet.getString("name");
+                boolean admin = resultSet.getBoolean("admin");
+                user = new User(userId, email, passwordHash, name, admin);
             }
         } catch (SQLException e) {
             e.printStackTrace();
