@@ -25,7 +25,7 @@ public class User
         this.name = name;
         this.hourlyWage = hourlyWage;
     }
-    public User(String mail, String password, String name) {
+    public User(int userId, String mail, String password, String name, boolean admin) {
         this.mail = mail;
         this.name = name;
         this.password = password;
@@ -39,10 +39,11 @@ public class User
     }
 
 
-    public User(int userId, String email, String passwordHash) {
+    public User(int userId, String email, String passwordHash, String name) {
         this.userId = userId;
         this.mail = email;
         this.password = passwordHash;
+        this.name = name;
     }
 
     //Getters and setters

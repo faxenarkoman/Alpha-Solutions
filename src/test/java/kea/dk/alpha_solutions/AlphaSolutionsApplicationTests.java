@@ -11,5 +11,4 @@ class AlphaSolutionsApplicationTests
     void contextLoads()
     {
     }
-
 }
