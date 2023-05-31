@@ -155,6 +155,8 @@ public class AlphaController
         model.addAttribute("project", project);
         model.addAttribute("tasks", tasks);
 
+        
+
         // Return the name of the HTML template to render
         return "project";
     }
