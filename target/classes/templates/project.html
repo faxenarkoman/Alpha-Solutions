@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Project</title>
+    <link rel="stylesheet" th:href="@{/styles/project.css}">
+    <link rel="stylesheet" th:href="@{/styles/navbar.css}">
+</head>
+<body>
+<div class="logo">
+    <a th:href="@{/index}">
+        <img class="logo" th:src="@{/images/logo.png}" alt="logo">
+    </a>
+</div>
+<div class="sidebar">
+    <a th:href="@{/index}">Home</a>
+    <a th:if="${isAdmin}" th:href="@{/adminPanel}">Admin Panel</a>
+</div>
+<table>
+    <thead>
+    <tr>
+        <th>Project Title</th>
+        <th>Project Description</th>
+        <th>Deadline</th>
+        <th th:if="${isAdmin}">Est Project Price</th>
+    </tr>
+    </thead>
+    <tbody>
+
+    <tr th:each="project : ${project}">
+        <td th:text="${project.projectTitle}"></td>
+        <td th:text="${project.projectDescription}"></td>
+        <td th:text="${project.deadline}"></td>
+        <td th:if="${isAdmin}" th:text="${totalCost}"></td>
+    </tr>
+
+    </tbody>
+</table>
+    <h1 class="AktivTask">Active Tasks: <span th:text="${tasks.size()}"></span></h1>
+    <h2 class="FærdigTask">Project done : <span th:text="${percentageCompleted}" > </span> %</h2>
+    <div class="button-container">
+        <a class="button" th:href="@{/task/{projectID}(projectID=${projectID})}">
+            <span>Create Task</span>
+        </a>
+        <br>
+    </div>
+<table id="task">
+    <thead>
+    <tr>
+        <th>Task Name</th>
+        <th>Task Description</th>
+        <th>Estimated time consumption (Hrs)</th>
+        <th>Task Deadline</th>
+        <th>Task Status</th>
+        <th th:if="${isAdmin}">Delete</th>
+        <th th:if="${isAdmin}">Update Task</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="task : ${tasks}">
+        <td th:text="${task.taskName}"></td>
+        <td th:text="${task.taskDescription}"></td>
+        <td th:text="${task.taskNrOfHours}"></td>
+        <td th:text="${task.taskDeadline}"></td>
+        <td>
+            <p th:if="${task.completed}">Done</p>
+            <p th:unless="${task.completed}">Not done</p>
+        </td>
+        <td th:if="${isAdmin}">
+            <form th:action="@{/task/{taskID}/delete(taskID=${task.taskId}, projectID=${projectID})}" method="post">
+                <input type="hidden" name="_method" value="DELETE">
+                <input type="hidden" name="projectID" th:value="${projectID}">
+                <button th:if="${isAdmin}" type="submit">Delete</button>
+            </form>
+        </td>
+        <td th:if="${isAdmin}" id="update">
+            <a class="update-task-link" th:if="${isAdmin}" th:href="@{'/editTask/' + ${task.taskId}}">Update Task</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+<footer class="footer">
+    <p th:text="'© Code Connoisseurs, Inc. '"></p>
+</footer>
+
+</body>
+</html>

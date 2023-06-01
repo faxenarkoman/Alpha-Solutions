@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Create Task</title>
+    <link rel="stylesheet" th:href="@{/styles/task.css}">
+    <link rel="stylesheet" th:href="@{/styles/navbar.css}">
+</head>
+<body>
+<div class="logo">
+    <a th:href="@{/index}">
+        <img class="logo" th:src="@{/images/logo.png}" alt="logo">
+    </a>
+</div>
+<div class="sidebar">
+    <a th:href="@{/index}" class="active">Home</a>
+    <a th:if="${isAdmin}" th:href="@{/adminPanel}">Admin Panel</a>
+</div>
+
+<div class="container">
+<form class="form" action="/create" method="POST">
+        <h1>Create Project</h1>
+
+        <label for="project-title">Project Title:</label>
+        <input type="text" id="project-title" name="project-title" required>
+
+        <label for="project-description">Project Description:</label>
+        <textarea id="project-description" name="project-description" required></textarea>
+
+        <label for="deadline">Deadline:</label>
+        <input type="date" id="deadline" name="deadline" required>
+
+        <label hidden="hidden" for="hours-per-day">Hours per Day:</label>
+        <input hidden="hidden" type="number" id="hours-per-day" name="hours-per-day" th:value="8" required>
+
+        <input type="submit" value="Create Project">
+
+        <div class="buttons">
+            <button>
+                <a th:href="@{/projects/{projectId}}" type="button">Back to Project</a>
+            </button>
+            <input type="submit" value="Create Task">
+        </div>
+    </form>
+</div>
+<footer>
+    <p th:text="'© Code Connoisseurs, Inc. '"></p>
+</footer>
+</body>
+</html>
+
+

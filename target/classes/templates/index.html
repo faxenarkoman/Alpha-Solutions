@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" >
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+    <link rel="stylesheet" th:href="@{styles/index.css}">
+    <link rel="stylesheet" th:href="@{styles/navbar.css}">
+</head>
+<body>
+<div class="logo">
+    <a th:href="@{/index}">
+        <img class="logo" th:src="@{/images/logo.png}" alt="logo">
+    </a>
+</div>
+<div class="sidebar">
+    <a th:href="@{/index}" class="active">Home</a>
+    <a th:if="${isAdmin}" th:href="@{/adminPanel}">Admin Panel</a>
+</div>
+<div class="active-projects">
+    <h1>Active Projects: <span th:text="${project.size()}"></span></h1>
+</div>
+<div class="container">
+
+    <div class="project-card" th:each="project : ${project}">
+        <h3 th:text="${project.projectTitle}"></h3>
+        <p th:text="${project.projectDescription}"></p>
+        <br>
+        <small class="deadline" th:text="${project.deadline}"></small>
+        <br>
+        <a class="open-project-link" th:href="@{'/project/' + ${project.projectID}}">Open Project</a>
+        <a class="delete-project-link" th:if="${isAdmin}" th:href="@{'/delete/' + ${project.projectID}}">Delete Project</a>
+        <a class="update-project-link" th:if="${isAdmin}" th:href="@{'/update/' + ${project.projectID}}">Update Project</a>
+
+    </div>
+</div>
+<div>
+    <a class="create-button" th:if="${isAdmin}" th:href="@{/create}">Create a new project</a>
+</div>
+<footer class="footer">
+    <p>© Code Connoisseurs, Inc.</p>
+</footer>
+</body>
+</html>
+
