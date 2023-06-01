@@ -1,0 +1,58 @@
+.form{
+    margin-top: 14%;
+    margin-left: 28%;
+    width: 60%;
+    height: 100%;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+
+    background-color: #f2f2f2;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.buttons {
+    margin-top: 20px;
+    text-align: right;
+    margin-left: 20%;
+}
+
+.button {
+    border: none;
+    padding: 10px 20px;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    cursor: pointer;
+    box-sizing: border-box;
+}
+
+.button1{
+    border: none;
+    padding: 10px 20px;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    cursor: pointer;
+    box-sizing: border-box;
+    margin-top: 50%;
+    margin-left: 50%;
+
+}
+
+form.done {
+    margin-left: 50%;
+    margin-bottom: 90%;
+}
+
+div.button1 {
+    margin-top: 50%;
+    margin-left: 50%;
+}
+
+
+

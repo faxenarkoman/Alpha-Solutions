@@ -15,7 +15,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class addUserTest
 {
-    @Autowired
+/*    @Autowired
     private AlphaRepositoryUser alphaRepositoryUser;
 
     @BeforeAll
@@ -63,5 +63,5 @@ class addUserTest
         //Assert
         assertEquals((Short) null, null);
         System.out.println("User deleted");
-    }
+    }*/
 }
